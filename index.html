@@ -4,482 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Андрей Щеглов | DevOps Engineer CV</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Unbounded:wght@400;600;800&display=swap');
-
-        :root {
-            --bg-color: #0a0c10;
-            --text-main: #e6edf3;
-            --text-muted: #8b949e;
-            --accent-green: #00d4aa;
-            --accent-purple: #7c6aff;
-            --card-bg: rgba(22, 27, 34, 0.6);
-            --card-border: #30363d;
-            --font-heading: 'Unbounded', sans-serif;
-            --font-body: 'JetBrains Mono', monospace;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            font-size: 15px;
-            line-height: 1.6;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        /* Background Grid & Noise */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.05"/%3E%3C/svg%3E');
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--card-border);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-purple);
-        }
-
-        /* Typography */
-        h1, h2, h3 {
-            font-family: var(--font-heading);
-            font-weight: 600;
-        }
-
-        h1 {
-            font-size: clamp(32px, 5vw, 56px);
-            line-height: 1.2;
-            margin-bottom: 10px;
-            font-weight: 800;
-        }
-
-        h2 {
-            font-size: clamp(24px, 4vw, 32px);
-            margin-bottom: 30px;
-            color: var(--accent-green);
-            display: inline-block;
-            border-bottom: 2px solid var(--accent-purple);
-            padding-bottom: 5px;
-        }
-
-        h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        a {
-            color: var(--accent-green);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: var(--accent-purple);
-        }
-
-        /* Layout */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        section {
-            padding: 30px 0;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 0.8s ease forwards;
-        }
-
-        /* Sticky Nav */
-        nav {
-            position: sticky;
-            top: 0;
-            background: rgba(10, 12, 16, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--card-border);
-            z-index: 100;
-            padding: 15px 0;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-name {
-            font-family: var(--font-heading);
-            font-weight: 600;
-            font-size: 18px;
-            color: var(--text-main);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-green);
-        }
-
-        /* Hero Section */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding-top: 40px;
-            padding-bottom: 10px;
-        }
-
-        .hero-subtitle {
-            color: var(--accent-purple);
-            font-size: 18px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .typewriter {
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: 3px solid var(--accent-green);
-            width: 0;
-            animation: typing 2s steps(30, end) forwards, blink 0.75s step-end infinite;
-        }
-
-        .hero-details {
-            margin: 20px 0 30px;
-            color: var(--text-muted);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            font-size: 14px;
-        }
-
-        .hero-details span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: transparent;
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            border-radius: 6px;
-            font-family: var(--font-body);
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            border-color: var(--accent-purple);
-            background: rgba(124, 106, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        /* About Section */
-        .about-text {
-            color: var(--text-muted);
-            max-width: 800px;
-        }
-
-        .about-text p {
-            margin-bottom: 15px;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        @media (min-width: 768px) {
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .skill-category {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 20px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .skill-category:hover {
-            border-color: var(--accent-green);
-            box-shadow: 0 0 15px rgba(0, 212, 170, 0.1);
-        }
-
-        .skill-category h3 {
-            color: var(--text-main);
-            font-size: 16px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 10px;
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--card-border);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            color: var(--text-muted);
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(10px);
-        }
-
-        .skill-category:hover .tag {
-            border-color: var(--accent-purple);
-            color: var(--text-main);
-        }
-
-        /* Timeline Section */
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--card-border);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 40px;
-        }
-
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: -35px;
-            top: 5px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--bg-color);
-            border: 2px solid var(--accent-green);
-            z-index: 1;
-            transition: background 0.3s ease;
-        }
-
-        .timeline-item:hover .timeline-dot {
-            background: var(--accent-green);
-            box-shadow: 0 0 10px var(--accent-green);
-        }
-
-        .timeline-content {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 8px;
-            padding: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            border-color: var(--accent-purple);
-            box-shadow: 0 0 20px rgba(124, 106, 255, 0.1);
-            transform: translateX(5px);
-        }
-
-        .job-header {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .job-header {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: baseline;
-            }
-        }
-
-        .job-title {
-            color: var(--text-main);
-            font-size: 18px;
-            font-family: var(--font-heading);
-        }
-
-        .job-company {
-            color: var(--accent-green);
-            font-weight: 700;
-        }
-
-        .job-date {
-            color: var(--text-muted);
-            font-size: 13px;
-            margin-top: 5px;
-        }
-
-        .job-desc {
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .job-desc ul {
-            list-style-type: none;
-        }
-
-        .job-desc li {
-            position: relative;
-            padding-left: 15px;
-            margin-bottom: 8px;
-        }
-
-        .job-desc li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: var(--accent-purple);
-        }
-
-        /* Animations */
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink {
-            from, to { border-color: transparent }
-            50% { border-color: var(--accent-green) }
-        }
-
-        /* Stagger delays for sections */
-        #about { animation-delay: 0.2s; }
-        #skills { animation-delay: 0.4s; }
-        #experience { animation-delay: 0.6s; }
-        #education { animation-delay: 0.8s; }
-
-        /* Mobile Nav Toggle */
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-main);
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(10, 12, 16, 0.95);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                padding: 20px;
-                border-bottom: 1px solid var(--card-border);
-                opacity: 0;
-                visibility: hidden;
-                transform: translateY(-10px);
-                transition: all 0.3s ease;
-            }
-            .nav-links.active {
-                opacity: 1;
-                visibility: visible;
-                transform: translateY(0);
-            }
-            .typewriter {
-                white-space: normal;
-                border-right: none;
-                width: auto;
-                animation: none;
-            }
-        }
-    </style>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='10,80 40,80 60,40 30,40' fill='%237c6aff'/%3E%3Cpolygon points='40,80 90,50 60,40' fill='%2300d4aa'/%3E%3Cpolygon points='60,40 90,50 80,20' fill='%23ff4d4d'/%3E%3Cpolygon points='30,40 60,40 45,10' fill='%23ffd700'/%3E%3C/svg%3E" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -488,103 +14,105 @@
             <div class="nav-name">A.Shcheglov</div>
             <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">☰</button>
             <div class="nav-links">
-                <a href="#about">О себе</a>
-                <a href="#skills">Навыки</a>
-                <a href="#experience">Опыт</a>
-                <a href="#education">Образование</a>
+                <a href="#about" data-i18n="nav-about">О себе</a>
+                <a href="#skills" data-i18n="nav-skills">Навыки</a>
+                <a href="#experience" data-i18n="nav-experience">Опыт</a>
+                <a href="#education" data-i18n="nav-education">Образование</a>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="ru">RU</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
             </div>
         </div>
     </nav>
 
     <div class="container">
         <section class="hero" id="hero">
-            <span class="hero-subtitle">DevOps / MLOps Engineer</span>
-            <h1 class="typewriter">Андрей Щеглов</h1>
+            <span class="hero-subtitle" data-i18n="hero-subtitle">DevOps / MLOps Engineer</span>
+            <h1 class="typewriter" data-i18n="hero-name">Андрей Щеглов</h1>
             
             <div class="hero-details">
-                <span>📍 Россия, Санкт-Петербург (Готов к удалённой работе)</span>
-                <span>⏳ Опыт: <span id="total-exp">15 лет и 7 месяцев</span></span>
-                <span>🎂 <span id="age">37 лет</span></span>
+                <span data-i18n="hero-location">📍 Россия, Санкт-Петербург</span>
+                <span><span data-i18n="hero-exp-label">⏳ Опыт:</span> <span id="total-exp"></span></span>
+                <span><span data-i18n="hero-age-label">🎂</span> <span id="age"></span></span>
             </div>
 
             <div class="social-links">
-                <a href="mailto:nord@goldfinches.ru" class="btn">
+                <a href="mailto:nord@goldfinches.ru" class="btn" title="Email">
                     <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    Email
+                    <span>Email</span>
                 </a>
-                <a href="https://t.me/m0Rda" target="_blank" class="btn">
+                <a href="https://t.me/m0Rda" target="_blank" class="btn" title="Telegram">
                     <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.96 1.25-5.54 3.67-.52.35-.99.53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.29-.48.79-.74 3.08-1.34 5.15-2.23 6.19-2.66 2.95-1.23 3.56-1.44 3.96-1.45.09 0 .28.02.39.11.09.08.12.19.13.28.01.05.01.13 0 .21z"/></svg>
-                    Telegram
+                    <span>Telegram</span>
                 </a>
-                <a href="https://career.habr.com/thenord" target="_blank" class="btn">
+                <a href="https://career.habr.com/thenord" target="_blank" class="btn" title="Habr Career">
                     <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 14.5h-2v-3.5h-3v3.5h-2v-9h2v3.5h3v-3.5h2v9z"/></svg>
-                    Habr Career
+                    <span>Habr Career</span>
                 </a>
-                <a href="tel:+79219561337" class="btn">
+                <a href="tel:+79219561337" class="btn" title="Phone">
                     <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    +7 (921) 956-13-37
+                    <span>+7 (921) 956-13-37</span>
                 </a>
             </div>
         </section>
 
         <section id="about">
-            <h2>О себе</h2>
+            <h2 data-i18n="about-title">О себе</h2>
             <div class="about-text">
-                <p>Имею 14-летний опыт в IT, из них 3 года — в роли DevOps / MLOps-инженера. Специализируюсь на создании отказоустойчивых, высоконагруженных систем, автоматизации CI/CD, внедрении Kubernetes и оптимизации инфраструктур под ML/DL нагрузки.</p>
-                <p>Хорошо разбираюсь в запуске GPU-сервисов в Kubernetes, включая настройку разделения VRAM (MIG, AD), запуск LLM, LaBSE и Whisper моделей, а также работаю с фреймворками HuggingFace Transformers, ONNX и TensorFlow Serving.</p>
-                <p>Уверенно использую: Kubernetes (K8s), Docker, Helm, Ansible, Terraform, GitLab CI/CD, ArgoCD, Prometheus, Grafana, PostgreSQL (Patroni), HAProxy, Kafka.</p>
-                <p>Опытен в работе с облачными платформами: AWS (EC2, EKS, S3), Azure (AKS, VM), Google Cloud Platform.</p>
-                <p>Внедряю практики IaC, DevSecOps, Zero Trust. Активно развиваюсь в области MLOps.</p>
+                <p data-i18n="about-p1">Я — DevOps / MLOps инженер с более чем 15-летним опытом работы в IT. Моя главная миссия — проектирование отказоустойчивых инфраструктур и автоматизация процессов, которые помогают бизнесу быстрее доставлять ценность пользователям. Последние 4 года я сфокусирован на MLOps: оптимизирую работу с ML/DL нагрузками, настраиваю GPU-кластеры в Kubernetes и внедряю современные AI-решения (LLM, Whisper, HuggingFace).</p>
+                <p data-i18n="about-p2">Я верю в подход Infrastructure as Code (IaC), принципы DevSecOps и Zero Trust. Для меня важно не просто настроить CI/CD пайплайн или поднять кластер, но и обеспечить его безопасность, наблюдаемость (observability) и масштабируемость. Имею богатый опыт работы как с bare-metal серверами, так и с ведущими облачными провайдерами (AWS, Azure, GCP).</p>
+                <p data-i18n="about-p3">Всегда открыт к сложным инженерным вызовам и готов применять свой опыт для построения надежных и современных IT-систем.</p>
             </div>
         </section>
 
         <section id="skills">
-            <h2>Профессиональные навыки</h2>
+            <h2 data-i18n="skills-title">Профессиональные навыки</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3>Оркестрация</h3>
+                    <h3 data-i18n="skills-orch">Оркестрация</h3>
                     <div class="tags">
                         <span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Helm</span><span class="tag">Docker Compose</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>CI/CD</h3>
+                    <h3 data-i18n="skills-cicd">CI/CD</h3>
                     <div class="tags">
                         <span class="tag">GitLab CI</span><span class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">ArgoCD</span><span class="tag">GoCD</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>IaC</h3>
+                    <h3 data-i18n="skills-iac">IaC</h3>
                     <div class="tags">
                         <span class="tag">Terraform</span><span class="tag">Terragrunt</span><span class="tag">Ansible</span><span class="tag">AWX</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>Мониторинг</h3>
+                    <h3 data-i18n="skills-mon">Мониторинг</h3>
                     <div class="tags">
                         <span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Loki</span><span class="tag">Zabbix</span><span class="tag">Victoria Metrics</span><span class="tag">Telegraf</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>Базы данных</h3>
+                    <h3 data-i18n="skills-db">Базы данных</h3>
                     <div class="tags">
                         <span class="tag">PostgreSQL (Patroni, Etcd)</span><span class="tag">MongoDB</span><span class="tag">Redis</span><span class="tag">Elasticsearch</span><span class="tag">MySQL</span><span class="tag">MSSQL</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>Облако</h3>
+                    <h3 data-i18n="skills-cloud">Облако</h3>
                     <div class="tags">
                         <span class="tag">AWS (EC2, EKS, S3, VPC, RDS, ALB, EFS)</span><span class="tag">Azure (AKS, VM)</span><span class="tag">GCP</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>AI/ML</h3>
+                    <h3 data-i18n="skills-ml">AI/ML</h3>
                     <div class="tags">
                         <span class="tag">HuggingFace Transformers</span><span class="tag">ONNX</span><span class="tag">TorchServe</span><span class="tag">vLLM</span><span class="tag">LLM (Mistral, Llama3)</span><span class="tag">LaBSE</span><span class="tag">Whisper</span><span class="tag">Open WebUI</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>Безопасность / Балансировка / Прочее</h3>
+                    <h3 data-i18n="skills-other">Безопасность / Балансировка / Прочее</h3>
                     <div class="tags">
                         <span class="tag">Nginx</span><span class="tag">HAProxy</span><span class="tag">Traefik</span><span class="tag">Keycloak</span><span class="tag">LDAP</span><span class="tag">OPA</span><span class="tag">Vault</span><span class="tag">Kafka</span><span class="tag">Linux</span><span class="tag">Python</span><span class="tag">Bash</span>
                     </div>
@@ -593,7 +121,7 @@
         </section>
 
         <section id="experience">
-            <h2>Опыт работы</h2>
+            <h2 data-i18n="exp-title">Опыт работы</h2>
             <div class="timeline">
                 
                 <div class="timeline-item">
@@ -601,21 +129,21 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title">Ведущий DevOps-инженер</h3>
+                                <h3 class="job-title" data-i18n="job1-title">Ведущий DevOps-инженер</h3>
                                 <span class="job-company">БИАТЕХ</span>
                             </div>
-                            <div class="job-date">Сентябрь 2024 — настоящее время (<span id="current-job-exp">1 год 6 мес.</span>) | Санкт-Петербург</div>
+                            <div class="job-date"><span data-i18n="job1-date">Сентябрь 2024 — настоящее время</span> (<span id="current-job-exp"></span>) | <span data-i18n="job1-loc">Санкт-Петербург</span></div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li>Миграция GPU-сервисов и legacy-приложений из Docker в Kubernetes; сокращение времени деплоя на 40%</li>
-                                <li>GitLab CI + ArgoCD pipeline, Helm-чарты</li>
-                                <li>Отказоустойчивые кластеры PostgreSQL (Patroni, Etcd), балансировка через HAProxy, Kafka</li>
-                                <li>Мониторинг: Prometheus + Grafana + Zabbix</li>
-                                <li>Построение Datalab: PostgreSQL, Trino, Iceberg, OPA + LDAP/Keycloak</li>
-                                <li>Реализация AI-Hub: Open WebUI + vLLM + Gravitee + Keycloak в закрытом контуре K8s</li>
-                                <li>GPU-сервисы в K8s: MIG, Allocation Driver (AD), разделение VRAM</li>
-                                <li>Запуск LLM (Mistral, Llama3), LaBSE, Whisper, WI&WI via HuggingFace, ONNX, TorchServe</li>
+                                <li data-i18n="job1-l1">Мигрировал GPU-сервисы и legacy-приложения из Docker в Kubernetes, сократив время деплоя на 40%.</li>
+                                <li data-i18n="job1-l2">Настроил пайплайны GitLab CI + ArgoCD и разработал Helm-чарты.</li>
+                                <li data-i18n="job1-l3">Развернул отказоустойчивые кластеры PostgreSQL (Patroni, Etcd) с балансировкой через HAProxy и Kafka.</li>
+                                <li data-i18n="job1-l4">Внедрил стек мониторинга: Prometheus, Grafana, Zabbix.</li>
+                                <li data-i18n="job1-l5">Построил Datalab на базе PostgreSQL, Trino, Iceberg с интеграцией OPA и LDAP/Keycloak.</li>
+                                <li data-i18n="job1-l6">Реализовал AI-Hub (Open WebUI + vLLM + Gravitee + Keycloak) в закрытом контуре K8s.</li>
+                                <li data-i18n="job1-l7">Настроил GPU-сервисы в K8s: MIG, Allocation Driver (AD), разделение VRAM.</li>
+                                <li data-i18n="job1-l8">Запустил модели LLM (Mistral, Llama3), LaBSE, Whisper, WI&WI через HuggingFace, ONNX, TorchServe.</li>
                             </ul>
                         </div>
                     </div>
@@ -626,19 +154,19 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title">Старший DevOps-инженер</h3>
+                                <h3 class="job-title" data-i18n="job2-title">Старший DevOps-инженер</h3>
                                 <span class="job-company">Imhio</span>
                             </div>
-                            <div class="job-date">Август 2023 — Сентябрь 2024 (1 год 2 мес.) | Кипр, Лимассол</div>
+                            <div class="job-date"><span data-i18n="job2-date">Август 2023 — Сентябрь 2024</span> | <span data-i18n="job2-loc">Кипр, Лимассол</span></div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li>Bare-metal, AWS, Azure; GitLab, GoCD, ArgoCD, GitHub Actions</li>
-                                <li>IaC: Ansible, Terraform, Terragrunt</li>
-                                <li>Docker, Kubernetes; HA: Nginx, Traefik, HAProxy, Keepalived, Peacemaker</li>
-                                <li>Мониторинг: Prometheus, Grafana, Loki, Victoria Metrics</li>
-                                <li>Системы видеообработки, хранения и трансляции для геораспределённых сервисов</li>
-                                <li>Системы анализа изображений с компьютерным зрением и нейросетями</li>
+                                <li data-i18n="job2-l1">Поддерживал инфраструктуру на Bare-metal, AWS и Azure; настраивал CI/CD в GitLab, GoCD, ArgoCD, GitHub Actions.</li>
+                                <li data-i18n="job2-l2">Описывал инфраструктуру как код (IaC) с помощью Ansible, Terraform, Terragrunt.</li>
+                                <li data-i18n="job2-l3">Администрировал Docker и Kubernetes; настраивал HA-решения (Nginx, Traefik, HAProxy, Keepalived, Peacemaker).</li>
+                                <li data-i18n="job2-l4">Развивал системы мониторинга и логирования: Prometheus, Grafana, Loki, Victoria Metrics.</li>
+                                <li data-i18n="job2-l5">Обслуживал системы видеообработки, хранения и трансляции для геораспределённых сервисов.</li>
+                                <li data-i18n="job2-l6">Поддерживал системы анализа изображений с использованием компьютерного зрения и нейросетей.</li>
                             </ul>
                         </div>
                     </div>
@@ -649,19 +177,19 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title">Старший MLOps-инженер</h3>
+                                <h3 class="job-title" data-i18n="job3-title">Старший MLOps-инженер</h3>
                                 <span class="job-company">BSS</span>
                             </div>
-                            <div class="job-date">Июнь 2022 — Август 2023 (1 год 3 мес.) | Санкт-Петербург</div>
+                            <div class="job-date"><span data-i18n="job3-date">Июнь 2022 — Август 2023</span> | <span data-i18n="job3-loc">Санкт-Петербург</span></div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li>Речевые боты на базе NER, ASR, TTS</li>
-                                <li>HA-кластеры: Nginx, Elasticsearch, Mongo, Redis</li>
-                                <li>Миграция Docker-compose → Kubernetes, Helm-чарты</li>
-                                <li>Python-интеграции REST/SOAP, Flask/Sanic веб-приложения</li>
-                                <li>Телефония: FreeSWITCH, Asterisk; Telegram-боты</li>
-                                <li>Проекты: речевые боты для МФЦ Москвы, СПб, Тулы, Ставрополя и др.</li>
+                                <li data-i18n="job3-l1">Разрабатывал и внедрял речевых ботов на базе NER, ASR, TTS.</li>
+                                <li data-i18n="job3-l2">Администрировал HA-кластеры: Nginx, Elasticsearch, MongoDB, Redis.</li>
+                                <li data-i18n="job3-l3">Осуществил миграцию сервисов из Docker-compose в Kubernetes, написал Helm-чарты.</li>
+                                <li data-i18n="job3-l4">Создавал Python-интеграции (REST/SOAP) и веб-приложения на Flask/Sanic.</li>
+                                <li data-i18n="job3-l5">Настраивал телефонию (FreeSWITCH, Asterisk) и разрабатывал Telegram-ботов.</li>
+                                <li data-i18n="job3-l6">Участвовал в проектах по созданию речевых ботов для МФЦ Москвы, СПб, Тулы, Ставрополя и др.</li>
                             </ul>
                         </div>
                     </div>
@@ -672,16 +200,16 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title">Cloud & DevOps Engineer Internship</h3>
+                                <h3 class="job-title" data-i18n="job4-title">Cloud & DevOps Engineer Internship</h3>
                                 <span class="job-company">EPAM</span>
                             </div>
-                            <div class="job-date">Январь 2022 — Май 2022 (5 мес.) | Санкт-Петербург</div>
+                            <div class="job-date"><span data-i18n="job4-date">Январь 2022 — Май 2022</span> | <span data-i18n="job4-loc">Санкт-Петербург</span></div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li>CI/CD: GitHub Actions, Jenkins, GitLab CI</li>
-                                <li>K8s, Ansible, Docker, Terraform, AWS (IAM, VPC, ALB, RDS, EFS, S3, EC2)</li>
-                                <li>Agile/Kanban, Scrum</li>
+                                <li data-i18n="job4-l1">Изучал и применял CI/CD инструменты: GitHub Actions, Jenkins, GitLab CI.</li>
+                                <li data-i18n="job4-l2">Работал с K8s, Ansible, Docker, Terraform и сервисами AWS (IAM, VPC, ALB, RDS, EFS, S3, EC2).</li>
+                                <li data-i18n="job4-l3">Применял методологии Agile/Kanban и Scrum.</li>
                             </ul>
                         </div>
                     </div>
@@ -692,15 +220,15 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title">Старший системный администратор</h3>
-                                <span class="job-company">АО «Проектный Институт №1»</span>
+                                <h3 class="job-title" data-i18n="job5-title">Старший системный администратор</h3>
+                                <span class="job-company" data-i18n="job5-loc">АО «Проектный Институт №1»</span>
                             </div>
-                            <div class="job-date">Август 2020 — Январь 2022 (1 год 6 мес.)</div>
+                            <div class="job-date" data-i18n="job5-date">Август 2020 — Январь 2022</div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li>VMware vSphere, vCenter, Horizon; виртуализация предприятия</li>
-                                <li>Облачный файл-сервер (Samba, Nextcloud, strongSwan), IKEv2 VPN, Zabbix, Postfix</li>
+                                <li data-i18n="job5-l1">Администрировал VMware vSphere, vCenter, Horizon; обеспечивал виртуализацию предприятия.</li>
+                                <li data-i18n="job5-l2">Поддерживал облачный файл-сервер (Samba, Nextcloud, strongSwan), IKEv2 VPN, Zabbix, Postfix.</li>
                             </ul>
                         </div>
                     </div>
@@ -711,14 +239,15 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title">Старший системный администратор</h3>
-                                <span class="job-company">Сеть магазинов «Суши ШОП»</span>
+                                <h3 class="job-title" data-i18n="job6-title">Старший системный администратор</h3>
+                                <span class="job-company" data-i18n="job6-loc">Сеть магазинов «Суши ШОП»</span>
                             </div>
-                            <div class="job-date">Сентябрь 2014 — Август 2020 (6 лет)</div>
+                            <div class="job-date" data-i18n="job6-date">Сентябрь 2014 — Август 2020</div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li>IT-инфраструктура на VPN L2/L3 (Cisco, HP); Asterisk колл-центр; Zabbix; VMware ESXi; 1C</li>
+                                <li data-i18n="job6-l1">Управлял IT-инфраструктурой на базе VPN L2/L3 (Cisco, HP).</li>
+                                <li data-i18n="job6-l2">Администрировал колл-центр на Asterisk, мониторинг Zabbix, VMware ESXi и 1C.</li>
                             </ul>
                         </div>
                     </div>
@@ -729,10 +258,10 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title">Руководитель IT-отдела</h3>
-                                <span class="job-company">ООО «ЕСТП-СРО»</span>
+                                <h3 class="job-title" data-i18n="job7-title">Руководитель IT-отдела</h3>
+                                <span class="job-company" data-i18n="job7-loc">ООО «ЕСТП-СРО»</span>
                             </div>
-                            <div class="job-date">Апрель 2013 — Август 2014</div>
+                            <div class="job-date" data-i18n="job7-date">Апрель 2013 — Август 2014</div>
                         </div>
                     </div>
                 </div>
@@ -742,10 +271,10 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title">Системный администратор</h3>
-                                <span class="job-company">НИЦ СПб ЭТУ</span>
+                                <h3 class="job-title" data-i18n="job8-title">Системный администратор</h3>
+                                <span class="job-company" data-i18n="job8-loc">НИЦ СПб ЭТУ</span>
                             </div>
-                            <div class="job-date">Июль 2010 — Февраль 2013</div>
+                            <div class="job-date" data-i18n="job8-date">Июль 2010 — Февраль 2013</div>
                         </div>
                     </div>
                 </div>
@@ -754,17 +283,17 @@
         </section>
 
         <section id="education">
-            <h2>Образование</h2>
+            <h2 data-i18n="edu-title">Образование</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title">Информационные системы и технологии</h3>
-                                <span class="job-company">СПбГМТУ (Санкт-Петербургский государственный морской технический университет)</span>
+                                <h3 class="job-title" data-i18n="edu1-title">Информационные системы и технологии</h3>
+                                <span class="job-company" data-i18n="edu1-loc">СПбГМТУ (Санкт-Петербургский государственный морской технический университет)</span>
                             </div>
-                            <div class="job-date">2011–2015 | Вечернее/заочное</div>
+                            <div class="job-date" data-i18n="edu1-date">2011–2015 | Вечернее/заочное</div>
                         </div>
                     </div>
                 </div>
@@ -773,14 +302,14 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title">Cloud & DevOps Internship</h3>
-                                <span class="job-company">EPAM University Program</span>
+                                <h3 class="job-title" data-i18n="edu2-title">Cloud & DevOps Internship</h3>
+                                <span class="job-company" data-i18n="edu2-loc">EPAM University Program</span>
                             </div>
-                            <div class="job-date">Январь–Май 2022</div>
+                            <div class="job-date" data-i18n="edu2-date">Январь–Май 2022</div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li>Kubernetes, AWS, Docker, Terraform, Ansible, GitLab, Prometheus, Grafana, Amazon EKS</li>
+                                <li data-i18n="edu2-l1">Kubernetes, AWS, Docker, Terraform, Ansible, GitLab, Prometheus, Grafana, Amazon EKS</li>
                             </ul>
                         </div>
                     </div>
@@ -789,96 +318,7 @@
         </section>
     </div>
 
-    <script>
-        function getPlural(number, one, two, five) {
-            let n = Math.abs(number);
-            n %= 100;
-            if (n >= 5 && n <= 20) {
-                return five;
-            }
-            n %= 10;
-            if (n === 1) {
-                return one;
-            }
-            if (n >= 2 && n <= 4) {
-                return two;
-            }
-            return five;
-        }
-
-        function calculateExperience(startDate) {
-            const start = new Date(startDate);
-            const now = new Date();
-            
-            let years = now.getFullYear() - start.getFullYear();
-            let months = now.getMonth() - start.getMonth();
-            
-            if (months < 0) {
-                years--;
-                months += 12;
-            }
-            
-            let result = [];
-            if (years > 0) {
-                result.push(`${years} ${getPlural(years, 'год', 'года', 'лет')}`);
-            }
-            if (months > 0) {
-                result.push(`${months} ${getPlural(months, 'месяц', 'месяца', 'месяцев')}`);
-            }
-            
-            return result.join(' и ') || 'Менее месяца';
-        }
-
-        function calculateAge(birthDateString) {
-            const birthDate = new Date(birthDateString);
-            const today = new Date();
-            let age = today.getFullYear() - birthDate.getFullYear();
-            const m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-            return `${age} ${getPlural(age, 'год', 'года', 'лет')}`;
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Update total experience
-            const totalExpElement = document.getElementById('total-exp');
-            if (totalExpElement) {
-                totalExpElement.textContent = calculateExperience('2010-07-01');
-            }
-            
-            // Update current job experience
-            const currentJobExpElement = document.getElementById('current-job-exp');
-            if (currentJobExpElement) {
-                currentJobExpElement.textContent = calculateExperience('2024-09-01');
-            }
-
-            // Update age
-            const ageElement = document.getElementById('age');
-            if (ageElement) {
-                ageElement.textContent = calculateAge('1988-12-04');
-            }
-
-            // Mobile menu auto-close
-            const navLinksContainer = document.querySelector('.nav-links');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth <= 768) {
-                        navLinksContainer.classList.remove('active');
-                    }
-                });
-            });
-
-            // Stagger animation for tags
-            const tags = document.querySelectorAll('.tag');
-            tags.forEach((tag, index) => {
-                setTimeout(() => {
-                    tag.style.opacity = '1';
-                    tag.style.transform = 'translateY(0)';
-                }, 800 + (index * 30));
-            });
-        });
-    </script>
+    <script src="i18n.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
