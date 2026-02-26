@@ -453,18 +453,24 @@
                 display: block;
             }
             .nav-links {
-                display: none;
                 position: absolute;
                 top: 100%;
                 left: 0;
                 width: 100%;
-                background: var(--bg-color);
+                background: rgba(10, 12, 16, 0.95);
+                backdrop-filter: blur(10px);
                 flex-direction: column;
                 padding: 20px;
                 border-bottom: 1px solid var(--card-border);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: all 0.3s ease;
             }
             .nav-links.active {
-                display: flex;
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
             }
             .typewriter {
                 white-space: normal;
@@ -498,7 +504,7 @@
             <div class="hero-details">
                 <span>📍 Россия, Санкт-Петербург (Готов к удалённой работе)</span>
                 <span>⏳ Опыт: <span id="total-exp">15 лет и 7 месяцев</span></span>
-                <span>🎂 37 лет</span>
+                <span>🎂 <span id="age">37 лет</span></span>
             </div>
 
             <div class="social-links">
@@ -823,6 +829,17 @@
             return result.join(' и ') || 'Менее месяца';
         }
 
+        function calculateAge(birthDateString) {
+            const birthDate = new Date(birthDateString);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            return `${age} ${getPlural(age, 'год', 'года', 'лет')}`;
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // Update total experience
             const totalExpElement = document.getElementById('total-exp');
@@ -835,6 +852,23 @@
             if (currentJobExpElement) {
                 currentJobExpElement.textContent = calculateExperience('2024-09-01');
             }
+
+            // Update age
+            const ageElement = document.getElementById('age');
+            if (ageElement) {
+                ageElement.textContent = calculateAge('1988-12-04');
+            }
+
+            // Mobile menu auto-close
+            const navLinksContainer = document.querySelector('.nav-links');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinksContainer.classList.remove('active');
+                    }
+                });
+            });
 
             // Stagger animation for tags
             const tags = document.querySelectorAll('.tag');
