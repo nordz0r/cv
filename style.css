@@ -459,6 +459,39 @@ nav {
 #experience { animation-delay: 0.6s; }
 #education { animation-delay: 0.8s; }
 
+/* Scroll Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-green), var(--accent-purple));
+    z-index: 200;
+    transition: width 0.1s linear;
+}
+
+/* PDF Button */
+.btn-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: 1px solid var(--card-border);
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-pdf:hover {
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+}
+
 /* Mobile Nav Toggle */
 .menu-toggle {
     display: none;
@@ -521,4 +554,270 @@ nav {
     .btn span {
         display: none;
     }
+    .btn-pdf span {
+        display: none;
+    }
+}
+
+/* Clean export styles — shared between @media print and .exporting-pdf */
+@media print {
+    *,
+    *::before,
+    *::after {
+        color: #000 !important;
+        background: #fff !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        border-color: #ccc !important;
+    }
+
+    @page {
+        size: A4;
+        margin: 15mm 12mm;
+    }
+
+    html {
+        font-size: 10pt;
+    }
+
+    body {
+        font-size: 10pt;
+        line-height: 1.35;
+        overflow: visible;
+    }
+
+    body::before,
+    body::after {
+        display: none !important;
+    }
+
+    /* Hide all UI chrome */
+    nav,
+    .scroll-progress {
+        display: none !important;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Reset all animations */
+    section {
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        padding: 12px 0;
+    }
+
+    .hero {
+        padding-top: 0;
+        padding-bottom: 5px;
+    }
+
+    .hero-subtitle {
+        font-size: 12pt;
+        margin-bottom: 5px;
+    }
+
+    .typewriter {
+        width: auto !important;
+        border-right: none !important;
+        animation: none !important;
+        white-space: normal;
+    }
+
+    h1 {
+        font-size: 20pt;
+        margin-bottom: 5px;
+    }
+
+    h2 {
+        font-size: 13pt;
+        margin-bottom: 12px;
+        padding-bottom: 3px;
+    }
+
+    h3 {
+        font-size: 10pt;
+        margin-bottom: 4px;
+    }
+
+    .hero-details {
+        margin: 8px 0 10px;
+        font-size: 9pt;
+        gap: 10px;
+    }
+
+    /* Contact buttons — plain text in print */
+    .social-links {
+        gap: 8px;
+    }
+
+    .social-links .btn {
+        padding: 3px 8px;
+        font-size: 8pt;
+        border: 1px solid #ccc !important;
+        border-radius: 3px;
+    }
+
+    .social-links .btn span {
+        display: inline !important;
+    }
+
+    .social-links .btn svg {
+        display: none;
+    }
+
+    /* Skills — compact grid */
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .skill-category {
+        padding: 10px;
+        break-inside: avoid;
+        border-radius: 4px;
+    }
+
+    .skill-category h3 {
+        font-size: 9pt;
+        margin-bottom: 6px;
+        padding-bottom: 4px;
+    }
+
+    .tag {
+        opacity: 1 !important;
+        transform: none !important;
+        font-size: 8pt;
+        padding: 2px 6px;
+    }
+
+    .tags {
+        gap: 4px;
+    }
+
+    /* Timeline — compact */
+    .timeline {
+        padding-left: 20px;
+    }
+
+    .timeline::before {
+        width: 1px;
+    }
+
+    .timeline-dot {
+        left: -25px;
+        width: 8px;
+        height: 8px;
+    }
+
+    .timeline-item {
+        margin-bottom: 10px;
+        break-inside: avoid;
+    }
+
+    .timeline-content {
+        padding: 10px 12px;
+        border-radius: 4px;
+        transform: none !important;
+    }
+
+    .job-header {
+        margin-bottom: 6px;
+    }
+
+    .job-title {
+        font-size: 10pt;
+    }
+
+    .job-company {
+        font-size: 9pt;
+    }
+
+    .job-date {
+        font-size: 8pt;
+        margin-top: 2px;
+    }
+
+    .job-desc {
+        font-size: 8.5pt;
+    }
+
+    .job-desc li {
+        margin-bottom: 2px;
+        padding-left: 10px;
+    }
+
+    .job-desc li::before {
+        content: '–';
+    }
+
+    /* Expand URLs for printed links */
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 7pt;
+        color: #666 !important;
+    }
+
+    a[href^="mailto"]::after,
+    a[href^="tel"]::after {
+        content: none;
+    }
+}
+
+/* html2pdf.js export mode — mirrors print but works on-screen */
+.exporting-pdf,
+.exporting-pdf *,
+.exporting-pdf *::before,
+.exporting-pdf *::after {
+    color: #000 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-color: #ccc !important;
+}
+
+.exporting-pdf body::before,
+.exporting-pdf body::after,
+.exporting-pdf::before,
+.exporting-pdf::after {
+    display: none !important;
+}
+
+.exporting-pdf nav,
+.exporting-pdf .scroll-progress {
+    display: none !important;
+}
+
+.exporting-pdf section {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+}
+
+.exporting-pdf .typewriter {
+    width: auto !important;
+    border-right: none !important;
+    animation: none !important;
+    white-space: normal;
+}
+
+.exporting-pdf .tag {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+.exporting-pdf .social-links .btn svg {
+    display: none;
+}
+
+.exporting-pdf .social-links .btn span {
+    display: inline !important;
+}
+
+.exporting-pdf .timeline-content {
+    transform: none !important;
 }

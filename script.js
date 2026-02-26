@@ -99,8 +99,73 @@ function switchLanguage(lang) {
     });
 }
 
+// Obfuscated contacts — assembled at runtime to prevent scraping
+function initContacts() {
+    const e = ['nord', 'goldfinches.ru'];
+    const p = ['+7', '921', '956', '13', '37'];
+
+    const emailLink = document.getElementById('contact-email');
+    if (emailLink) {
+        const addr = e[0] + '@' + e[1];
+        emailLink.href = 'mai' + 'lto:' + addr;
+    }
+
+    const phoneLink = document.getElementById('contact-phone');
+    const phoneText = document.getElementById('contact-phone-text');
+    if (phoneLink) {
+        const num = p.join('');
+        phoneLink.href = 'te' + 'l:' + num;
+        if (phoneText) {
+            phoneText.textContent = `${p[0]} (${p[1]}) ${p[2]}-${p[3]}-${p[4]}`;
+        }
+    }
+}
+
+// Export to PDF via html2pdf.js
+function exportPDF() {
+    const btn = document.querySelector('.btn-pdf');
+    if (btn) btn.disabled = true;
+
+    // Temporarily add print class for clean output
+    document.body.classList.add('exporting-pdf');
+
+    const container = document.querySelector('.container');
+    const nameEl = document.querySelector('[data-i18n="hero-name"]');
+    const filename = (nameEl ? nameEl.textContent.replace(/\s+/g, '_') : 'CV') + '.pdf';
+
+    const opt = {
+        margin: [10, 10, 10, 10],
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+
+    html2pdf().set(opt).from(container).save().then(() => {
+        document.body.classList.remove('exporting-pdf');
+        if (btn) btn.disabled = false;
+    }).catch(() => {
+        document.body.classList.remove('exporting-pdf');
+        if (btn) btn.disabled = false;
+    });
+}
+
+// Scroll progress bar
+function initScrollProgress() {
+    const bar = document.getElementById('scroll-progress');
+    if (!bar) return;
+    window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        bar.style.width = scrollHeight > 0 ? (scrollTop / scrollHeight * 100) + '%' : '0%';
+    }, { passive: true });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     updateDynamicDates();
+    initContacts();
+    initScrollProgress();
 
     // Mobile menu auto-close
     const navLinksContainer = document.querySelector('.nav-links');
