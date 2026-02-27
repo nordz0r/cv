@@ -435,6 +435,58 @@ nav {
     color: var(--accent-purple);
 }
 
+
+/* Projects Section */
+.projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 900px) {
+    .projects-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.project-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.project-card:hover {
+    border-color: var(--accent-purple);
+    transform: translateY(-3px);
+}
+
+.project-card p {
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.project-card ul {
+    list-style: none;
+}
+
+.project-card li {
+    position: relative;
+    color: var(--text-muted);
+    font-size: 13px;
+    padding-left: 14px;
+    margin-bottom: 8px;
+}
+
+.project-card li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--accent-green);
+}
+
 /* Animations */
 @keyframes fadeUp {
     to {
@@ -458,6 +510,7 @@ nav {
 #skills { animation-delay: 0.4s; }
 #experience { animation-delay: 0.6s; }
 #education { animation-delay: 0.8s; }
+#projects { animation-delay: 1s; }
 
 /* Scroll Progress Bar */
 .scroll-progress {
@@ -697,6 +750,22 @@ nav {
 
     .tags {
         gap: 4px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .project-card {
+        padding: 8px 10px;
+        border-radius: 4px;
+        break-inside: avoid;
+    }
+
+    .project-card p,
+    .project-card li {
+        font-size: 8.5pt;
     }
 
     /* Timeline — compact */
