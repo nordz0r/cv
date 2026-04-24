@@ -45,7 +45,5 @@
 
 ## Контакты кандидата
 
-- Email: `nord@goldfinches.ru`
-- Telegram: `@m0Rda`
-- Habr Career: `https://career.habr.com/thenord`
-
+- Контакты намеренно собираются в рантайме на странице (`script.js`), чтобы усложнить автоматический парсинг.
+- Используйте кнопки **Email**, **Telegram**, **Habr Career** на странице резюме.

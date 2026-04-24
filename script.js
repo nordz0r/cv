@@ -99,24 +99,26 @@ function switchLanguage(lang) {
     });
 }
 
-// Obfuscated contacts — assembled at runtime to prevent scraping
+// Obfuscated contacts — assembled at runtime to reduce static scraping
 function initContacts() {
-    const e = ['nord', 'goldfinches.ru'];
-    const p = ['+7', '921', '956', '13', '37'];
+    const xorKey = 23;
+    const decode = (chars) => String.fromCharCode(...chars.map((code) => code ^ xorKey));
+    const emailUser = decode([121, 120, 101, 115]);
+    const emailDomain = decode([112, 120, 123, 115, 113, 126, 121, 116, 127, 114, 100, 57, 101, 98]);
+    const phoneRaw = decode([60, 32, 46, 37, 38, 46, 34, 33, 38, 36, 36, 32]);
 
     const emailLink = document.getElementById('contact-email');
     if (emailLink) {
-        const addr = e[0] + '@' + e[1];
+        const addr = `${emailUser}@${emailDomain}`;
         emailLink.href = 'mai' + 'lto:' + addr;
     }
 
     const phoneLink = document.getElementById('contact-phone');
     const phoneText = document.getElementById('contact-phone-text');
     if (phoneLink) {
-        const num = p.join('');
-        phoneLink.href = 'te' + 'l:' + num;
+        phoneLink.href = 'te' + 'l:' + phoneRaw;
         if (phoneText) {
-            phoneText.textContent = `${p[0]} (${p[1]}) ${p[2]}-${p[3]}-${p[4]}`;
+            phoneText.textContent = `${phoneRaw.slice(0, 2)} (${phoneRaw.slice(2, 5)}) ${phoneRaw.slice(5, 8)}-${phoneRaw.slice(8, 10)}-${phoneRaw.slice(10, 12)}`;
         }
     }
 }
