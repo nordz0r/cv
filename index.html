@@ -25,6 +25,7 @@
                 <a href="#skills" data-i18n="nav-skills">Навыки</a>
                 <a href="#experience" data-i18n="nav-experience">Опыт</a>
                 <a href="#education" data-i18n="nav-education">Образование</a>
+                <a href="#projects" data-i18n="nav-projects">Проекты</a>
                 <button class="btn-pdf" onclick="exportPDF()" data-i18n="nav-pdf" title="PDF">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                     <span>PDF</span>
@@ -325,6 +326,38 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 data-i18n="projects-title">Ключевые проекты</h2>
+            <div class="projects-grid">
+                <article class="project-card">
+                    <h3 data-i18n="project1-title">GPU-платформа на Kubernetes</h3>
+                    <p data-i18n="project1-desc">Спроектировал и внедрил Kubernetes-платформу под ML/DL-нагрузки с поддержкой GPU scheduling, autoscaling и изоляцией сред для команд разработки.</p>
+                    <ul>
+                        <li data-i18n="project1-l1">Ускорение запуска инференса и обучения за счёт стандартизации CI/CD и Helm-чартов.</li>
+                        <li data-i18n="project1-l2">Повышение утилизации GPU и прозрачности мониторинга через Prometheus + Grafana.</li>
+                    </ul>
+                </article>
+
+                <article class="project-card">
+                    <h3 data-i18n="project2-title">MLOps-пайплайн для LLM-сервисов</h3>
+                    <p data-i18n="project2-desc">Построил end-to-end MLOps-пайплайн для сервисов на базе LLM: от доставки моделей до наблюдаемости и контроля качества.</p>
+                    <ul>
+                        <li data-i18n="project2-l1">Автоматизация релизов моделей через GitLab CI и инфраструктуру как код (Terraform/Ansible).</li>
+                        <li data-i18n="project2-l2">Интеграция vLLM/Whisper и внутреннего API-шлюза для стабильной продовой эксплуатации.</li>
+                    </ul>
+                </article>
+
+                <article class="project-card">
+                    <h3 data-i18n="project3-title">Повышение надёжности и безопасности инфраструктуры</h3>
+                    <p data-i18n="project3-desc">Модернизировал корпоративную инфраструктуру с фокусом на отказоустойчивость, DevSecOps-практики и Zero Trust-подход.</p>
+                    <ul>
+                        <li data-i18n="project3-l1">Внедрение централизованного логирования и алертинга для критичных сервисов.</li>
+                        <li data-i18n="project3-l2">Сокращение ручных операций за счёт шаблонов автоматизации и регламентов эксплуатации.</li>
+                    </ul>
+                </article>
             </div>
         </section>
     </div>
