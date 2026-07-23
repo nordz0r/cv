@@ -503,34 +503,7 @@ nav {
 }
 
 @media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-    .nav-links {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(10, 12, 16, 0.95);
-        backdrop-filter: blur(10px);
-        flex-direction: column;
-        padding: 20px;
-        border-bottom: 1px solid var(--card-border);
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-10px);
-        transition: all 0.3s ease;
-    }
-    .nav-links.active {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
     .lang-switcher {
-        margin-left: 0;
-        border-left: none;
-        padding-left: 0;
-        margin-top: 15px;
         justify-content: center;
     }
     .typewriter {
@@ -549,7 +522,6 @@ nav {
     .btn {
         flex: 1;
         justify-content: center;
-        padding: 10px;
     }
     .btn span {
         display: none;
@@ -820,4 +792,836 @@ nav {
 
 .exporting-pdf .timeline-content {
     transform: none !important;
+}
+
+/* Compact screen layouts */
+@media screen {
+    body {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    body > .container,
+    nav .container {
+        max-width: 1120px;
+    }
+
+    section {
+        padding: 20px 0;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    nav {
+        padding: 10px 0;
+    }
+
+    .nav-content {
+        position: relative;
+    }
+
+    .nav-links {
+        gap: 14px;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+    }
+
+    .layout-switcher {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        padding: 3px;
+        border: 1px solid var(--card-border);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.025);
+    }
+
+    .layout-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        min-height: 28px;
+        padding: 3px 7px;
+        border: 0;
+        border-radius: 4px;
+        background: transparent;
+        color: var(--text-muted);
+        font: 500 10px/1 var(--font-body);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        cursor: pointer;
+        transition: color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .layout-btn:hover {
+        color: var(--text-main);
+        background: rgba(124, 106, 255, 0.1);
+    }
+
+    .layout-btn.active {
+        color: var(--text-main);
+        background: linear-gradient(135deg, rgba(0, 212, 170, 0.16), rgba(124, 106, 255, 0.16));
+    }
+
+    .layout-btn-index {
+        color: var(--accent-green);
+        font-size: 8px;
+    }
+
+    .lang-switcher {
+        margin-left: 0;
+        padding-left: 12px;
+    }
+
+    .hero {
+        padding-top: 28px;
+        padding-bottom: 12px;
+    }
+
+    .hero-subtitle {
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .typewriter {
+        border-right-color: transparent;
+        animation: typing 1.5s steps(30, end) forwards, blink 0.55s step-end 3;
+    }
+
+    .hero-details {
+        margin: 14px 0 18px;
+        gap: 10px 14px;
+        font-size: 12px;
+    }
+
+    .social-links {
+        gap: 8px;
+    }
+
+    .btn {
+        gap: 7px;
+        padding: 8px 13px;
+        font-size: 12px;
+    }
+
+    .btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .about-text {
+        max-width: none;
+    }
+
+    .about-text p {
+        margin-bottom: 8px;
+    }
+
+    .skills-grid {
+        gap: 10px;
+    }
+
+    .skill-category {
+        padding: 12px 14px;
+        border-radius: 6px;
+    }
+
+    .skill-category h3 {
+        margin-bottom: 9px;
+        padding-bottom: 7px;
+        font-size: 14px;
+    }
+
+    .tags {
+        gap: 5px;
+    }
+
+    .tag {
+        padding: 3px 8px;
+        font-size: 10px;
+        line-height: 1.35;
+        opacity: 1;
+        transform: none;
+        overflow-wrap: anywhere;
+    }
+
+    .timeline {
+        padding-left: 24px;
+    }
+
+    .timeline-item {
+        margin-bottom: 14px;
+    }
+
+    .timeline-dot {
+        left: -29px;
+        width: 10px;
+        height: 10px;
+    }
+
+    .timeline-content {
+        padding: 15px 17px;
+        border-radius: 6px;
+    }
+
+    .timeline-content:hover {
+        transform: translateX(3px);
+    }
+
+    .job-header {
+        margin-bottom: 8px;
+        gap: 10px 18px;
+    }
+
+    .job-title {
+        margin-bottom: 4px;
+        font-size: 15px;
+        line-height: 1.25;
+    }
+
+    .job-company {
+        font-size: 12px;
+    }
+
+    .job-date {
+        max-width: 48%;
+        margin-top: 0;
+        font-size: 10.5px;
+        line-height: 1.4;
+        text-align: right;
+    }
+
+    .job-desc {
+        font-size: 12px;
+        line-height: 1.45;
+    }
+
+    .job-desc li {
+        margin-bottom: 3px;
+        padding-left: 13px;
+    }
+
+    .cicd-loop {
+        position: fixed;
+        top: 50%;
+        right: 14px;
+        z-index: 20;
+        width: 108px;
+        padding: 8px 10px 7px;
+        border: 1px solid rgba(124, 106, 255, 0.3);
+        border-radius: 8px;
+        background: rgba(10, 12, 16, 0.82);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.24);
+        backdrop-filter: blur(10px);
+        pointer-events: none;
+        transform: translateY(-50%);
+    }
+
+    .cicd-loop-kicker,
+    .cicd-loop-caption {
+        color: var(--text-muted);
+        font-size: 8px;
+        line-height: 1;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .cicd-loop-kicker {
+        color: var(--accent-green);
+    }
+
+    .cicd-loop-caption {
+        display: none;
+        margin-top: 2px;
+        letter-spacing: 0.02em;
+        text-align: center;
+        text-transform: none;
+    }
+
+    .cicd-loop-svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: -2px 0 -4px;
+        overflow: visible;
+    }
+
+    .cicd-loop-track,
+    .cicd-loop-progress {
+        fill: none;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .cicd-loop-track {
+        stroke: rgba(139, 148, 158, 0.2);
+        stroke-width: 2;
+    }
+
+    .cicd-loop-progress {
+        stroke: url('#cicd-gradient');
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        filter: url('#cicd-glow');
+    }
+
+    .cicd-loop-runner {
+        fill: var(--text-main);
+        filter: url('#cicd-glow');
+    }
+
+    .scroll-progress {
+        width: 100%;
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: none;
+        will-change: transform;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+        outline: 2px solid var(--accent-green);
+        outline-offset: 3px;
+    }
+
+    /* 01 — Pipeline: compact evolution of the current design */
+    body[data-layout="pipeline"] .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(250px, 0.52fr);
+        grid-template-areas:
+            "subtitle details"
+            "title details"
+            "social details";
+        align-items: center;
+        column-gap: 42px;
+    }
+
+    body[data-layout="pipeline"] .hero-subtitle {
+        grid-area: subtitle;
+        align-self: end;
+    }
+
+    body[data-layout="pipeline"] .hero h1 {
+        grid-area: title;
+        justify-self: start;
+        max-width: 100%;
+    }
+
+    body[data-layout="pipeline"] .hero-details {
+        grid-area: details;
+        display: grid;
+        gap: 8px;
+        margin: 0;
+        padding-left: 22px;
+        border-left: 1px solid var(--card-border);
+    }
+
+    body[data-layout="pipeline"] .social-links {
+        grid-area: social;
+        align-self: start;
+        margin-top: 14px;
+    }
+
+    body[data-layout="pipeline"] .about-text {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        gap: 8px 28px;
+    }
+
+    body[data-layout="pipeline"] .about-text p:first-child {
+        grid-row: 1 / span 2;
+    }
+
+    body[data-layout="pipeline"] #education .timeline {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    body[data-layout="pipeline"] #education .timeline,
+    body[data-layout="signal"] #education .timeline {
+        padding-left: 0;
+    }
+
+    body[data-layout="pipeline"] #education .timeline::before,
+    body[data-layout="pipeline"] #education .timeline-dot,
+    body[data-layout="signal"] #education .timeline::before,
+    body[data-layout="signal"] #education .timeline-dot {
+        display: none;
+    }
+
+    body[data-layout="pipeline"] #education .timeline-item {
+        margin-bottom: 0;
+    }
+
+    body[data-layout="pipeline"] #education .timeline-content {
+        height: 100%;
+    }
+
+    /* 02 — Signal Rail: editorial two-column resume */
+    body[data-layout="signal"] > .container {
+        max-width: 1180px;
+        display: grid;
+        grid-template-columns: minmax(260px, 310px) minmax(0, 1fr);
+        grid-template-rows: auto auto auto auto;
+        column-gap: 34px;
+        align-items: start;
+    }
+
+    body[data-layout="signal"] #hero,
+    body[data-layout="signal"] #about,
+    body[data-layout="signal"] #skills,
+    body[data-layout="signal"] #education {
+        grid-column: 1;
+    }
+
+    body[data-layout="signal"] #hero {
+        grid-row: 1;
+    }
+
+    body[data-layout="signal"] #about {
+        grid-row: 2;
+    }
+
+    body[data-layout="signal"] #skills {
+        grid-row: 3;
+    }
+
+    body[data-layout="signal"] #education {
+        grid-row: 4;
+    }
+
+    body[data-layout="signal"] #experience {
+        grid-column: 2;
+        grid-row: 1 / span 4;
+        min-width: 0;
+        padding: 30px 0 30px 34px;
+        border-left: 1px solid var(--card-border);
+    }
+
+    body[data-layout="signal"] .hero {
+        padding-top: 30px;
+    }
+
+    body[data-layout="signal"] .hero h1 {
+        font-size: clamp(30px, 3vw, 40px);
+    }
+
+    body[data-layout="signal"] .typewriter {
+        width: auto;
+        white-space: normal;
+        border-right: 0;
+        animation: fadeUp 0.7s ease forwards;
+    }
+
+    body[data-layout="signal"] .hero-details {
+        display: grid;
+        gap: 6px;
+        margin: 14px 0;
+    }
+
+    body[data-layout="signal"] .social-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        width: 100%;
+    }
+
+    body[data-layout="signal"] .btn {
+        justify-content: center;
+        min-width: 0;
+        padding-inline: 8px;
+    }
+
+    body[data-layout="signal"] .about-text {
+        font-size: 11.5px;
+        line-height: 1.5;
+    }
+
+    body[data-layout="signal"] .about-text p {
+        margin-bottom: 9px;
+    }
+
+    body[data-layout="signal"] .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    body[data-layout="signal"] .skill-category {
+        padding: 10px 0 11px;
+        border-width: 1px 0 0;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    body[data-layout="signal"] .skill-category:last-child {
+        border-bottom-width: 1px;
+    }
+
+    body[data-layout="signal"] .skill-category h3 {
+        margin-bottom: 6px;
+        padding-bottom: 0;
+        border: 0;
+        color: var(--accent-green);
+        font-size: 11px;
+    }
+
+    body[data-layout="signal"] .tag {
+        padding: 2px 6px;
+        font-size: 8.5px;
+    }
+
+    body[data-layout="signal"] #education .timeline-item {
+        margin-bottom: 8px;
+    }
+
+    body[data-layout="signal"] #education .timeline-content {
+        padding: 10px 0;
+        border-width: 1px 0 0;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    body[data-layout="signal"] #education .job-header {
+        display: block;
+    }
+
+    body[data-layout="signal"] #education .job-date {
+        max-width: none;
+        margin-top: 5px;
+        text-align: left;
+    }
+
+    body[data-layout="signal"] #experience .timeline {
+        padding-left: 20px;
+    }
+
+    body[data-layout="signal"] #experience .timeline::before {
+        background: linear-gradient(var(--accent-green), var(--accent-purple), var(--card-border));
+    }
+
+    body[data-layout="signal"] #experience .timeline-item {
+        margin-bottom: 16px;
+    }
+
+    body[data-layout="signal"] #experience .timeline-dot {
+        left: -25px;
+        border-color: var(--accent-purple);
+    }
+
+    body[data-layout="signal"] #experience .timeline-content {
+        padding: 3px 0 13px 17px;
+        border-width: 0 0 1px;
+        border-radius: 0;
+        background: linear-gradient(90deg, rgba(124, 106, 255, 0.055), transparent 70%);
+    }
+
+    body[data-layout="signal"] #experience .timeline-content:hover {
+        box-shadow: none;
+        transform: translateX(2px);
+    }
+
+    body[data-layout="signal"] #experience .job-title {
+        font-size: 14px;
+    }
+
+    body[data-layout="signal"] #experience .job-desc {
+        font-size: 11.5px;
+    }
+}
+
+@media screen and (min-width: 981px) {
+    body[data-layout="pipeline"] .skills-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media screen and (min-width: 621px) and (max-width: 1399px) {
+    body > .container {
+        padding-right: 100px;
+    }
+
+    .cicd-loop {
+        right: 10px;
+        width: 78px;
+        padding: 5px 6px;
+        opacity: 0.82;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .cicd-loop {
+        width: 156px;
+    }
+
+    .cicd-loop-caption {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 980px) {
+    body > .container,
+    nav .container {
+        max-width: 760px;
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border: 1px solid var(--card-border);
+        border-radius: 6px;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: calc(100% + 11px);
+        right: 0;
+        left: 0;
+        width: auto;
+        max-height: calc(100vh - 76px);
+        padding: 18px;
+        overflow-y: auto;
+        border: 1px solid var(--card-border);
+        border-top: 0;
+        border-radius: 0 0 8px 8px;
+        background: rgba(10, 12, 16, 0.97);
+        backdrop-filter: blur(14px);
+        flex-direction: column;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .layout-switcher {
+        margin-top: 4px;
+    }
+
+    .layout-btn {
+        min-height: 36px;
+        padding-inline: 12px;
+    }
+
+    .lang-switcher {
+        margin-top: 3px;
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    body[data-layout="pipeline"] .hero {
+        display: flex;
+    }
+
+    body[data-layout="pipeline"] .hero-details {
+        display: flex;
+        margin: 12px 0 16px;
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    body[data-layout="pipeline"] .social-links {
+        margin-top: 0;
+    }
+
+    body[data-layout="pipeline"] .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body[data-layout="signal"] > .container {
+        display: block;
+    }
+
+    body[data-layout="signal"] #experience {
+        padding: 20px 0;
+        border-left: 0;
+    }
+
+    body[data-layout="signal"] .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+    }
+
+    body[data-layout="signal"] .skill-category {
+        padding: 10px 11px;
+        border: 1px solid var(--card-border);
+        border-radius: 6px;
+        background: var(--card-bg);
+    }
+
+}
+
+@media screen and (max-width: 620px) {
+    body {
+        font-size: 13px;
+    }
+
+    body > .container,
+    nav .container {
+        padding-inline: 14px;
+    }
+
+    section {
+        padding: 16px 0;
+    }
+
+    h2 {
+        margin-bottom: 14px;
+        font-size: 21px;
+    }
+
+    .hero {
+        padding-top: 22px;
+    }
+
+    .hero-subtitle {
+        font-size: 13px;
+    }
+
+    .hero-details {
+        gap: 6px 10px;
+        font-size: 10.5px;
+    }
+
+    .social-links {
+        gap: 6px;
+    }
+
+    .btn {
+        min-height: 42px;
+        padding: 8px;
+    }
+
+    body[data-layout="pipeline"] .about-text {
+        display: block;
+    }
+
+    body[data-layout="pipeline"] .skills-grid,
+    body[data-layout="signal"] .skills-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .skill-category {
+        padding: 10px 12px;
+    }
+
+    .timeline {
+        padding-left: 18px;
+    }
+
+    .timeline::before {
+        width: 1px;
+    }
+
+    .timeline-dot,
+    body[data-layout="signal"] #experience .timeline-dot {
+        left: -22px;
+        width: 9px;
+        height: 9px;
+    }
+
+    .timeline-content {
+        padding: 12px;
+    }
+
+    .job-header {
+        display: block;
+        margin-bottom: 7px;
+    }
+
+    .job-date {
+        max-width: none;
+        margin-top: 5px;
+        text-align: left;
+    }
+
+    .job-desc {
+        font-size: 11px;
+    }
+
+    .cicd-loop {
+        top: 8px;
+        right: 70px;
+        bottom: auto;
+        z-index: 110;
+        width: 70px;
+        padding: 3px 5px;
+        opacity: 0.78;
+        transform: none;
+    }
+
+    .cicd-loop-kicker {
+        font-size: 7px;
+    }
+
+    body[data-layout="pipeline"] #education .timeline {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    section,
+    .tag,
+    .typewriter {
+        width: auto;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .typewriter {
+        border-right: 0;
+    }
+
+    .cicd-loop-progress {
+        stroke-dashoffset: 0 !important;
+    }
+
+    .cicd-loop-runner {
+        display: none;
+    }
+}
+
+@media print {
+    .layout-switcher,
+    .cicd-loop {
+        display: none !important;
+    }
+}
+
+.exporting-pdf .layout-switcher,
+.exporting-pdf .cicd-loop {
+    display: none !important;
+}
+
+body.exporting-pdf > .container {
+    display: block !important;
+    max-width: 100% !important;
 }
