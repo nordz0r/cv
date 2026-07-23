@@ -13,31 +13,57 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='10,80 40,80 60,40 30,40' fill='%237c6aff'/%3E%3Cpolygon points='40,80 90,50 60,40' fill='%2300d4aa'/%3E%3Cpolygon points='60,40 90,50 80,20' fill='%23ff4d4d'/%3E%3Cpolygon points='30,40 60,40 45,10' fill='%23ffd700'/%3E%3C/svg%3E" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
 </head>
-<body data-layout="pipeline">
+<body data-layout="flow">
 
     <div class="scroll-progress" id="scroll-progress"></div>
-    <div class="cicd-loop" id="cicd-loop" aria-hidden="true">
-        <div class="cicd-loop-kicker">CI / CD</div>
-        <svg class="cicd-loop-svg" viewBox="0 0 144 82" role="presentation">
+    <div class="cicd-background" id="cicd-background" aria-hidden="true">
+        <div class="cicd-background-inner">
+            <svg class="cicd-background-svg" viewBox="0 0 900 520" role="presentation" focusable="false">
             <defs>
-                <linearGradient id="cicd-gradient" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#00d4aa"/>
-                    <stop offset="52%" stop-color="#7c6aff"/>
-                    <stop offset="100%" stop-color="#00d4aa"/>
-                </linearGradient>
-                <filter id="cicd-glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="2.4" result="blur"/>
-                    <feMerge>
-                        <feMergeNode in="blur"/>
-                        <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                </filter>
-            </defs>
-            <path class="cicd-loop-track" d="M12 41C12 15 42 10 72 41C102 72 132 67 132 41C132 15 102 10 72 41C42 72 12 67 12 41"/>
-            <path class="cicd-loop-progress" id="cicd-loop-path" pathLength="1" d="M12 41C12 15 42 10 72 41C102 72 132 67 132 41C132 15 102 10 72 41C42 72 12 67 12 41"/>
-            <circle class="cicd-loop-runner" id="cicd-loop-runner" cx="12" cy="41" r="3.5"/>
-        </svg>
-        <div class="cicd-loop-caption">build · deploy · observe · improve</div>
+                    <path id="cicd-route-shape" pathLength="100" d="M450 260C330 100 140 110 140 260C140 410 330 420 450 260C570 100 760 110 760 260C760 410 570 420 450 260"/>
+                    <linearGradient id="cicd-light" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="45%" stop-color="#76f7dc"/>
+                        <stop offset="100%" stop-color="#c5bcff"/>
+                    </linearGradient>
+                    <radialGradient id="cicd-runner-light">
+                        <stop offset="0%" stop-color="#ffffff"/>
+                        <stop offset="45%" stop-color="#ffffff"/>
+                        <stop offset="100%" stop-color="#76f7dc" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+
+                <use class="cicd-route-base" href="#cicd-route-shape"/>
+                <g class="cicd-segments">
+                    <use class="cicd-segment cicd-segment-plan" data-stage="0" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="0"/>
+                    <use class="cicd-segment cicd-segment-code" data-stage="1" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-12.5"/>
+                    <use class="cicd-segment cicd-segment-build" data-stage="2" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-25"/>
+                    <use class="cicd-segment cicd-segment-test" data-stage="3" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-37.5"/>
+                    <use class="cicd-segment cicd-segment-release" data-stage="4" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-50"/>
+                    <use class="cicd-segment cicd-segment-deploy" data-stage="5" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-62.5"/>
+                    <use class="cicd-segment cicd-segment-operate" data-stage="6" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-75"/>
+                    <use class="cicd-segment cicd-segment-monitor" data-stage="7" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-87.5"/>
+                </g>
+
+                <path class="cicd-route-light" id="cicd-route-light" pathLength="1" d="M450 260C330 100 140 110 140 260C140 410 330 420 450 260C570 100 760 110 760 260C760 410 570 420 450 260"/>
+                <circle class="cicd-route-runner" id="cicd-route-runner" cx="450" cy="260" r="16"/>
+
+                <g class="cicd-stage-labels">
+                    <text x="356" y="142" transform="rotate(30 356 142)">PLAN</text>
+                    <text x="226" y="127" transform="rotate(-24 226 127)">CODE</text>
+                    <text x="116" y="266" transform="rotate(-89 116 266)">BUILD</text>
+                    <text x="239" y="411" transform="rotate(20 239 411)">TEST</text>
+                    <text x="500" y="222" transform="rotate(-56 500 222)">RELEASE</text>
+                    <text x="641" y="126" transform="rotate(14 641 126)">DEPLOY</text>
+                    <text x="787" y="266" transform="rotate(88 787 266)">OPERATE</text>
+                    <text x="650" y="412" transform="rotate(-20 650 412)">MONITOR</text>
+                </g>
+                <g class="cicd-core-labels">
+                    <text x="255" y="272">CI</text>
+                    <text x="646" y="272">CD</text>
+                </g>
+            </svg>
+        </div>
     </div>
     <nav>
         <div class="container nav-content">
@@ -52,16 +78,6 @@
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                     <span>PDF</span>
                 </button>
-                <div class="layout-switcher" role="group" aria-label="Вариант дизайна">
-                    <button class="layout-btn active" type="button" data-layout="pipeline" aria-pressed="true" title="Pipeline — компактный поток">
-                        <span class="layout-btn-index">01</span>
-                        <span>Flow</span>
-                    </button>
-                    <button class="layout-btn" type="button" data-layout="signal" aria-pressed="false" title="Signal Rail — двухколоночная версия">
-                        <span class="layout-btn-index">02</span>
-                        <span>Rail</span>
-                    </button>
-                </div>
                 <div class="lang-switcher">
                     <button class="lang-btn active" data-lang="ru">RU</button>
                     <button class="lang-btn" data-lang="en">EN</button>
@@ -69,6 +85,7 @@
             </div>
         </div>
     </nav>
+    <div class="scroll-cut" aria-hidden="true"></div>
 
     <div class="container">
         <section class="hero" id="hero">
@@ -101,7 +118,7 @@
             </div>
         </section>
 
-        <section id="about">
+        <section id="about" data-scroll-fold>
             <h2 data-i18n="about-title">О себе</h2>
             <div class="about-text">
                 <p data-i18n="about-p1">Я — DevOps / MLOps инженер с более чем 15-летним опытом работы в IT. Моя главная миссия — проектирование отказоустойчивых инфраструктур и автоматизация процессов, которые помогают бизнесу быстрее доставлять ценность пользователям. Последние 4 года я сфокусирован на MLOps: оптимизирую работу с ML/DL нагрузками, настраиваю GPU-кластеры в Kubernetes и внедряю современные AI-решения (LLM, Whisper, HuggingFace).</p>
@@ -110,8 +127,8 @@
             </div>
         </section>
 
-        <section id="skills">
-            <h2 data-i18n="skills-title">Профессиональные навыки</h2>
+        <section id="skills" data-scroll-fold>
+            <h2 data-i18n="skills-title">Навыки</h2>
             <div class="skills-grid">
                 <div class="skill-category">
                     <h3 data-i18n="skills-orch">Оркестрация</h3>
@@ -120,14 +137,9 @@
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3 data-i18n="skills-cicd">CI/CD</h3>
+                    <h3 data-i18n="skills-cicd">CI/CD и IaC</h3>
                     <div class="tags">
                         <span class="tag">GitLab CI</span><span class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">ArgoCD</span><span class="tag">GoCD</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 data-i18n="skills-iac">IaC</h3>
-                    <div class="tags">
                         <span class="tag">Terraform</span><span class="tag">Terragrunt</span><span class="tag">Ansible</span><span class="tag">AWX</span>
                     </div>
                 </div>
@@ -144,19 +156,14 @@
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3 data-i18n="skills-cloud">Облако</h3>
+                    <h3 data-i18n="skills-ml">Облако и AI/ML</h3>
                     <div class="tags">
                         <span class="tag">AWS (EC2, EKS, S3, VPC, RDS, ALB, EFS)</span><span class="tag">Azure (AKS, VM)</span><span class="tag">GCP</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 data-i18n="skills-ml">AI/ML</h3>
-                    <div class="tags">
                         <span class="tag">HuggingFace Transformers</span><span class="tag">ONNX</span><span class="tag">TorchServe</span><span class="tag">vLLM</span><span class="tag">LLM (Mistral, Llama3)</span><span class="tag">LaBSE</span><span class="tag">Whisper</span><span class="tag">Open WebUI</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3 data-i18n="skills-other">Безопасность / Балансировка / Прочее</h3>
+                    <h3 data-i18n="skills-other">Security / Edge / Прочее</h3>
                     <div class="tags">
                         <span class="tag">Nginx</span><span class="tag">HAProxy</span><span class="tag">Traefik</span><span class="tag">Keycloak</span><span class="tag">LDAP</span><span class="tag">OPA</span><span class="tag">Vault</span><span class="tag">Kafka</span><span class="tag">Linux</span><span class="tag">Python</span><span class="tag">Bash</span>
                     </div>
@@ -164,7 +171,7 @@
             </div>
         </section>
 
-        <section id="experience">
+        <section id="experience" data-scroll-fold>
             <h2 data-i18n="exp-title">Опыт работы</h2>
             <div class="timeline">
                 
@@ -326,7 +333,7 @@
             </div>
         </section>
 
-        <section id="education">
+        <section id="education" data-scroll-fold>
             <h2 data-i18n="edu-title">Образование</h2>
             <div class="timeline">
                 <div class="timeline-item">
@@ -362,7 +369,7 @@
         </section>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" integrity="sha512-MpDEBEHtcnuCMbzcSMpgOLpXsrJXbE/Fv/ncMoAOEn2MdjhScbFEwVzrNPYRHhHPSGnP+JmiWi7m6boCJgYwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" integrity="sha512-MpDFIChbcXl2QgipQrt1VcPHMldRILetapBl5MPCA9Y8r7qvlwx1/Mc9hNTzY+kS5kX6PdoDq41ws1HiVNLdZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>

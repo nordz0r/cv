@@ -109,6 +109,8 @@ function switchLanguage(lang) {
     if (menuToggle) {
         menuToggle.setAttribute('aria-label', getMenuToggleLabel(menuToggle.getAttribute('aria-expanded') === 'true'));
     }
+
+    window.dispatchEvent(new Event('cv:contentchange'));
 }
 
 // Obfuscated contacts — assembled at runtime to reduce static scraping
@@ -141,17 +143,14 @@ function exportPDF() {
     if (btn) btn.disabled = true;
 
     // Temporarily add print class for clean output
-    const originalLayout = document.body.dataset.layout;
     document.body.classList.add('exporting-pdf');
-    document.body.dataset.layout = 'print';
 
     const restoreExportState = () => {
         document.body.classList.remove('exporting-pdf');
-        document.body.dataset.layout = originalLayout;
         if (btn) btn.disabled = false;
     };
 
-    const container = document.querySelector('.container');
+    const container = document.querySelector('body > .container');
     const nameEl = document.querySelector('[data-i18n="hero-name"]');
     const filename = (nameEl ? nameEl.textContent.replace(/\s+/g, '_') : 'CV') + '.pdf';
 
@@ -177,81 +176,145 @@ function exportPDF() {
     });
 }
 
-// Scroll-linked progress and CI/CD loop
+// Scroll-linked progress, CI/CD background, and reversible section fold
 function initScrollEffects() {
     const bar = document.getElementById('scroll-progress');
-    const loopPath = document.getElementById('cicd-loop-path');
-    const loopRunner = document.getElementById('cicd-loop-runner');
-    const skills = document.getElementById('skills');
-    const experience = document.getElementById('experience');
-    const education = document.getElementById('education');
+    const nav = document.querySelector('nav');
+    const content = document.querySelector('body > .container');
+    const route = document.getElementById('cicd-route-light');
+    const routeRunner = document.getElementById('cicd-route-runner');
+    const stages = Array.from(document.querySelectorAll('.cicd-segment[data-stage]'));
+    const sections = Array.from(document.querySelectorAll('section[data-scroll-fold]'));
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    if (!bar && !loopPath) return;
+    if (!bar && !route && !sections.length) return;
 
     let frameId = null;
-    let pathLength = 0;
+    let routeLength = 0;
+    let layoutDirty = true;
+    let navHeight = 64;
+    let sectionMetrics = [];
+
+    const clamp = (value, min = 0, max = 1) => Math.min(Math.max(value, min), max);
+
+    const getDocumentTop = (element) => {
+        let top = 0;
+        let current = element;
+        while (current) {
+            top += current.offsetTop || 0;
+            current = current.offsetParent;
+        }
+        return top;
+    };
+
+    const measure = () => {
+        navHeight = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+        document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
+
+        sectionMetrics = sections.map((section) => ({
+            section,
+            bottom: getDocumentTop(section) + section.offsetHeight,
+            range: clamp(section.offsetHeight * 0.1, 88, 148)
+        }));
+
+        layoutDirty = false;
+    };
 
     const update = () => {
         frameId = null;
+        if (layoutDirty) measure();
 
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollTop = Math.max(0, window.scrollY || document.documentElement.scrollTop);
+        const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const pageProgress = maxScroll > 0 ? clamp(scrollTop / maxScroll) : 0;
+
+        document.body.classList.toggle('is-scrolled', scrollTop > 8);
+
         if (bar) {
-            const pageProgress = maxScroll > 0 ? Math.min(Math.max(scrollTop / maxScroll, 0), 1) : 0;
             bar.style.transform = `scaleX(${pageProgress})`;
         }
 
-        if (!loopPath) return;
+        document.documentElement.style.setProperty('--page-progress', pageProgress.toFixed(4));
 
         if (reducedMotion.matches) {
-            loopPath.style.strokeDashoffset = '0';
-            if (loopRunner) loopRunner.style.display = 'none';
+            if (route) route.style.removeProperty('stroke-dashoffset');
+            if (routeRunner) routeRunner.style.display = 'none';
+            stages.forEach((stage) => stage.classList.remove('is-active'));
+            sectionMetrics.forEach(({ section }) => {
+                section.style.setProperty('--fold-progress', '0');
+                section.classList.remove('is-folding', 'is-folded');
+            });
             return;
         }
 
-        if (loopRunner) loopRunner.style.removeProperty('display');
-        if (!skills || (!education && !experience)) return;
-
-        const loopStart = skills.getBoundingClientRect().top + scrollTop;
-        const contentEnd = Math.max(
-            experience ? experience.getBoundingClientRect().bottom + scrollTop : 0,
-            education ? education.getBoundingClientRect().bottom + scrollTop : 0
-        );
-        const loopEnd = Math.min(contentEnd, maxScroll);
-        const loopProgress = loopEnd > loopStart
-            ? Math.min(Math.max((scrollTop - loopStart) / (loopEnd - loopStart), 0), 1)
-            : 0;
-
-        loopPath.style.strokeDashoffset = String(1 - loopProgress);
-
-        if (loopRunner && pathLength > 0) {
-            const point = loopPath.getPointAtLength(pathLength * loopProgress);
-            loopRunner.setAttribute('cx', point.x);
-            loopRunner.setAttribute('cy', point.y);
+        if (route) {
+            route.style.strokeDashoffset = String(-pageProgress);
         }
+
+        if (routeRunner && route && routeLength > 0) {
+            routeRunner.style.removeProperty('display');
+            const point = route.getPointAtLength(routeLength * pageProgress);
+            routeRunner.setAttribute('cx', point.x);
+            routeRunner.setAttribute('cy', point.y);
+        }
+
+        const activeStage = Math.min(stages.length - 1, Math.floor(pageProgress * stages.length));
+        stages.forEach((stage, index) => stage.classList.toggle('is-active', index === activeStage));
+
+        const trigger = scrollTop + navHeight;
+        sectionMetrics.forEach(({ section, bottom, range }) => {
+            const foldProgress = clamp((trigger + range - bottom) / range);
+            section.style.setProperty('--fold-progress', foldProgress.toFixed(4));
+            section.classList.toggle('is-folding', foldProgress > 0 && foldProgress < 0.98);
+            section.classList.toggle('is-folded', foldProgress >= 0.98);
+        });
     };
 
     const requestUpdate = () => {
         if (frameId === null) frameId = window.requestAnimationFrame(update);
     };
 
-    if (loopPath) {
+    if (route) {
         try {
-            pathLength = loopPath.getTotalLength();
+            routeLength = route.getTotalLength();
         } catch (_) {
-            pathLength = 0;
+            routeLength = 0;
         }
     }
 
     window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate, { passive: true });
-    window.addEventListener('cv:layoutchange', requestUpdate);
+    window.addEventListener('resize', () => {
+        layoutDirty = true;
+        requestUpdate();
+    }, { passive: true });
+    window.addEventListener('cv:contentchange', () => {
+        layoutDirty = true;
+        requestUpdate();
+    });
+
     if (typeof reducedMotion.addEventListener === 'function') {
         reducedMotion.addEventListener('change', requestUpdate);
     } else {
         reducedMotion.addListener(requestUpdate);
     }
+
+    if ('ResizeObserver' in window && content) {
+        const resizeObserver = new ResizeObserver(() => {
+            layoutDirty = true;
+            requestUpdate();
+        });
+        resizeObserver.observe(content);
+        if (nav) resizeObserver.observe(nav);
+    }
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            layoutDirty = true;
+            requestUpdate();
+        });
+    }
+
+    document.body.classList.add('has-scroll-cut');
     requestUpdate();
 }
 
@@ -271,7 +334,14 @@ function initMobileMenu() {
     });
 
     navLinks.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => setMenuOpen(false));
+        link.addEventListener('click', () => {
+            setMenuOpen(false);
+            const target = document.querySelector(link.hash);
+            if (target) {
+                target.style.setProperty('--fold-progress', '0');
+                target.classList.remove('is-folding', 'is-folded');
+            }
+        });
     });
 
     document.addEventListener('keydown', (event) => {
@@ -282,61 +352,11 @@ function initMobileMenu() {
     });
 }
 
-function initLayoutSwitcher() {
-    const buttons = Array.from(document.querySelectorAll('.layout-btn[data-layout]'));
-    if (!buttons.length) return;
-
-    const layouts = new Set(buttons.map((button) => button.dataset.layout));
-    let savedLayout = null;
-
-    try {
-        savedLayout = window.localStorage.getItem('cv-layout');
-    } catch (_) {
-        // Storage can be unavailable in private or restricted browsing contexts.
-    }
-
-    const applyLayout = (layout, persist = false) => {
-        if (!layouts.has(layout)) return;
-
-        document.body.dataset.layout = layout;
-        buttons.forEach((button) => {
-            const isActive = button.dataset.layout === layout;
-            button.classList.toggle('active', isActive);
-            button.setAttribute('aria-pressed', String(isActive));
-        });
-        window.dispatchEvent(new Event('cv:layoutchange'));
-
-        if (persist) {
-            try {
-                window.localStorage.setItem('cv-layout', layout);
-            } catch (_) {
-                // Keep the selected layout for this page session when storage is unavailable.
-            }
-        }
-    };
-
-    applyLayout(layouts.has(savedLayout) ? savedLayout : document.body.dataset.layout);
-    buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-            applyLayout(button.dataset.layout, true);
-
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.getElementById('nav-links');
-            if (menuToggle && navLinks && menuToggle.getAttribute('aria-expanded') === 'true') {
-                navLinks.classList.remove('active');
-                menuToggle.setAttribute('aria-expanded', 'false');
-                menuToggle.setAttribute('aria-label', getMenuToggleLabel(false));
-            }
-        });
-    });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     updateDynamicDates();
     initContacts();
     initScrollEffects();
     initMobileMenu();
-    initLayoutSwitcher();
 
     // Language switcher
     document.querySelectorAll('.lang-btn').forEach(btn => {
