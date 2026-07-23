@@ -82,15 +82,15 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: clamp(42px, 5.6vw, 68px);
+    font-size: clamp(38px, 5vw, 60px);
     line-height: 1.08;
     margin-bottom: 12px;
     font-weight: 800;
 }
 
 h2 {
-    font-size: clamp(28px, 3vw, 38px);
-    margin-bottom: 24px;
+    font-size: clamp(24px, 2.4vw, 32px);
+    margin-bottom: 20px;
     color: var(--accent-green);
     display: inline-block;
     border-bottom: 2px solid var(--accent-purple);
@@ -274,125 +274,6 @@ nav {
     margin-bottom: 16px;
 }
 
-.impact-strip {
-    margin-top: 22px;
-    overflow: hidden;
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    background: rgba(22, 27, 34, 0.68);
-}
-
-.impact-context {
-    padding: 10px 16px 8px;
-    border-bottom: 1px solid var(--card-border);
-    color: var(--accent-green);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.impact-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.impact-item {
-    display: flex;
-    min-width: 0;
-    align-items: baseline;
-    gap: 8px;
-    padding: 12px 16px 14px;
-}
-
-.impact-item + .impact-item {
-    border-left: 1px solid var(--card-border);
-}
-
-.impact-item strong {
-    color: var(--text-main);
-    font-family: var(--font-heading);
-    font-size: 22px;
-    line-height: 1;
-}
-
-.impact-item span {
-    color: var(--text-muted);
-    font-size: 12px;
-    line-height: 1.35;
-}
-
-/* Skills Section */
-.skills-panel {
-    overflow: hidden;
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    background: rgba(22, 27, 34, 0.56);
-}
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1px;
-    background: var(--card-border);
-}
-
-@media (min-width: 768px) {
-    .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-.skill-category {
-    min-width: 0;
-    padding: 16px 18px;
-    background: rgba(10, 12, 16, 0.82);
-    transition: background-color 0.3s ease;
-}
-
-.skill-category:hover {
-    background: rgba(17, 24, 31, 0.92);
-}
-
-.skill-category h3 {
-    margin-bottom: 7px;
-    color: var(--accent-green);
-    font-size: 13px;
-    line-height: 1.35;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-}
-
-.skill-category p {
-    color: var(--text-muted);
-    font-size: 13.5px;
-    line-height: 1.55;
-    overflow-wrap: anywhere;
-}
-
-.skills-practices {
-    display: grid;
-    grid-template-columns: 180px minmax(0, 1fr);
-    gap: 16px;
-    align-items: baseline;
-    padding: 11px 18px 13px;
-    border-top: 1px solid var(--card-border);
-}
-
-.skills-practices span {
-    color: var(--accent-purple);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-}
-
-.skills-practices p {
-    color: var(--text-muted);
-    font-size: 12.5px;
-    line-height: 1.5;
-}
-
 /* Timeline Section */
 .timeline {
     position: relative;
@@ -511,6 +392,23 @@ nav {
     color: var(--text-muted);
     font-size: 13px;
     margin-top: 5px;
+}
+
+.job-stack {
+    margin: -1px 0 9px;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.job-stack span {
+    display: inline-block;
+    margin-right: 9px;
+    color: var(--accent-purple);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .job-desc {
@@ -749,58 +647,6 @@ nav {
         display: none;
     }
 
-    /* Skills — compact grid */
-    .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
-
-    .skill-category {
-        padding: 10px;
-        break-inside: avoid;
-        border-radius: 4px;
-    }
-
-    .skill-category h3 {
-        font-size: 9pt;
-        margin-bottom: 6px;
-        padding-bottom: 4px;
-    }
-
-    .skills-practices {
-        grid-template-columns: 120px minmax(0, 1fr);
-        gap: 8px;
-        padding: 7px 10px;
-    }
-
-    .skills-practices span,
-    .skills-practices p,
-    .skill-category p {
-        font-size: 8pt;
-    }
-
-    .impact-strip {
-        margin-top: 10px;
-        break-inside: avoid;
-    }
-
-    .impact-context {
-        padding: 5px 10px;
-        font-size: 7pt;
-    }
-
-    .impact-item {
-        padding: 7px 10px;
-    }
-
-    .impact-item strong {
-        font-size: 12pt;
-    }
-
-    .impact-item span {
-        font-size: 7pt;
-    }
-
     .company-mark {
         width: 32px;
         height: 32px;
@@ -847,6 +693,15 @@ nav {
     .job-date {
         font-size: 8pt;
         margin-top: 2px;
+    }
+
+    .job-stack {
+        margin: 0 0 4px;
+        font-size: 7pt;
+    }
+
+    .job-stack span {
+        margin-right: 6px;
     }
 
     .job-desc {
@@ -1008,28 +863,6 @@ nav {
 
     .about-text p {
         margin-bottom: 14px;
-    }
-
-    .skills-grid {
-        gap: 1px;
-    }
-
-    .skill-category {
-        padding: 15px 18px;
-        border: 0;
-        border-radius: 0;
-        background: rgba(10, 12, 16, 0.76);
-    }
-
-    .skill-category h3 {
-        margin-bottom: 7px;
-        padding-bottom: 0;
-        border-bottom: 0;
-        color: var(--accent-green);
-        font-size: 13px;
-        line-height: 1.35;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
     }
 
     .timeline {
@@ -1340,12 +1173,6 @@ nav {
     }
 }
 
-@media screen and (min-width: 981px) {
-    .skills-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
 @media screen and (min-width: 621px) and (max-width: 1399px) {
     .cicd-background {
         top: 110px;
@@ -1429,10 +1256,6 @@ nav {
         margin-top: 0;
     }
 
-    .skills-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
 }
 
 @media screen and (max-width: 620px) {
@@ -1452,13 +1275,13 @@ nav {
     }
 
     h1 {
-        font-size: clamp(36px, 11vw, 48px);
+        font-size: clamp(32px, 10vw, 42px);
     }
 
     h2 {
         max-width: 100%;
-        margin-bottom: 17px;
-        font-size: 25px;
+        margin-bottom: 15px;
+        font-size: 22px;
         overflow-wrap: anywhere;
         hyphens: auto;
     }
@@ -1487,63 +1310,6 @@ nav {
 
     .about-text {
         font-size: 15px;
-    }
-
-    .impact-strip {
-        margin-top: 18px;
-    }
-
-    .impact-context {
-        padding-inline: 13px;
-        font-size: 10px;
-    }
-
-    .impact-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .impact-item {
-        gap: 7px;
-        padding: 11px 13px 12px;
-    }
-
-    .impact-item + .impact-item {
-        border-left: 0;
-    }
-
-    .impact-item:nth-child(even) {
-        border-left: 1px solid var(--card-border);
-    }
-
-    .impact-item:nth-child(n + 3) {
-        border-top: 1px solid var(--card-border);
-    }
-
-    .impact-item strong {
-        font-size: 20px;
-    }
-
-    .impact-item span {
-        font-size: 11px;
-    }
-
-    .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 1px;
-    }
-
-    .skill-category {
-        padding: 13px 14px;
-    }
-
-    .skill-category p {
-        font-size: 12.5px;
-    }
-
-    .skills-practices {
-        grid-template-columns: 1fr;
-        gap: 4px;
-        padding: 11px 14px 13px;
     }
 
     .timeline {
@@ -1584,6 +1350,12 @@ nav {
         max-width: none;
         margin-top: 5px;
         text-align: left;
+    }
+
+    .job-stack {
+        margin-top: 0;
+        margin-bottom: 8px;
+        font-size: 11.5px;
     }
 
     .job-desc {
@@ -1755,52 +1527,6 @@ body.exporting-pdf .about-text p {
     margin-bottom: 6px !important;
 }
 
-body.exporting-pdf .impact-strip {
-    margin-top: 8px !important;
-}
-
-body.exporting-pdf .impact-context {
-    padding: 4px 8px !important;
-    font-size: 6.5pt !important;
-}
-
-body.exporting-pdf .impact-item {
-    padding: 6px 8px !important;
-}
-
-body.exporting-pdf .impact-item strong {
-    font-size: 11pt !important;
-}
-
-body.exporting-pdf .impact-item span {
-    font-size: 6.5pt !important;
-}
-
-body.exporting-pdf .skills-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-}
-
-body.exporting-pdf .skill-category {
-    padding: 8px 10px !important;
-}
-
-body.exporting-pdf .skill-category h3 {
-    margin-bottom: 4px !important;
-    font-size: 8pt !important;
-}
-
-body.exporting-pdf .skill-category p,
-body.exporting-pdf .skills-practices p,
-body.exporting-pdf .skills-practices span {
-    font-size: 7.5pt !important;
-}
-
-body.exporting-pdf .skills-practices {
-    grid-template-columns: 120px minmax(0, 1fr) !important;
-    gap: 8px !important;
-    padding: 6px 10px !important;
-}
-
 body.exporting-pdf .timeline {
     padding-left: 18px !important;
 }
@@ -1844,6 +1570,15 @@ body.exporting-pdf .job-company {
 
 body.exporting-pdf .job-date {
     font-size: 7pt !important;
+}
+
+body.exporting-pdf .job-stack {
+    margin: 0 0 4px !important;
+    font-size: 6.8pt !important;
+}
+
+body.exporting-pdf .job-stack span {
+    margin-right: 6px !important;
 }
 
 body.exporting-pdf .job-desc {

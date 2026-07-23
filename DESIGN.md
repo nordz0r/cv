@@ -4,7 +4,7 @@
 - Status: Active
 - Last refreshed: 2026-07-24
 - Primary product surfaces: одностраничное интерактивное резюме на русском и английском языках; экранная и печатная/PDF-версии.
-- Evidence reviewed: `README.md`, `index.html`, `style.css`, `script.js`, `i18n.js`, пользовательский CI/CD reference `/mnt/c/Users/Legion/AppData/Local/Temp/tmp5338.png`, публичный Performance Review BIA за 01.05.2025–30.06.2026, профили компаний в Habr Career и публичные фирменные ассеты.
+- Evidence reviewed: `README.md`, `index.html`, `style.css`, `script.js`, `i18n.js`, пользовательский CI/CD reference `/mnt/c/Users/Legion/AppData/Local/Temp/tmp5338.png`, публичный Performance Review BIA за 01.05.2025–30.06.2026, профили компаний в Habr Career, [Read.cv living-resume pattern](https://www.hackdesign.org/toolkit/read-cv/), [developer portfolio examples](https://roadmap.sh/frontend/web-developer-portfolio) и рекомендации по быстрому recruiter scan из [Job Search Guide](https://newsletter.jobsearch.guide/p/how-recruiters-read-your-resume).
 
 ## Brand
 - Personality: уверенный senior DevOps/MLOps-инженер; технический, спокойный, точный, современный.
@@ -12,9 +12,9 @@
 - Avoid: мелкий текст, dashboard/card-мозаика, декоративная перегрузка, несколько конкурирующих макетов, агрессивная бесконечная анимация, презентационный вид CI/CD-диаграммы.
 
 ## Product goals
-- Goals: быстро показать специализацию, подтверждённый масштаб результата, ключевые capability-кластеры и карьерную историю; сохранить выразительный техно-стиль при компактной длине страницы.
+- Goals: быстро показать специализацию, подтверждённый результат, технологии в контексте конкретных ролей и карьерную историю; сохранить выразительный техно-стиль при компактной длине страницы.
 - Non-goals: портфолио-платформа, интерактивный dashboard, точное копирование референса, скрытие важного содержания ради компактности.
-- Success signals: основной текст читается без увеличения; профессиональные навыки занимают компактный экранный блок; навигация быстро возвращает к любой секции; нет горизонтального overflow; PDF остаётся нейтральным и полным.
+- Success signals: основной текст читается без увеличения; технологии быстро сканируются внутри опыта и не дублируются отдельной секцией; навигация быстро возвращает к любой секции; нет горизонтального overflow; PDF остаётся нейтральным и полным.
 
 ## Personas and jobs
 - Primary personas: технический руководитель, engineering manager, DevOps/MLOps lead, технический рекрутер.
@@ -22,9 +22,9 @@
 - Key contexts of use: desktop при первичном техническом просмотре, mobile по ссылке из мессенджера, печать/PDF для внутреннего согласования.
 
 ## Information architecture
-- Primary navigation: О себе → Навыки → Опыт → Образование; PDF; RU/EN.
+- Primary navigation: О себе → Опыт → Образование; PDF; RU/EN.
 - Core routes/screens: одна страница, один макет FLOW.
-- Content hierarchy: имя и роль → краткий профиль → компактный evidence-strip → capability-матрица → опыт с фирменными знаками → образование.
+- Content hierarchy: имя и роль → краткий профиль → опыт с фирменными знаками и контекстным стеком → образование.
 
 ## Design principles
 - Readability before density: компактность достигается сеткой, ритмом и группировкой, но не уменьшением шрифта.
@@ -34,7 +34,7 @@
 
 ## Visual language
 - Color: тёмный графитовый фон; основной текст светлый; существующие cyan/purple акценты; CI/CD-сегменты lime, blue, amber и mauve из пользовательского референса с пониженной экранной opacity и горизонтальной mask-зоной под текстом.
-- Typography: `Unbounded` для имени и заголовков, `JetBrains Mono` для основного текста; body не меньше 16px desktop и 15px mobile; H1 `clamp(42px, 5.6vw, 68px)`; H2 `clamp(28px, 3vw, 38px)` на desktop и 25px на mobile.
+- Typography: `Unbounded` для имени и заголовков, `JetBrains Mono` для основного текста; body не меньше 16px desktop и 15px mobile; H1 `clamp(38px, 5vw, 60px)`; H2 `clamp(24px, 2.4vw, 32px)` на desktop и 22px на mobile.
 - Spacing/layout rhythm: контейнер до 1120px; единый FLOW; секции компактные, но с устойчивым вертикальным ритмом; About — одна редакционная колонка до 72ch.
 - Shape/radius/elevation: небольшие радиусы 6–10px, тонкие границы, мягкий glass только для sticky navigation; без тяжёлых карточных теней.
 - Motion: typewriter имени; медленное дыхание фоновой схемы; scroll-linked световой маршрут; плавный обратимый уход секций под верхний fade-mask.
@@ -42,7 +42,7 @@
 
 ## Components
 - Existing components to reuse: sticky navigation, language switcher, contact buttons, timeline, PDF export, scroll progress, i18n.
-- New/changed components: один FLOW layout; `cicd-background` с выровненными по кривым stage labels; `scroll-cut`; `impact-strip` с подтверждёнными метриками; компактная capability-матрица из четырёх кластеров и одной строки практик; `company-mark` в timeline.
+- New/changed components: один FLOW layout; `cicd-background` с выровненными по кривым stage labels; `scroll-cut`; `company-mark` и компактная `job-stack`-строка внутри релевантных записей timeline.
 - Variants and states: desktop/tablet/mobile; normal/reduced-motion; hover/focus; screen/print/export.
 - Token/component ownership: цветовые, типографические и motion-токены остаются в `style.css`; поведение scroll-linked эффектов — в одном `requestAnimationFrame`-цикле `script.js`.
 
@@ -55,8 +55,8 @@
 
 ## Responsive behavior
 - Supported breakpoints/devices: desktop ≥ 1200px, tablet 621–1199px, mobile ≤ 620px; контрольные viewport 1440×1100, 1024×900, 390×844 и 320px minimum width.
-- Layout adaptations: hero из двух зон переходит в одну колонку; capability-матрица 2 → 1 колонка; evidence-strip 4 → 2 колонки; About всегда одна колонка; CI/CD-фон уменьшается на tablet и скрывается на mobile.
-- Touch/hover differences: кнопки и menu toggle не меньше 42px; неинтерактивные skill tags не обязаны быть touch-target; hover не меняет геометрию.
+- Layout adaptations: hero из двух зон переходит в одну колонку; контекстный стек допускает перенос на несколько строк; About всегда одна колонка; CI/CD-фон уменьшается на tablet и скрывается на mobile.
+- Touch/hover differences: кнопки и menu toggle не меньше 42px; строки стека остаются обычным текстом; hover не меняет геометрию.
 
 ## Interaction states
 - Loading: статический HTML сразу показывает содержание; анимации являются progressive enhancement.
@@ -69,7 +69,7 @@
 ## Content voice
 - Tone: профессиональный, конкретный, инженерный, без маркетинговых преувеличений.
 - Terminology: DevOps/MLOps, CI/CD, IaC и названия технологий сохраняются в привычной отраслевой форме.
-- Microcopy rules: короткие навигационные подписи; английская версия соответствует русской структуре; декоративные stage labels не локализуются как общеупотребимые pipeline-термины; цифры Performance Review сопровождаются кратким периодом, без оценочных преувеличений.
+- Microcopy rules: короткие навигационные подписи; английская версия соответствует русской структуре; декоративные stage labels не локализуются как общеупотребимые pipeline-термины; технологии перечисляются только там, где подтверждены опытом.
 
 ## Implementation constraints
 - Framework/styling system: vanilla HTML, CSS и JavaScript; без новых runtime-зависимостей.
@@ -79,9 +79,9 @@
 - Test/screenshot expectations: синтаксические проверки; Playwright smoke/e2e; visual checkpoints desktop/tablet/mobile; overflow, menu anchors, reverse scroll, reduced-motion и print/PDF.
 
 ## Content evidence
-- Performance snapshot: 561 закрытая задача Jira, 457 объединённых MR в 58 репозиториях и 28 страниц TWiKi/runbooks за 01.05.2025–30.06.2026.
-- Priority capabilities: Platform Engineering, Delivery & IaC, Reliability & Data, LLMOps & Security.
-- Supporting practices: capacity planning, DRP/runbooks, GitOps, production incident analysis, cross-functional delivery.
+- Performance Review используется как источник формулировок для опыта BIA, но не выводится отдельным метрическим блоком.
+- Технологии группируются по работодателям, чтобы навыки читались вместе с доказательством их применения.
+- Supporting practices: capacity planning, DRP/runbooks, GitOps, Blue/Green, Canary, Postmortem и cross-functional delivery.
 
 ## Open questions
-- [ ] После пользовательского просмотра определить, оставлять ли четыре performance-метрики или сократить strip до трёх / пользователь / низкое влияние.
+- Нет открытых дизайн-вопросов для текущей итерации.

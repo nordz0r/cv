@@ -79,7 +79,6 @@
             <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-controls="nav-links" aria-expanded="false">☰</button>
             <div class="nav-links" id="nav-links">
                 <a href="#about" data-i18n="nav-about">О себе</a>
-                <a href="#skills" data-i18n="nav-skills">Навыки</a>
                 <a href="#experience" data-i18n="nav-experience">Опыт</a>
                 <a href="#education" data-i18n="nav-education">Образование</a>
                 <button class="btn-pdf" type="button" onclick="exportPDF()" data-i18n="nav-pdf" title="PDF">
@@ -131,44 +130,7 @@
             <div class="about-text">
                 <p data-i18n="about-p1">Я — DevOps/MLOps-инженер с более чем 15-летним опытом в ИТ. Проектирую отказоустойчивую инфраструктуру и автоматизирую процессы, которые помогают бизнесу быстрее доставлять ценность. Последние четыре года специализируюсь на MLOps: оптимизирую ML/DL-нагрузки, настраиваю GPU-кластеры Kubernetes и внедряю AI-решения — от LLM и эмбеддингов до ASR.</p>
                 <p data-i18n="about-p2">Следую подходу Infrastructure as Code (IaC), практикам DevSecOps и принципам Zero Trust. Для меня CI/CD-пайплайн или кластер должны быть не только запущены, но и безопасны, наблюдаемы и масштабируемы. Работаю с bare-metal-инфраструктурой и облаками AWS, Azure и GCP.</p>
-                <p data-i18n="about-p3">Беру end-to-end ответственность за эксплуатационную готовность сервисов: delivery, capacity planning, observability, runbooks и разбор production-инцидентов.</p>
-            </div>
-            <div class="impact-strip">
-                <p class="impact-context" data-i18n="impact-context">Performance Review · май 2025 — июнь 2026</p>
-                <div class="impact-grid">
-                    <div class="impact-item"><strong>561</strong><span data-i18n="impact-jira">закрытая задача Jira</span></div>
-                    <div class="impact-item"><strong>457</strong><span data-i18n="impact-mr">объединённых MR</span></div>
-                    <div class="impact-item"><strong>58</strong><span data-i18n="impact-repos">репозиториев</span></div>
-                    <div class="impact-item"><strong>28</strong><span data-i18n="impact-docs">страниц TWiKi / runbooks</span></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" data-scroll-fold>
-            <h2 data-i18n="skills-title">Навыки</h2>
-            <div class="skills-panel">
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3 data-i18n="skills-platform">Платформа и контейнеры</h3>
-                        <p>Kubernetes · Helm · Docker/containerd · Linux · AWS/Azure/GCP · GPU/MIG</p>
-                    </div>
-                    <div class="skill-category">
-                        <h3 data-i18n="skills-delivery">Delivery и IaC</h3>
-                        <p>GitLab CI · Argo CD · Terraform/Terragrunt · Ansible/AWX · Jenkins · Vault/External Secrets</p>
-                    </div>
-                    <div class="skill-category">
-                        <h3 data-i18n="skills-reliability">Надёжность и данные</h3>
-                        <p>Prometheus/Grafana · ELK/Loki · VictoriaMetrics/Zabbix · PostgreSQL/Patroni · Trino · Kafka/Redis</p>
-                    </div>
-                    <div class="skill-category">
-                        <h3 data-i18n="skills-llmops">LLMOps и безопасность</h3>
-                        <p>LiteLLM · Open WebUI · vLLM · Hugging Face · MCP · Keycloak/OAuth · OPA · Nginx/HAProxy</p>
-                    </div>
-                </div>
-                <div class="skills-practices">
-                    <span data-i18n="skills-practices-label">Инженерные практики</span>
-                    <p data-i18n="skills-practices">Capacity planning · DRP/runbooks · GitOps · zero-downtime delivery · разбор production-инцидентов · Python/Bash</p>
-                </div>
+                <p data-i18n="about-p3">Беру end-to-end ответственность за эксплуатационную готовность сервисов: delivery, capacity planning, observability, runbooks и Postmortem.</p>
             </div>
         </section>
 
@@ -189,9 +151,10 @@
                             </div>
                             <div class="job-date"><span data-i18n="job1-date">сентябрь 2024 — настоящее время</span> (<span id="current-job-exp"></span>) | <span data-i18n="job1-loc">Санкт-Петербург</span></div>
                         </div>
+                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>Kubernetes · Helm · GitLab CI/Argo CD · LiteLLM/Open WebUI · Keycloak/Vault · GPU/MIG · Blue/Green · Canary</p>
                         <div class="job-desc">
                             <ul>
-                                <li data-i18n="job1-l1">Обеспечивал полный цикл эксплуатационной готовности AI-сервисов: архитектура размещения, delivery, масштабирование, интеграции, observability и разбор production-инцидентов.</li>
+                                <li data-i18n="job1-l1">Обеспечивал полный цикл эксплуатационной готовности AI-сервисов: архитектура размещения, delivery, масштабирование, интеграции, observability и Postmortem.</li>
                                 <li data-i18n="job1-l2">Вывел AI Hub в PROD на Open WebUI + LiteLLM; масштабировал LiteLLM до 3 реплик с Redis и настроил Keycloak/OAuth.</li>
                                 <li data-i18n="job1-l3">Стандартизировал delivery через GitLab CI, Argo CD, Helm и общие репозитории delivery, provisioning и balancer.</li>
                                 <li data-i18n="job1-l4">Настроил capacity planning по метрикам, тайм-ауты для длительных потоковых ответов и нормализацию LLM-логов в ELK.</li>
@@ -216,6 +179,7 @@
                             </div>
                             <div class="job-date"><span data-i18n="job2-date">август 2023 — сентябрь 2024</span> | <span data-i18n="job2-loc">Кипр, Лимассол</span></div>
                         </div>
+                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>Linux · AWS/Azure · Kubernetes · Terraform/Terragrunt · Ansible · GitLab/GoCD · Prometheus/Grafana/Loki · Nginx/HAProxy</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job2-l1">Поддерживал инфраструктуру на bare metal, AWS и Azure; настраивал CI/CD в GitLab, GoCD, Argo CD и GitHub Actions.</li>
@@ -242,6 +206,7 @@
                             </div>
                             <div class="job-date"><span data-i18n="job3-date">июнь 2022 — август 2023</span> | <span data-i18n="job3-loc">Санкт-Петербург</span></div>
                         </div>
+                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>Kubernetes · Helm · Python · Flask/Sanic · Elasticsearch/MongoDB/Redis · FreeSWITCH/Asterisk · NER/ASR/TTS</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job3-l1">Разрабатывал и внедрял речевых ботов с использованием NER, ASR и TTS.</li>
@@ -268,6 +233,7 @@
                             </div>
                             <div class="job-date"><span data-i18n="job4-date">январь 2022 — май 2022</span> | <span data-i18n="job4-loc">Санкт-Петербург</span></div>
                         </div>
+                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>AWS/EKS · Kubernetes · Docker · Terraform · Ansible · GitLab CI/Jenkins/GitHub Actions</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job4-l1">Изучал и применял CI/CD-инструменты: GitHub Actions, Jenkins и GitLab CI.</li>
@@ -291,6 +257,7 @@
                             </div>
                             <div class="job-date" data-i18n="job5-date">август 2020 — январь 2022</div>
                         </div>
+                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>VMware · Nextcloud · Samba · strongSwan · Zabbix · Postfix</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job5-l1">Администрировал VMware vSphere, vCenter, Horizon; обеспечивал виртуализацию предприятия.</li>
@@ -313,6 +280,7 @@
                             </div>
                             <div class="job-date" data-i18n="job6-date">сентябрь 2014 — август 2020</div>
                         </div>
+                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>Cisco/HP · VPN L2/L3 · Asterisk · Zabbix · VMware ESXi · 1С</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job6-l1">Управлял ИТ-инфраструктурой на базе VPN L2/L3 (Cisco, HP).</li>
