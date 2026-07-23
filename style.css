@@ -274,11 +274,67 @@ nav {
     margin-bottom: 16px;
 }
 
+.impact-strip {
+    margin-top: 22px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    background: rgba(22, 27, 34, 0.68);
+}
+
+.impact-context {
+    padding: 10px 16px 8px;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--accent-green);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.impact-item {
+    display: flex;
+    min-width: 0;
+    align-items: baseline;
+    gap: 8px;
+    padding: 12px 16px 14px;
+}
+
+.impact-item + .impact-item {
+    border-left: 1px solid var(--card-border);
+}
+
+.impact-item strong {
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-size: 22px;
+    line-height: 1;
+}
+
+.impact-item span {
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.35;
+}
+
 /* Skills Section */
+.skills-panel {
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    background: rgba(22, 27, 34, 0.56);
+}
+
 .skills-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 1px;
+    background: var(--card-border);
 }
 
 @media (min-width: 768px) {
@@ -288,47 +344,53 @@ nav {
 }
 
 .skill-category {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 8px;
-    padding: 20px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    min-width: 0;
+    padding: 16px 18px;
+    background: rgba(10, 12, 16, 0.82);
+    transition: background-color 0.3s ease;
 }
 
 .skill-category:hover {
-    border-color: var(--accent-green);
-    box-shadow: 0 0 15px rgba(0, 212, 170, 0.1);
+    background: rgba(17, 24, 31, 0.92);
 }
 
 .skill-category h3 {
-    color: var(--text-main);
-    font-size: 16px;
-    margin-bottom: 15px;
-    border-bottom: 1px solid var(--card-border);
-    padding-bottom: 10px;
+    margin-bottom: 7px;
+    color: var(--accent-green);
+    font-size: 13px;
+    line-height: 1.35;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
 }
 
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.tag {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--card-border);
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 12px;
+.skill-category p {
     color: var(--text-muted);
-    transition: all 0.3s ease;
-    opacity: 1;
-    transform: none;
+    font-size: 13.5px;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
 }
 
-.skill-category:hover .tag {
-    border-color: var(--accent-purple);
-    color: var(--text-main);
+.skills-practices {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 16px;
+    align-items: baseline;
+    padding: 11px 18px 13px;
+    border-top: 1px solid var(--card-border);
+}
+
+.skills-practices span {
+    color: var(--accent-purple);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.skills-practices p {
+    color: var(--text-muted);
+    font-size: 12.5px;
+    line-height: 1.5;
 }
 
 /* Timeline Section */
@@ -398,8 +460,40 @@ nav {
     .job-header {
         flex-direction: row;
         justify-content: space-between;
-        align-items: baseline;
+        align-items: flex-start;
     }
+}
+
+.job-identity {
+    display: grid;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
+    align-items: center;
+    min-width: 0;
+}
+
+.company-mark {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(230, 237, 243, 0.18);
+    border-radius: 9px;
+    background: #f6f8fa;
+}
+
+.company-mark-dark {
+    background: #10151b;
+}
+
+.company-mark img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 4px;
+    object-fit: contain;
 }
 
 .job-title {
@@ -673,15 +767,43 @@ nav {
         padding-bottom: 4px;
     }
 
-    .tag {
-        opacity: 1 !important;
-        transform: none !important;
-        font-size: 8pt;
-        padding: 2px 6px;
+    .skills-practices {
+        grid-template-columns: 120px minmax(0, 1fr);
+        gap: 8px;
+        padding: 7px 10px;
     }
 
-    .tags {
-        gap: 4px;
+    .skills-practices span,
+    .skills-practices p,
+    .skill-category p {
+        font-size: 8pt;
+    }
+
+    .impact-strip {
+        margin-top: 10px;
+        break-inside: avoid;
+    }
+
+    .impact-context {
+        padding: 5px 10px;
+        font-size: 7pt;
+    }
+
+    .impact-item {
+        padding: 7px 10px;
+    }
+
+    .impact-item strong {
+        font-size: 12pt;
+    }
+
+    .impact-item span {
+        font-size: 7pt;
+    }
+
+    .company-mark {
+        width: 32px;
+        height: 32px;
     }
 
     /* Timeline — compact */
@@ -790,11 +912,6 @@ nav {
     white-space: normal;
 }
 
-.exporting-pdf .tag {
-    opacity: 1 !important;
-    transform: none !important;
-}
-
 .exporting-pdf .social-links .btn svg {
     display: none;
 }
@@ -894,18 +1011,18 @@ nav {
     }
 
     .skills-grid {
-        gap: 12px;
+        gap: 1px;
     }
 
     .skill-category {
-        padding: 14px 15px;
-        border-color: rgba(139, 148, 158, 0.2);
-        border-radius: 8px;
-        background: rgba(22, 27, 34, 0.42);
+        padding: 15px 18px;
+        border: 0;
+        border-radius: 0;
+        background: rgba(10, 12, 16, 0.76);
     }
 
     .skill-category h3 {
-        margin-bottom: 8px;
+        margin-bottom: 7px;
         padding-bottom: 0;
         border-bottom: 0;
         color: var(--accent-green);
@@ -913,29 +1030,6 @@ nav {
         line-height: 1.35;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-    }
-
-    .tags {
-        display: block;
-        line-height: 1.55;
-    }
-
-    .tag {
-        display: inline;
-        padding: 0;
-        border: 0;
-        border-radius: 0;
-        background: transparent;
-        font-size: 14px;
-        line-height: inherit;
-        opacity: 1;
-        transform: none;
-        overflow-wrap: anywhere;
-    }
-
-    .tag:not(:last-child)::after {
-        content: ' · ';
-        color: rgba(124, 106, 255, 0.72);
     }
 
     .timeline {
@@ -964,6 +1058,10 @@ nav {
     .job-header {
         margin-bottom: 8px;
         gap: 10px 18px;
+    }
+
+    .job-identity {
+        max-width: 67%;
     }
 
     .job-title {
@@ -997,13 +1095,15 @@ nav {
     .cicd-background {
         position: fixed;
         top: clamp(88px, 12vh, 160px);
-        right: clamp(-180px, -7vw, -80px);
+        right: clamp(-60px, -2.5vw, -24px);
         z-index: 0;
         width: min(68vw, 900px);
         min-width: 660px;
-        opacity: 0.22;
+        opacity: 0.18;
         pointer-events: none;
         contain: paint;
+        -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.34) 34%, rgba(0, 0, 0, 0.72) 60%, #000 82%);
+        mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.34) 34%, rgba(0, 0, 0, 0.72) 60%, #000 82%);
         transform: translate3d(0, calc(var(--page-progress) * -34px), 0);
         transform-origin: center;
         will-change: transform;
@@ -1048,13 +1148,13 @@ nav {
     .cicd-segment {
         stroke-width: 68;
         stroke-linecap: round;
-        opacity: 0.72;
+        opacity: 0.56;
         transition: opacity 0.45s ease, stroke-width 0.45s ease;
     }
 
     .cicd-segment.is-active {
         stroke-width: 74;
-        opacity: 1;
+        opacity: 0.86;
     }
 
     .cicd-segment-plan,
@@ -1083,12 +1183,12 @@ nav {
         stroke-linecap: round;
         stroke-dasharray: 0.055 0.945;
         stroke-dashoffset: 0;
-        opacity: 0.78;
+        opacity: 0.62;
     }
 
     .cicd-route-runner {
         fill: url('#cicd-runner-light');
-        opacity: 0.9;
+        opacity: 0.7;
     }
 
     .cicd-stage-labels,
@@ -1102,6 +1202,14 @@ nav {
     .cicd-stage-labels {
         font-size: 15px;
         letter-spacing: 0.05em;
+    }
+
+    .cicd-stage-labels text {
+        dominant-baseline: middle;
+    }
+
+    .cicd-stage-labels textPath {
+        text-anchor: middle;
     }
 
     .cicd-core-labels {
@@ -1234,25 +1342,25 @@ nav {
 
 @media screen and (min-width: 981px) {
     .skills-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media screen and (min-width: 621px) and (max-width: 1399px) {
     .cicd-background {
         top: 110px;
-        right: -240px;
+        right: -70px;
         width: 720px;
         min-width: 720px;
-        opacity: 0.15;
+        opacity: 0.13;
     }
 }
 
 @media screen and (min-width: 1600px) {
     .cicd-background {
-        right: -70px;
+        right: -20px;
         width: 960px;
-        opacity: 0.24;
+        opacity: 0.2;
     }
 }
 
@@ -1381,13 +1489,61 @@ nav {
         font-size: 15px;
     }
 
+    .impact-strip {
+        margin-top: 18px;
+    }
+
+    .impact-context {
+        padding-inline: 13px;
+        font-size: 10px;
+    }
+
+    .impact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .impact-item {
+        gap: 7px;
+        padding: 11px 13px 12px;
+    }
+
+    .impact-item + .impact-item {
+        border-left: 0;
+    }
+
+    .impact-item:nth-child(even) {
+        border-left: 1px solid var(--card-border);
+    }
+
+    .impact-item:nth-child(n + 3) {
+        border-top: 1px solid var(--card-border);
+    }
+
+    .impact-item strong {
+        font-size: 20px;
+    }
+
+    .impact-item span {
+        font-size: 11px;
+    }
+
     .skills-grid {
         grid-template-columns: 1fr;
-        gap: 10px;
+        gap: 1px;
     }
 
     .skill-category {
         padding: 13px 14px;
+    }
+
+    .skill-category p {
+        font-size: 12.5px;
+    }
+
+    .skills-practices {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        padding: 11px 14px 13px;
     }
 
     .timeline {
@@ -1411,6 +1567,17 @@ nav {
     .job-header {
         display: block;
         margin-bottom: 7px;
+    }
+
+    .job-identity {
+        grid-template-columns: 38px minmax(0, 1fr);
+        gap: 10px;
+        max-width: 100%;
+    }
+
+    .company-mark {
+        width: 38px;
+        height: 38px;
     }
 
     .job-date {
@@ -1452,7 +1619,6 @@ nav {
     }
 
     section,
-    .tag,
     .typewriter {
         width: auto;
         opacity: 1 !important;
@@ -1477,7 +1643,7 @@ nav {
     }
 
     .cicd-segment {
-        opacity: 0.72 !important;
+        opacity: 0.56 !important;
         stroke-width: 68 !important;
     }
 
@@ -1519,4 +1685,176 @@ body.exporting-pdf section[data-scroll-fold] > * {
 body.exporting-pdf > .container {
     display: block !important;
     max-width: 100% !important;
+}
+
+body.exporting-pdf {
+    font-size: 10pt !important;
+    line-height: 1.35 !important;
+    overflow: visible !important;
+}
+
+body.exporting-pdf section {
+    padding: 10px 0 !important;
+}
+
+body.exporting-pdf .hero {
+    display: block !important;
+    padding-top: 0 !important;
+    padding-bottom: 4px !important;
+}
+
+body.exporting-pdf h1 {
+    margin-bottom: 5px !important;
+    font-size: 20pt !important;
+}
+
+body.exporting-pdf h2 {
+    margin-bottom: 10px !important;
+    padding-bottom: 3px !important;
+    font-size: 13pt !important;
+}
+
+body.exporting-pdf h3 {
+    margin-bottom: 3px !important;
+    font-size: 10pt !important;
+}
+
+body.exporting-pdf .hero-subtitle {
+    margin-bottom: 5px !important;
+    font-size: 11pt !important;
+}
+
+body.exporting-pdf .hero-details {
+    display: flex !important;
+    gap: 8px 14px !important;
+    margin: 7px 0 9px !important;
+    padding-left: 0 !important;
+    border-left: 0 !important;
+    font-size: 8.5pt !important;
+}
+
+body.exporting-pdf .social-links {
+    display: flex !important;
+    margin-top: 0 !important;
+    gap: 6px !important;
+}
+
+body.exporting-pdf .social-links .btn {
+    min-height: 0 !important;
+    padding: 3px 7px !important;
+    font-size: 7.5pt !important;
+}
+
+body.exporting-pdf .about-text {
+    max-width: none !important;
+    font-size: 9pt !important;
+    line-height: 1.45 !important;
+}
+
+body.exporting-pdf .about-text p {
+    margin-bottom: 6px !important;
+}
+
+body.exporting-pdf .impact-strip {
+    margin-top: 8px !important;
+}
+
+body.exporting-pdf .impact-context {
+    padding: 4px 8px !important;
+    font-size: 6.5pt !important;
+}
+
+body.exporting-pdf .impact-item {
+    padding: 6px 8px !important;
+}
+
+body.exporting-pdf .impact-item strong {
+    font-size: 11pt !important;
+}
+
+body.exporting-pdf .impact-item span {
+    font-size: 6.5pt !important;
+}
+
+body.exporting-pdf .skills-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+body.exporting-pdf .skill-category {
+    padding: 8px 10px !important;
+}
+
+body.exporting-pdf .skill-category h3 {
+    margin-bottom: 4px !important;
+    font-size: 8pt !important;
+}
+
+body.exporting-pdf .skill-category p,
+body.exporting-pdf .skills-practices p,
+body.exporting-pdf .skills-practices span {
+    font-size: 7.5pt !important;
+}
+
+body.exporting-pdf .skills-practices {
+    grid-template-columns: 120px minmax(0, 1fr) !important;
+    gap: 8px !important;
+    padding: 6px 10px !important;
+}
+
+body.exporting-pdf .timeline {
+    padding-left: 18px !important;
+}
+
+body.exporting-pdf .timeline-item {
+    margin-bottom: 8px !important;
+    break-inside: avoid !important;
+}
+
+body.exporting-pdf .timeline-dot {
+    left: -23px !important;
+    width: 8px !important;
+    height: 8px !important;
+}
+
+body.exporting-pdf .timeline-content {
+    padding: 9px 11px !important;
+}
+
+body.exporting-pdf .job-header {
+    margin-bottom: 5px !important;
+}
+
+body.exporting-pdf .job-identity {
+    grid-template-columns: 30px minmax(0, 1fr) !important;
+    gap: 8px !important;
+}
+
+body.exporting-pdf .company-mark {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+body.exporting-pdf .job-title {
+    font-size: 9pt !important;
+}
+
+body.exporting-pdf .job-company {
+    font-size: 8pt !important;
+}
+
+body.exporting-pdf .job-date {
+    font-size: 7pt !important;
+}
+
+body.exporting-pdf .job-desc {
+    font-size: 7.7pt !important;
+    line-height: 1.4 !important;
+}
+
+body.exporting-pdf .job-desc li {
+    margin-bottom: 1px !important;
+}
+
+body.exporting-pdf #education .timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 }

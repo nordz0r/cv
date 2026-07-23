@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Андрей Щеглов — DevOps / MLOps Engineer. 15+ лет опыта в IT. Kubernetes, CI/CD, IaC, GPU-кластеры, AI/ML.">
-    <meta property="og:title" content="Андрей Щеглов | DevOps / MLOps Engineer CV">
-    <meta property="og:description" content="DevOps / MLOps Engineer с 15+ летним опытом. Kubernetes, CI/CD, Terraform, GPU-кластеры, LLM.">
+    <meta name="description" content="Андрей Щеглов — DevOps/MLOps-инженер с опытом более 15 лет. Kubernetes, CI/CD, IaC, GPU-кластеры, AI/ML.">
+    <meta property="og:title" content="Андрей Щеглов | DevOps/MLOps Engineer CV">
+    <meta property="og:description" content="DevOps/MLOps-инженер с опытом более 15 лет. Kubernetes, CI/CD, Terraform, GPU-кластеры, LLM.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
     <meta property="og:locale:alternate" content="en_US">
@@ -19,8 +19,16 @@
     <div class="cicd-background" id="cicd-background" aria-hidden="true">
         <div class="cicd-background-inner">
             <svg class="cicd-background-svg" viewBox="0 0 900 520" role="presentation" focusable="false">
-            <defs>
+                <defs>
                     <path id="cicd-route-shape" pathLength="100" d="M450 260C330 100 140 110 140 260C140 410 330 420 450 260C570 100 760 110 760 260C760 410 570 420 450 260"/>
+                    <path id="cicd-label-plan" d="M332 143Q390 164 430 224"/>
+                    <path id="cicd-label-code" d="M154 190Q207 105 306 132"/>
+                    <path id="cicd-label-build" d="M124 315Q96 260 124 202"/>
+                    <path id="cicd-label-test" d="M150 337Q230 420 334 373"/>
+                    <path id="cicd-label-release" d="M462 322Q491 264 512 202"/>
+                    <path id="cicd-label-deploy" d="M540 143Q635 98 724 171"/>
+                    <path id="cicd-label-operate" d="M778 202Q807 260 778 320"/>
+                    <path id="cicd-label-monitor" d="M568 374Q670 421 750 337"/>
                     <linearGradient id="cicd-light" x1="0" y1="0" x2="1" y2="1">
                         <stop offset="0%" stop-color="#ffffff"/>
                         <stop offset="45%" stop-color="#76f7dc"/>
@@ -49,14 +57,14 @@
                 <circle class="cicd-route-runner" id="cicd-route-runner" cx="450" cy="260" r="16"/>
 
                 <g class="cicd-stage-labels">
-                    <text x="356" y="142" transform="rotate(30 356 142)">PLAN</text>
-                    <text x="226" y="127" transform="rotate(-24 226 127)">CODE</text>
-                    <text x="116" y="266" transform="rotate(-89 116 266)">BUILD</text>
-                    <text x="239" y="411" transform="rotate(20 239 411)">TEST</text>
-                    <text x="500" y="222" transform="rotate(-56 500 222)">RELEASE</text>
-                    <text x="641" y="126" transform="rotate(14 641 126)">DEPLOY</text>
-                    <text x="787" y="266" transform="rotate(88 787 266)">OPERATE</text>
-                    <text x="650" y="412" transform="rotate(-20 650 412)">MONITOR</text>
+                    <text><textPath href="#cicd-label-plan" startOffset="50%">PLAN</textPath></text>
+                    <text><textPath href="#cicd-label-code" startOffset="50%">CODE</textPath></text>
+                    <text><textPath href="#cicd-label-build" startOffset="50%">BUILD</textPath></text>
+                    <text><textPath href="#cicd-label-test" startOffset="50%">TEST</textPath></text>
+                    <text><textPath href="#cicd-label-release" startOffset="50%">RELEASE</textPath></text>
+                    <text><textPath href="#cicd-label-deploy" startOffset="50%">DEPLOY</textPath></text>
+                    <text><textPath href="#cicd-label-operate" startOffset="50%">OPERATE</textPath></text>
+                    <text><textPath href="#cicd-label-monitor" startOffset="50%">MONITOR</textPath></text>
                 </g>
                 <g class="cicd-core-labels">
                     <text x="255" y="272">CI</text>
@@ -74,13 +82,13 @@
                 <a href="#skills" data-i18n="nav-skills">Навыки</a>
                 <a href="#experience" data-i18n="nav-experience">Опыт</a>
                 <a href="#education" data-i18n="nav-education">Образование</a>
-                <button class="btn-pdf" onclick="exportPDF()" data-i18n="nav-pdf" title="PDF">
+                <button class="btn-pdf" type="button" onclick="exportPDF()" data-i18n="nav-pdf" title="PDF">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                     <span>PDF</span>
                 </button>
                 <div class="lang-switcher">
-                    <button class="lang-btn active" data-lang="ru">RU</button>
-                    <button class="lang-btn" data-lang="en">EN</button>
+                    <button class="lang-btn active" type="button" data-lang="ru">RU</button>
+                    <button class="lang-btn" type="button" data-lang="en">EN</button>
                 </div>
             </div>
         </div>
@@ -91,7 +99,7 @@
         <section class="hero" id="hero">
             <span class="hero-subtitle" data-i18n="hero-subtitle">DevOps / MLOps Engineer</span>
             <h1 class="typewriter" data-i18n="hero-name">Андрей Щеглов</h1>
-            
+
             <div class="hero-details">
                 <span data-i18n="hero-location">📍 Россия, Санкт-Петербург</span>
                 <span><span data-i18n="hero-exp-label">⏳ Опыт:</span> <span id="total-exp"></span></span>
@@ -113,7 +121,7 @@
                 </a>
                 <a id="contact-phone" href="#" class="btn" title="Phone">
                     <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                    <span id="contact-phone-text"></span>
+                    <span id="contact-phone-text">Телефон</span>
                 </a>
             </div>
         </section>
@@ -121,52 +129,45 @@
         <section id="about" data-scroll-fold>
             <h2 data-i18n="about-title">О себе</h2>
             <div class="about-text">
-                <p data-i18n="about-p1">Я — DevOps / MLOps инженер с более чем 15-летним опытом работы в IT. Моя главная миссия — проектирование отказоустойчивых инфраструктур и автоматизация процессов, которые помогают бизнесу быстрее доставлять ценность пользователям. Последние 4 года я сфокусирован на MLOps: оптимизирую работу с ML/DL нагрузками, настраиваю GPU-кластеры в Kubernetes и внедряю современные AI-решения (LLM, Whisper, HuggingFace).</p>
-                <p data-i18n="about-p2">Я верю в подход Infrastructure as Code (IaC), принципы DevSecOps и Zero Trust. Для меня важно не просто настроить CI/CD пайплайн или поднять кластер, но и обеспечить его безопасность, наблюдаемость (observability) и масштабируемость. Имею богатый опыт работы как с bare-metal серверами, так и с ведущими облачными провайдерами (AWS, Azure, GCP).</p>
-                <p data-i18n="about-p3">Всегда открыт к сложным инженерным вызовам и готов применять свой опыт для построения надежных и современных IT-систем.</p>
+                <p data-i18n="about-p1">Я — DevOps/MLOps-инженер с более чем 15-летним опытом в ИТ. Проектирую отказоустойчивую инфраструктуру и автоматизирую процессы, которые помогают бизнесу быстрее доставлять ценность. Последние четыре года специализируюсь на MLOps: оптимизирую ML/DL-нагрузки, настраиваю GPU-кластеры Kubernetes и внедряю AI-решения — от LLM и эмбеддингов до ASR.</p>
+                <p data-i18n="about-p2">Следую подходу Infrastructure as Code (IaC), практикам DevSecOps и принципам Zero Trust. Для меня CI/CD-пайплайн или кластер должны быть не только запущены, но и безопасны, наблюдаемы и масштабируемы. Работаю с bare-metal-инфраструктурой и облаками AWS, Azure и GCP.</p>
+                <p data-i18n="about-p3">Беру end-to-end ответственность за эксплуатационную готовность сервисов: delivery, capacity planning, observability, runbooks и разбор production-инцидентов.</p>
+            </div>
+            <div class="impact-strip">
+                <p class="impact-context" data-i18n="impact-context">Performance Review · май 2025 — июнь 2026</p>
+                <div class="impact-grid">
+                    <div class="impact-item"><strong>561</strong><span data-i18n="impact-jira">закрытая задача Jira</span></div>
+                    <div class="impact-item"><strong>457</strong><span data-i18n="impact-mr">объединённых MR</span></div>
+                    <div class="impact-item"><strong>58</strong><span data-i18n="impact-repos">репозиториев</span></div>
+                    <div class="impact-item"><strong>28</strong><span data-i18n="impact-docs">страниц TWiKi / runbooks</span></div>
+                </div>
             </div>
         </section>
 
         <section id="skills" data-scroll-fold>
             <h2 data-i18n="skills-title">Навыки</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3 data-i18n="skills-orch">Оркестрация</h3>
-                    <div class="tags">
-                        <span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Helm</span><span class="tag">Docker Compose</span>
+            <div class="skills-panel">
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3 data-i18n="skills-platform">Платформа и контейнеры</h3>
+                        <p>Kubernetes · Helm · Docker/containerd · Linux · AWS/Azure/GCP · GPU/MIG</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3 data-i18n="skills-delivery">Delivery и IaC</h3>
+                        <p>GitLab CI · Argo CD · Terraform/Terragrunt · Ansible/AWX · Jenkins · Vault/External Secrets</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3 data-i18n="skills-reliability">Надёжность и данные</h3>
+                        <p>Prometheus/Grafana · ELK/Loki · VictoriaMetrics/Zabbix · PostgreSQL/Patroni · Trino · Kafka/Redis</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3 data-i18n="skills-llmops">LLMOps и безопасность</h3>
+                        <p>LiteLLM · Open WebUI · vLLM · Hugging Face · MCP · Keycloak/OAuth · OPA · Nginx/HAProxy</p>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <h3 data-i18n="skills-cicd">CI/CD и IaC</h3>
-                    <div class="tags">
-                        <span class="tag">GitLab CI</span><span class="tag">GitHub Actions</span><span class="tag">Jenkins</span><span class="tag">ArgoCD</span><span class="tag">GoCD</span>
-                        <span class="tag">Terraform</span><span class="tag">Terragrunt</span><span class="tag">Ansible</span><span class="tag">AWX</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 data-i18n="skills-mon">Мониторинг</h3>
-                    <div class="tags">
-                        <span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Loki</span><span class="tag">Zabbix</span><span class="tag">Victoria Metrics</span><span class="tag">Telegraf</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 data-i18n="skills-db">Базы данных</h3>
-                    <div class="tags">
-                        <span class="tag">PostgreSQL (Patroni, Etcd)</span><span class="tag">MongoDB</span><span class="tag">Redis</span><span class="tag">Elasticsearch</span><span class="tag">MySQL</span><span class="tag">MSSQL</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 data-i18n="skills-ml">Облако и AI/ML</h3>
-                    <div class="tags">
-                        <span class="tag">AWS (EC2, EKS, S3, VPC, RDS, ALB, EFS)</span><span class="tag">Azure (AKS, VM)</span><span class="tag">GCP</span>
-                        <span class="tag">HuggingFace Transformers</span><span class="tag">ONNX</span><span class="tag">TorchServe</span><span class="tag">vLLM</span><span class="tag">LLM (Mistral, Llama3)</span><span class="tag">LaBSE</span><span class="tag">Whisper</span><span class="tag">Open WebUI</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3 data-i18n="skills-other">Security / Edge / Прочее</h3>
-                    <div class="tags">
-                        <span class="tag">Nginx</span><span class="tag">HAProxy</span><span class="tag">Traefik</span><span class="tag">Keycloak</span><span class="tag">LDAP</span><span class="tag">OPA</span><span class="tag">Vault</span><span class="tag">Kafka</span><span class="tag">Linux</span><span class="tag">Python</span><span class="tag">Bash</span>
-                    </div>
+                <div class="skills-practices">
+                    <span data-i18n="skills-practices-label">Инженерные практики</span>
+                    <p data-i18n="skills-practices">Capacity planning · DRP/runbooks · GitOps · zero-downtime delivery · разбор production-инцидентов · Python/Bash</p>
                 </div>
             </div>
         </section>
@@ -174,27 +175,29 @@
         <section id="experience" data-scroll-fold>
             <h2 data-i18n="exp-title">Опыт работы</h2>
             <div class="timeline">
-                
+
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="job-header">
-                            <div>
-                                <h3 class="job-title" data-i18n="job1-title">Ведущий DevOps-инженер</h3>
-                                <span class="job-company">БИАТЕХ</span>
+                            <div class="job-identity">
+                                <span class="company-mark"><img src="assets/logos/biatech.png" alt="" decoding="async"></span>
+                                <div>
+                                    <h3 class="job-title" data-i18n="job1-title">Ведущий DevOps-инженер</h3>
+                                    <span class="job-company">БИАТЕХ</span>
+                                </div>
                             </div>
-                            <div class="job-date"><span data-i18n="job1-date">Сентябрь 2024 — настоящее время</span> (<span id="current-job-exp"></span>) | <span data-i18n="job1-loc">Санкт-Петербург</span></div>
+                            <div class="job-date"><span data-i18n="job1-date">сентябрь 2024 — настоящее время</span> (<span id="current-job-exp"></span>) | <span data-i18n="job1-loc">Санкт-Петербург</span></div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li data-i18n="job1-l1">Мигрировал GPU-сервисы и legacy-приложения из Docker в Kubernetes, сократив время деплоя на 40%.</li>
-                                <li data-i18n="job1-l2">Настроил пайплайны GitLab CI + ArgoCD и разработал Helm-чарты.</li>
-                                <li data-i18n="job1-l3">Развернул отказоустойчивые кластеры PostgreSQL (Patroni, Etcd) с балансировкой через HAProxy и Kafka.</li>
-                                <li data-i18n="job1-l4">Внедрил стек мониторинга: Prometheus, Grafana, Zabbix.</li>
-                                <li data-i18n="job1-l5">Построил Datalab на базе PostgreSQL, Trino, Iceberg с интеграцией OPA и LDAP/Keycloak.</li>
-                                <li data-i18n="job1-l6">Реализовал AI-Hub (Open WebUI + vLLM + Gravitee + Keycloak) в закрытом контуре K8s.</li>
-                                <li data-i18n="job1-l7">Настроил GPU-сервисы в K8s: MIG, Allocation Driver (AD), разделение VRAM.</li>
-                                <li data-i18n="job1-l8">Запустил модели LLM (Mistral, Llama3), LaBSE, Whisper, WI&WI через HuggingFace, ONNX, TorchServe.</li>
+                                <li data-i18n="job1-l1">Обеспечивал полный цикл эксплуатационной готовности AI-сервисов: архитектура размещения, delivery, масштабирование, интеграции, observability и разбор production-инцидентов.</li>
+                                <li data-i18n="job1-l2">Вывел AI Hub в PROD на Open WebUI + LiteLLM; масштабировал LiteLLM до 3 реплик с Redis и настроил Keycloak/OAuth.</li>
+                                <li data-i18n="job1-l3">Стандартизировал delivery через GitLab CI, Argo CD, Helm и общие репозитории delivery, provisioning и balancer.</li>
+                                <li data-i18n="job1-l4">Настроил capacity planning по метрикам, тайм-ауты для длительных потоковых ответов и нормализацию LLM-логов в ELK.</li>
+                                <li data-i18n="job1-l5">Развернул MCP-интеграции Jira/TWiKi и сервер инструментов Excel с OAuth через Keycloak.</li>
+                                <li data-i18n="job1-l6">Построил Datalab на PostgreSQL, Trino и Iceberg с интеграцией OPA и LDAP/Keycloak.</li>
+                                <li data-i18n="job1-l7">Настроил GPU-сервисы в Kubernetes: MIG, разделение VRAM и запуск LLM/ASR/embedding-моделей.</li>
                             </ul>
                         </div>
                     </div>
@@ -204,18 +207,21 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="job-header">
-                            <div>
-                                <h3 class="job-title" data-i18n="job2-title">Старший DevOps-инженер</h3>
-                                <span class="job-company">Imhio</span>
+                            <div class="job-identity">
+                                <span class="company-mark company-mark-dark"><img src="assets/logos/imhio.svg" alt="" decoding="async"></span>
+                                <div>
+                                    <h3 class="job-title" data-i18n="job2-title">Старший DevOps-инженер</h3>
+                                    <span class="job-company">Imhio</span>
+                                </div>
                             </div>
-                            <div class="job-date"><span data-i18n="job2-date">Август 2023 — Сентябрь 2024</span> | <span data-i18n="job2-loc">Кипр, Лимассол</span></div>
+                            <div class="job-date"><span data-i18n="job2-date">август 2023 — сентябрь 2024</span> | <span data-i18n="job2-loc">Кипр, Лимассол</span></div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li data-i18n="job2-l1">Поддерживал инфраструктуру на Bare-metal, AWS и Azure; настраивал CI/CD в GitLab, GoCD, ArgoCD, GitHub Actions.</li>
-                                <li data-i18n="job2-l2">Описывал инфраструктуру как код (IaC) с помощью Ansible, Terraform, Terragrunt.</li>
-                                <li data-i18n="job2-l3">Администрировал Docker и Kubernetes; настраивал HA-решения (Nginx, Traefik, HAProxy, Keepalived, Peacemaker).</li>
-                                <li data-i18n="job2-l4">Развивал системы мониторинга и логирования: Prometheus, Grafana, Loki, Victoria Metrics.</li>
+                                <li data-i18n="job2-l1">Поддерживал инфраструктуру на bare metal, AWS и Azure; настраивал CI/CD в GitLab, GoCD, Argo CD и GitHub Actions.</li>
+                                <li data-i18n="job2-l2">Описывал инфраструктуру как код (IaC) с помощью Ansible, Terraform и Terragrunt.</li>
+                                <li data-i18n="job2-l3">Администрировал Docker и Kubernetes; настраивал HA-решения (Nginx, Traefik, HAProxy, Keepalived, Pacemaker).</li>
+                                <li data-i18n="job2-l4">Развивал системы мониторинга и логирования: Prometheus, Grafana, Loki, VictoriaMetrics.</li>
                                 <li data-i18n="job2-l5">Обслуживал системы видеообработки, хранения и трансляции для геораспределённых сервисов.</li>
                                 <li data-i18n="job2-l6">Поддерживал системы анализа изображений с использованием компьютерного зрения и нейросетей.</li>
                             </ul>
@@ -227,20 +233,23 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="job-header">
-                            <div>
-                                <h3 class="job-title" data-i18n="job3-title">Старший MLOps-инженер</h3>
-                                <span class="job-company">BSS</span>
+                            <div class="job-identity">
+                                <span class="company-mark"><img src="assets/logos/bss.png" alt="" decoding="async"></span>
+                                <div>
+                                    <h3 class="job-title" data-i18n="job3-title">Старший MLOps-инженер</h3>
+                                    <span class="job-company">BSS</span>
+                                </div>
                             </div>
-                            <div class="job-date"><span data-i18n="job3-date">Июнь 2022 — Август 2023</span> | <span data-i18n="job3-loc">Санкт-Петербург</span></div>
+                            <div class="job-date"><span data-i18n="job3-date">июнь 2022 — август 2023</span> | <span data-i18n="job3-loc">Санкт-Петербург</span></div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li data-i18n="job3-l1">Разрабатывал и внедрял речевых ботов на базе NER, ASR, TTS.</li>
+                                <li data-i18n="job3-l1">Разрабатывал и внедрял речевых ботов с использованием NER, ASR и TTS.</li>
                                 <li data-i18n="job3-l2">Администрировал HA-кластеры: Nginx, Elasticsearch, MongoDB, Redis.</li>
-                                <li data-i18n="job3-l3">Осуществил миграцию сервисов из Docker-compose в Kubernetes, написал Helm-чарты.</li>
-                                <li data-i18n="job3-l4">Создавал Python-интеграции (REST/SOAP) и веб-приложения на Flask/Sanic.</li>
+                                <li data-i18n="job3-l3">Осуществил миграцию сервисов из Docker Compose в Kubernetes, написал Helm-чарты.</li>
+                                <li data-i18n="job3-l4">Создавал Python-интеграции (REST/SOAP) и веб-приложения на Flask и Sanic.</li>
                                 <li data-i18n="job3-l5">Настраивал телефонию (FreeSWITCH, Asterisk) и разрабатывал Telegram-ботов.</li>
-                                <li data-i18n="job3-l6">Участвовал в проектах по созданию речевых ботов для МФЦ Москвы, СПб, Тулы, Ставрополя и др.</li>
+                                <li data-i18n="job3-l6">Участвовал в проектах по созданию речевых ботов для МФЦ Москвы, Санкт-Петербурга, Тулы, Ставрополя и других регионов.</li>
                             </ul>
                         </div>
                     </div>
@@ -250,16 +259,19 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="job-header">
-                            <div>
-                                <h3 class="job-title" data-i18n="job4-title">Cloud & DevOps Engineer Internship</h3>
-                                <span class="job-company">EPAM</span>
+                            <div class="job-identity">
+                                <span class="company-mark"><img src="assets/logos/epam.png" alt="" decoding="async"></span>
+                                <div>
+                                    <h3 class="job-title" data-i18n="job4-title">Cloud &amp; DevOps Engineer Internship</h3>
+                                    <span class="job-company">EPAM</span>
+                                </div>
                             </div>
-                            <div class="job-date"><span data-i18n="job4-date">Январь 2022 — Май 2022</span> | <span data-i18n="job4-loc">Санкт-Петербург</span></div>
+                            <div class="job-date"><span data-i18n="job4-date">январь 2022 — май 2022</span> | <span data-i18n="job4-loc">Санкт-Петербург</span></div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li data-i18n="job4-l1">Изучал и применял CI/CD инструменты: GitHub Actions, Jenkins, GitLab CI.</li>
-                                <li data-i18n="job4-l2">Работал с K8s, Ansible, Docker, Terraform и сервисами AWS (IAM, VPC, ALB, RDS, EFS, S3, EC2).</li>
+                                <li data-i18n="job4-l1">Изучал и применял CI/CD-инструменты: GitHub Actions, Jenkins и GitLab CI.</li>
+                                <li data-i18n="job4-l2">Работал с Kubernetes, Ansible, Docker, Terraform и сервисами AWS (IAM, VPC, ALB, RDS, EFS, S3, EC2).</li>
                                 <li data-i18n="job4-l3">Применял методологии Agile/Kanban и Scrum.</li>
                             </ul>
                         </div>
@@ -270,16 +282,19 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="job-header">
-                            <div>
-                                <h3 class="job-title" data-i18n="job5-title">Старший системный администратор</h3>
-                                <span class="job-company" data-i18n="job5-loc">АО «Проектный Институт №1»</span>
+                            <div class="job-identity">
+                                <span class="company-mark"><img src="assets/logos/pi1.png" alt="" decoding="async"></span>
+                                <div>
+                                    <h3 class="job-title" data-i18n="job5-title">Старший системный администратор</h3>
+                                    <span class="job-company" data-i18n="job5-loc">АО «Проектный Институт №1»</span>
+                                </div>
                             </div>
-                            <div class="job-date" data-i18n="job5-date">Август 2020 — Январь 2022</div>
+                            <div class="job-date" data-i18n="job5-date">август 2020 — январь 2022</div>
                         </div>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job5-l1">Администрировал VMware vSphere, vCenter, Horizon; обеспечивал виртуализацию предприятия.</li>
-                                <li data-i18n="job5-l2">Поддерживал облачный файл-сервер (Samba, Nextcloud, strongSwan), IKEv2 VPN, Zabbix, Postfix.</li>
+                                <li data-i18n="job5-l2">Поддерживал облачный файловый сервер (Samba, Nextcloud, strongSwan), IKEv2 VPN, Zabbix и Postfix.</li>
                             </ul>
                         </div>
                     </div>
@@ -289,16 +304,19 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="job-header">
-                            <div>
-                                <h3 class="job-title" data-i18n="job6-title">Старший системный администратор</h3>
-                                <span class="job-company" data-i18n="job6-loc">Сеть магазинов «Суши ШОП»</span>
+                            <div class="job-identity">
+                                <span class="company-mark"><img src="assets/logos/sushishop.jpg" alt="" decoding="async"></span>
+                                <div>
+                                    <h3 class="job-title" data-i18n="job6-title">Старший системный администратор</h3>
+                                    <span class="job-company" data-i18n="job6-loc">Сеть магазинов «Суши ШОП»</span>
+                                </div>
                             </div>
-                            <div class="job-date" data-i18n="job6-date">Сентябрь 2014 — Август 2020</div>
+                            <div class="job-date" data-i18n="job6-date">сентябрь 2014 — август 2020</div>
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li data-i18n="job6-l1">Управлял IT-инфраструктурой на базе VPN L2/L3 (Cisco, HP).</li>
-                                <li data-i18n="job6-l2">Администрировал колл-центр на Asterisk, мониторинг Zabbix, VMware ESXi и 1C.</li>
+                                <li data-i18n="job6-l1">Управлял ИТ-инфраструктурой на базе VPN L2/L3 (Cisco, HP).</li>
+                                <li data-i18n="job6-l2">Администрировал колл-центр на Asterisk, мониторинг Zabbix, VMware ESXi и 1С.</li>
                             </ul>
                         </div>
                     </div>
@@ -308,11 +326,14 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="job-header">
-                            <div>
-                                <h3 class="job-title" data-i18n="job7-title">Руководитель IT-отдела</h3>
-                                <span class="job-company" data-i18n="job7-loc">ООО «ЕСТП-СРО»</span>
+                            <div class="job-identity">
+                                <span class="company-mark"><img src="assets/logos/estp.png" alt="" decoding="async"></span>
+                                <div>
+                                    <h3 class="job-title" data-i18n="job7-title">Руководитель ИТ-отдела</h3>
+                                    <span class="job-company" data-i18n="job7-loc">ООО «ЕСТП-СРО»</span>
+                                </div>
                             </div>
-                            <div class="job-date" data-i18n="job7-date">Апрель 2013 — Август 2014</div>
+                            <div class="job-date" data-i18n="job7-date">апрель 2013 — август 2014</div>
                         </div>
                     </div>
                 </div>
@@ -321,11 +342,14 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <div class="job-header">
-                            <div>
-                                <h3 class="job-title" data-i18n="job8-title">Системный администратор</h3>
-                                <span class="job-company" data-i18n="job8-loc">НИЦ СПб ЭТУ</span>
+                            <div class="job-identity">
+                                <span class="company-mark"><img src="assets/logos/nic-etu.png" alt="" decoding="async"></span>
+                                <div>
+                                    <h3 class="job-title" data-i18n="job8-title">Системный администратор</h3>
+                                    <span class="job-company" data-i18n="job8-loc">НИЦ СПб ЭТУ</span>
+                                </div>
                             </div>
-                            <div class="job-date" data-i18n="job8-date">Июль 2010 — Февраль 2013</div>
+                            <div class="job-date" data-i18n="job8-date">июль 2010 — февраль 2013</div>
                         </div>
                     </div>
                 </div>
@@ -353,10 +377,10 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div>
-                                <h3 class="job-title" data-i18n="edu2-title">Cloud & DevOps Internship</h3>
+                                <h3 class="job-title" data-i18n="edu2-title">Cloud &amp; DevOps Internship</h3>
                                 <span class="job-company" data-i18n="edu2-loc">EPAM University Program</span>
                             </div>
-                            <div class="job-date" data-i18n="edu2-date">Январь–Май 2022</div>
+                            <div class="job-date" data-i18n="edu2-date">январь–май 2022</div>
                         </div>
                         <div class="job-desc">
                             <ul>
