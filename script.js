@@ -1,19 +1,10 @@
 let currentLang = 'ru';
 
-function getPlural(number, one, two, five) {
-    let n = Math.abs(number);
-    n %= 100;
-    if (n >= 5 && n <= 20) {
-        return five;
+function getMenuToggleLabel(isOpen) {
+    if (currentLang === 'en') {
+        return isOpen ? 'Close menu' : 'Open menu';
     }
-    n %= 10;
-    if (n === 1) {
-        return one;
-    }
-    if (n >= 2 && n <= 4) {
-        return two;
-    }
-    return five;
+    return isOpen ? 'Закрыть меню' : 'Открыть меню';
 }
 
 function calculateExperience(startDate) {
@@ -97,6 +88,13 @@ function switchLanguage(lang) {
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
     });
+
+    const menuToggle = document.querySelector('.menu-toggle');
+    if (menuToggle) {
+        menuToggle.setAttribute('aria-label', getMenuToggleLabel(menuToggle.getAttribute('aria-expanded') === 'true'));
+    }
+
+    window.dispatchEvent(new Event('cv:contentchange'));
 }
 
 // Obfuscated contacts — assembled at runtime to reduce static scraping
@@ -131,7 +129,12 @@ function exportPDF() {
     // Temporarily add print class for clean output
     document.body.classList.add('exporting-pdf');
 
-    const container = document.querySelector('.container');
+    const restoreExportState = () => {
+        document.body.classList.remove('exporting-pdf');
+        if (btn) btn.disabled = false;
+    };
+
+    const container = document.querySelector('body > .container');
     const nameEl = document.querySelector('[data-i18n="hero-name"]');
     const filename = (nameEl ? nameEl.textContent.replace(/\s+/g, '_') : 'CV') + '.pdf';
 
@@ -144,50 +147,200 @@ function exportPDF() {
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
+    if (typeof html2pdf !== 'function') {
+        restoreExportState();
+        window.print();
+        return;
+    }
+
     html2pdf().set(opt).from(container).save().then(() => {
-        document.body.classList.remove('exporting-pdf');
-        if (btn) btn.disabled = false;
+        restoreExportState();
     }).catch(() => {
-        document.body.classList.remove('exporting-pdf');
-        if (btn) btn.disabled = false;
+        restoreExportState();
     });
 }
 
-// Scroll progress bar
-function initScrollProgress() {
+// Scroll-linked progress, CI/CD background, and reversible section fold
+function initScrollEffects() {
     const bar = document.getElementById('scroll-progress');
-    if (!bar) return;
-    window.addEventListener('scroll', () => {
-        const scrollTop = document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        bar.style.width = scrollHeight > 0 ? (scrollTop / scrollHeight * 100) + '%' : '0%';
+    const nav = document.querySelector('nav');
+    const content = document.querySelector('body > .container');
+    const route = document.getElementById('cicd-route-light');
+    const routeRunner = document.getElementById('cicd-route-runner');
+    const stages = Array.from(document.querySelectorAll('.cicd-segment[data-stage]'));
+    const sections = Array.from(document.querySelectorAll('section[data-scroll-fold]'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    if (!bar && !route && !sections.length) return;
+
+    let frameId = null;
+    let routeLength = 0;
+    let layoutDirty = true;
+    let navHeight = 64;
+    let sectionMetrics = [];
+
+    const clamp = (value, min = 0, max = 1) => Math.min(Math.max(value, min), max);
+
+    const getDocumentTop = (element) => {
+        let top = 0;
+        let current = element;
+        while (current) {
+            top += current.offsetTop || 0;
+            current = current.offsetParent;
+        }
+        return top;
+    };
+
+    const measure = () => {
+        navHeight = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+        document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
+
+        sectionMetrics = sections.map((section) => ({
+            section,
+            bottom: getDocumentTop(section) + section.offsetHeight,
+            range: clamp(section.offsetHeight * 0.1, 88, 148)
+        }));
+
+        layoutDirty = false;
+    };
+
+    const update = () => {
+        frameId = null;
+        if (layoutDirty) measure();
+
+        const scrollTop = Math.max(0, window.scrollY || document.documentElement.scrollTop);
+        const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        const pageProgress = maxScroll > 0 ? clamp(scrollTop / maxScroll) : 0;
+
+        document.body.classList.toggle('is-scrolled', scrollTop > 8);
+
+        if (bar) {
+            bar.style.transform = `scaleX(${pageProgress})`;
+        }
+
+        document.documentElement.style.setProperty('--page-progress', pageProgress.toFixed(4));
+
+        if (reducedMotion.matches) {
+            if (route) route.style.removeProperty('stroke-dashoffset');
+            if (routeRunner) routeRunner.style.display = 'none';
+            stages.forEach((stage) => stage.classList.remove('is-active'));
+            sectionMetrics.forEach(({ section }) => {
+                section.style.setProperty('--fold-progress', '0');
+                section.classList.remove('is-folding', 'is-folded');
+            });
+            return;
+        }
+
+        if (route) {
+            route.style.strokeDashoffset = String(-pageProgress);
+        }
+
+        if (routeRunner && route && routeLength > 0) {
+            routeRunner.style.removeProperty('display');
+            const point = route.getPointAtLength(routeLength * pageProgress);
+            routeRunner.setAttribute('cx', point.x);
+            routeRunner.setAttribute('cy', point.y);
+        }
+
+        const activeStage = Math.min(stages.length - 1, Math.floor(pageProgress * stages.length));
+        stages.forEach((stage, index) => stage.classList.toggle('is-active', index === activeStage));
+
+        const trigger = scrollTop + navHeight;
+        sectionMetrics.forEach(({ section, bottom, range }) => {
+            const foldProgress = clamp((trigger + range - bottom) / range);
+            section.style.setProperty('--fold-progress', foldProgress.toFixed(4));
+            section.classList.toggle('is-folding', foldProgress > 0 && foldProgress < 0.98);
+            section.classList.toggle('is-folded', foldProgress >= 0.98);
+        });
+    };
+
+    const requestUpdate = () => {
+        if (frameId === null) frameId = window.requestAnimationFrame(update);
+    };
+
+    if (route) {
+        try {
+            routeLength = route.getTotalLength();
+        } catch (_) {
+            routeLength = 0;
+        }
+    }
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', () => {
+        layoutDirty = true;
+        requestUpdate();
     }, { passive: true });
+    window.addEventListener('cv:contentchange', () => {
+        layoutDirty = true;
+        requestUpdate();
+    });
+
+    if (typeof reducedMotion.addEventListener === 'function') {
+        reducedMotion.addEventListener('change', requestUpdate);
+    } else {
+        reducedMotion.addListener(requestUpdate);
+    }
+
+    if ('ResizeObserver' in window && content) {
+        const resizeObserver = new ResizeObserver(() => {
+            layoutDirty = true;
+            requestUpdate();
+        });
+        resizeObserver.observe(content);
+        if (nav) resizeObserver.observe(nav);
+    }
+
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+            layoutDirty = true;
+            requestUpdate();
+        });
+    }
+
+    document.body.classList.add('has-scroll-cut');
+    requestUpdate();
+}
+
+function initMobileMenu() {
+    const toggle = document.querySelector('.menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    if (!toggle || !navLinks) return;
+
+    const setMenuOpen = (isOpen) => {
+        navLinks.classList.toggle('active', isOpen);
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        toggle.setAttribute('aria-label', getMenuToggleLabel(isOpen));
+    };
+
+    toggle.addEventListener('click', () => {
+        setMenuOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+            setMenuOpen(false);
+            const target = document.querySelector(link.hash);
+            if (target) {
+                target.style.setProperty('--fold-progress', '0');
+                target.classList.remove('is-folding', 'is-folded');
+            }
+        });
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+            setMenuOpen(false);
+            toggle.focus();
+        }
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     updateDynamicDates();
     initContacts();
-    initScrollProgress();
-
-    // Mobile menu auto-close
-    const navLinksContainer = document.querySelector('.nav-links');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                navLinksContainer.classList.remove('active');
-            }
-        });
-    });
-
-    // Stagger animation for tags
-    const tags = document.querySelectorAll('.tag');
-    tags.forEach((tag, index) => {
-        setTimeout(() => {
-            tag.style.opacity = '1';
-            tag.style.transform = 'translateY(0)';
-        }, 800 + (index * 30));
-    });
+    initScrollEffects();
+    initMobileMenu();
 
     // Language switcher
     document.querySelectorAll('.lang-btn').forEach(btn => {

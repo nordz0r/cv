@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-labelledby="title">
+  <title id="title">IMHIO</title>
+  <rect width="200" height="200" rx="30" fill="#10151b"/>
+  <path d="M30 56h18v88H30zM58 56h19l23 37 23-37h19v88h-18V86l-24 37-24-37v58H58z" fill="#e6edf3"/>
+  <path d="M151 56h19v88h-19z" fill="#00d4aa"/>
+</svg>
