@@ -1685,3 +1685,456 @@ body.exporting-pdf .job-desc li {
 body.exporting-pdf #education .timeline {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 }
+
+/*
+ * Plain one-page CV for browser print and html2pdf.
+ * Kept last so it deterministically overrides the legacy print rules above.
+ */
+@page {
+    size: A4 portrait;
+    margin: 6mm;
+}
+
+@media print {
+    html,
+    body {
+        width: 198mm !important;
+        min-width: 0 !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    body > .container {
+        width: 198mm !important;
+        max-width: 198mm !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+
+@media print {
+    body,
+    body * {
+        color: #000 !important;
+        background: transparent !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        filter: none !important;
+    }
+}
+
+body.exporting-pdf,
+body.exporting-pdf * {
+    color: #000 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+}
+
+@media print {
+    body {
+        font-family: Arial, sans-serif !important;
+        font-size: 5.6pt !important;
+        line-height: 1.18 !important;
+    }
+}
+
+body.exporting-pdf {
+    width: 198mm !important;
+    min-width: 198mm !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 5.6pt !important;
+    line-height: 1.18 !important;
+}
+
+body.exporting-pdf > .container {
+    width: 198mm !important;
+    max-width: 198mm !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+@media print {
+    nav,
+    .scroll-progress,
+    .scroll-cut,
+    .cicd-background,
+    .site-footer,
+    .company-mark,
+    .timeline-dot,
+    .timeline::before,
+    .social-links svg {
+        display: none !important;
+    }
+}
+
+body.exporting-pdf nav,
+body.exporting-pdf .scroll-progress,
+body.exporting-pdf .scroll-cut,
+body.exporting-pdf .cicd-background,
+body.exporting-pdf .site-footer,
+body.exporting-pdf .company-mark,
+body.exporting-pdf .timeline-dot,
+body.exporting-pdf .timeline::before,
+body.exporting-pdf .social-links svg {
+    display: none !important;
+}
+
+@media print {
+    section,
+    section[data-scroll-fold],
+    section[data-scroll-fold] > * {
+        width: auto !important;
+        padding: 0 !important;
+        margin: 0 0 1.2mm !important;
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+        break-inside: auto !important;
+    }
+}
+
+body.exporting-pdf section,
+body.exporting-pdf section[data-scroll-fold],
+body.exporting-pdf section[data-scroll-fold] > * {
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 0 1.2mm !important;
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    break-inside: auto !important;
+}
+
+@media print {
+    h1,
+    h2,
+    h3,
+    .hero-subtitle,
+    .job-title {
+        font-family: Arial, sans-serif !important;
+        font-weight: 700 !important;
+        line-height: 1.1 !important;
+    }
+
+    h1 {
+        font-size: 13pt !important;
+        margin: 0 0 0.6mm !important;
+    }
+
+    h2 {
+        display: block !important;
+        font-size: 8pt !important;
+        margin: 1.2mm 0 0.7mm !important;
+        padding: 0 !important;
+    }
+
+    h3,
+    .job-title {
+        font-size: 6.2pt !important;
+        margin: 0 !important;
+    }
+}
+
+body.exporting-pdf h1,
+body.exporting-pdf h2,
+body.exporting-pdf h3,
+body.exporting-pdf .hero-subtitle,
+body.exporting-pdf .job-title {
+    font-family: Arial, sans-serif !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+}
+
+body.exporting-pdf h1 {
+    font-size: 13pt !important;
+    margin: 0 0 0.6mm !important;
+}
+
+body.exporting-pdf h2 {
+    display: block !important;
+    font-size: 8pt !important;
+    margin: 1.2mm 0 0.7mm !important;
+    padding: 0 !important;
+}
+
+body.exporting-pdf h3,
+body.exporting-pdf .job-title {
+    font-size: 6.2pt !important;
+    margin: 0 !important;
+}
+
+@media print {
+    .hero {
+        display: block !important;
+    }
+
+    .hero-subtitle {
+        display: block !important;
+        font-size: 7pt !important;
+        margin: 0 0 0.4mm !important;
+    }
+
+    .typewriter {
+        width: auto !important;
+        white-space: normal !important;
+    }
+
+    .hero-details,
+    .social-links {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 0.4mm 3mm !important;
+        margin: 0.5mm 0 !important;
+        font-size: 5.4pt !important;
+    }
+
+    .social-links .btn {
+        display: inline !important;
+        min-height: 0 !important;
+        padding: 0 !important;
+        font: inherit !important;
+    }
+
+    .social-links .btn span {
+        display: inline !important;
+    }
+}
+
+body.exporting-pdf .hero {
+    display: block !important;
+}
+
+body.exporting-pdf .hero-subtitle {
+    display: block !important;
+    font-size: 7pt !important;
+    margin: 0 0 0.4mm !important;
+}
+
+body.exporting-pdf .typewriter {
+    width: auto !important;
+    white-space: normal !important;
+}
+
+body.exporting-pdf .hero-details,
+body.exporting-pdf .social-links {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.4mm 3mm !important;
+    margin: 0.5mm 0 !important;
+    font-size: 5.4pt !important;
+}
+
+body.exporting-pdf .social-links .btn {
+    display: inline !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    font: inherit !important;
+}
+
+body.exporting-pdf .social-links .btn span {
+    display: inline !important;
+}
+
+@media print {
+    .about-layout,
+    .about-text,
+    .timeline,
+    #education .timeline {
+        display: block !important;
+        max-width: none !important;
+        padding: 0 !important;
+    }
+
+    .about-text {
+        font-size: 5.5pt !important;
+        line-height: 1.18 !important;
+    }
+
+    .about-text p {
+        margin: 0 0 0.5mm !important;
+    }
+
+    .timeline-item,
+    .timeline-item:last-child {
+        margin: 0 0 0.7mm !important;
+        break-inside: auto !important;
+    }
+
+    .timeline-content {
+        padding: 0 !important;
+    }
+
+    .job-header {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        gap: 3mm !important;
+        align-items: baseline !important;
+        margin: 0 0 0.25mm !important;
+    }
+
+    .job-identity {
+        display: block !important;
+    }
+
+    .job-company,
+    .job-date {
+        font-size: 5.2pt !important;
+        line-height: 1.1 !important;
+        margin: 0 !important;
+    }
+
+    .job-date {
+        text-align: right !important;
+        white-space: nowrap !important;
+    }
+
+    .job-desc {
+        font-size: 5.4pt !important;
+        line-height: 1.16 !important;
+    }
+
+    .job-desc ul {
+        margin: 0 !important;
+    }
+
+    .job-desc li {
+        padding-left: 2mm !important;
+        margin: 0 0 0.2mm !important;
+    }
+
+    .job-desc li::before {
+        content: "•" !important;
+        left: 0 !important;
+    }
+
+    .job-tags {
+        display: block !important;
+        margin: 0.25mm 0 0 !important;
+        font-size: 5pt !important;
+        line-height: 1.1 !important;
+    }
+
+    .job-tags::before {
+        content: "Stack: ";
+        font-weight: 700;
+    }
+
+    .job-tags .tag {
+        display: inline !important;
+        padding: 0 !important;
+        font: inherit !important;
+        white-space: normal !important;
+    }
+
+    .job-tags .tag:not(:last-child)::after {
+        content: ", ";
+    }
+
+    a::after {
+        content: none !important;
+    }
+}
+
+body.exporting-pdf .about-layout,
+body.exporting-pdf .about-text,
+body.exporting-pdf .timeline,
+body.exporting-pdf #education .timeline {
+    display: block !important;
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+body.exporting-pdf .about-text {
+    font-size: 5.5pt !important;
+    line-height: 1.18 !important;
+}
+
+body.exporting-pdf .about-text p {
+    margin: 0 0 0.5mm !important;
+}
+
+body.exporting-pdf .timeline-item,
+body.exporting-pdf .timeline-item:last-child {
+    margin: 0 0 0.7mm !important;
+    break-inside: auto !important;
+}
+
+body.exporting-pdf .timeline-content {
+    padding: 0 !important;
+}
+
+body.exporting-pdf .job-header {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 3mm !important;
+    align-items: baseline !important;
+    margin: 0 0 0.25mm !important;
+}
+
+body.exporting-pdf .job-identity {
+    display: block !important;
+}
+
+body.exporting-pdf .job-company,
+body.exporting-pdf .job-date {
+    font-size: 5.2pt !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+}
+
+body.exporting-pdf .job-date {
+    text-align: right !important;
+    white-space: nowrap !important;
+}
+
+body.exporting-pdf .job-desc {
+    font-size: 5.4pt !important;
+    line-height: 1.16 !important;
+}
+
+body.exporting-pdf .job-desc ul {
+    margin: 0 !important;
+}
+
+body.exporting-pdf .job-desc li {
+    padding-left: 2mm !important;
+    margin: 0 0 0.2mm !important;
+}
+
+body.exporting-pdf .job-desc li::before {
+    content: "•" !important;
+    left: 0 !important;
+}
+
+body.exporting-pdf .job-tags {
+    display: block !important;
+    margin: 0.25mm 0 0 !important;
+    font-size: 5pt !important;
+    line-height: 1.1 !important;
+}
+
+body.exporting-pdf .job-tags::before {
+    content: "Stack: ";
+    font-weight: 700;
+}
+
+body.exporting-pdf .job-tags .tag {
+    display: inline !important;
+    padding: 0 !important;
+    font: inherit !important;
+    white-space: normal !important;
+}
+
+body.exporting-pdf .job-tags .tag:not(:last-child)::after {
+    content: ", ";
+}
+
+body.exporting-pdf a::after {
+    content: none !important;
+}

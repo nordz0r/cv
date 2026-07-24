@@ -1,5 +1,11 @@
 let currentLang = 'ru';
 
+if (new URLSearchParams(window.location.search).has('pdf-preview')) {
+    document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('exporting-pdf');
+    });
+}
+
 function getMenuToggleLabel(isOpen) {
     if (currentLang === 'en') {
         return isOpen ? 'Close menu' : 'Open menu';
@@ -139,12 +145,18 @@ function exportPDF() {
     const filename = (nameEl ? nameEl.textContent.replace(/\s+/g, '_') : 'CV') + '.pdf';
 
     const opt = {
-        margin: [10, 10, 10, 10],
+        margin: [6, 6, 6, 6],
         filename: filename,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+        html2canvas: {
+            scale: 2,
+            useCORS: true,
+            letterRendering: true,
+            backgroundColor: '#fff',
+            windowWidth: 794
+        },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+        pagebreak: { mode: ['css'] }
     };
 
     if (typeof html2pdf !== 'function') {
