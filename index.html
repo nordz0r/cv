@@ -21,14 +21,8 @@
             <svg class="cicd-background-svg" viewBox="0 0 900 520" role="presentation" focusable="false">
                 <defs>
                     <path id="cicd-route-shape" pathLength="100" d="M450 260C330 100 140 110 140 260C140 410 330 420 450 260C570 100 760 110 760 260C760 410 570 420 450 260"/>
-                    <path id="cicd-label-plan" d="M332 143Q390 164 430 224"/>
-                    <path id="cicd-label-code" d="M154 190Q207 105 306 132"/>
-                    <path id="cicd-label-build" d="M124 315Q96 260 124 202"/>
-                    <path id="cicd-label-test" d="M150 337Q230 420 334 373"/>
-                    <path id="cicd-label-release" d="M462 322Q491 264 512 202"/>
-                    <path id="cicd-label-deploy" d="M540 143Q635 98 724 171"/>
-                    <path id="cicd-label-operate" d="M778 202Q807 260 778 320"/>
-                    <path id="cicd-label-monitor" d="M568 374Q670 421 750 337"/>
+                    <!-- reverse path: same geometry, opposite direction — keeps bottom/top labels upright -->
+                    <path id="cicd-route-reverse" pathLength="100" d="M450 260C570 420 760 410 760 260C760 110 570 100 450 260C330 420 140 410 140 260C140 110 330 100 450 260"/>
                     <linearGradient id="cicd-light" x1="0" y1="0" x2="1" y2="1">
                         <stop offset="0%" stop-color="#ffffff"/>
                         <stop offset="45%" stop-color="#76f7dc"/>
@@ -56,19 +50,20 @@
                 <path class="cicd-route-light" id="cicd-route-light" pathLength="1" d="M450 260C330 100 140 110 140 260C140 410 330 420 450 260C570 100 760 110 760 260C760 410 570 420 450 260"/>
                 <circle class="cicd-route-runner" id="cicd-route-runner" cx="450" cy="260" r="16"/>
 
+                <!-- Stage labels follow ribbon arcs. Reverse path only where forward would flip text upside-down. -->
                 <g class="cicd-stage-labels">
-                    <text><textPath href="#cicd-label-plan" startOffset="50%">PLAN</textPath></text>
-                    <text><textPath href="#cicd-label-code" startOffset="50%">CODE</textPath></text>
-                    <text><textPath href="#cicd-label-build" startOffset="50%">BUILD</textPath></text>
-                    <text><textPath href="#cicd-label-test" startOffset="50%">TEST</textPath></text>
-                    <text><textPath href="#cicd-label-release" startOffset="50%">RELEASE</textPath></text>
-                    <text><textPath href="#cicd-label-deploy" startOffset="50%">DEPLOY</textPath></text>
-                    <text><textPath href="#cicd-label-operate" startOffset="50%">OPERATE</textPath></text>
-                    <text><textPath href="#cicd-label-monitor" startOffset="50%">MONITOR</textPath></text>
+                    <text><textPath href="#cicd-route-reverse" startOffset="93.75%" text-anchor="middle">PLAN</textPath></text>
+                    <text><textPath href="#cicd-route-reverse" startOffset="81.25%" text-anchor="middle">CODE</textPath></text>
+                    <text><textPath href="#cicd-route-shape" startOffset="31.25%" text-anchor="middle">BUILD</textPath></text>
+                    <text><textPath href="#cicd-route-shape" startOffset="43.75%" text-anchor="middle">TEST</textPath></text>
+                    <text><textPath href="#cicd-route-shape" startOffset="56.25%" text-anchor="middle">RELEASE</textPath></text>
+                    <text><textPath href="#cicd-route-shape" startOffset="68.75%" text-anchor="middle">DEPLOY</textPath></text>
+                    <text><textPath href="#cicd-route-reverse" startOffset="18.75%" text-anchor="middle">OPERATE</textPath></text>
+                    <text><textPath href="#cicd-route-reverse" startOffset="6.25%" text-anchor="middle">MONITOR</textPath></text>
                 </g>
                 <g class="cicd-core-labels">
-                    <text x="255" y="272">CI</text>
-                    <text x="646" y="272">CD</text>
+                    <text x="295" y="260">CI</text>
+                    <text x="605" y="260">CD</text>
                 </g>
             </svg>
         </div>
@@ -79,6 +74,7 @@
             <button class="menu-toggle" type="button" aria-label="Открыть меню" aria-controls="nav-links" aria-expanded="false">☰</button>
             <div class="nav-links" id="nav-links">
                 <a href="#about" data-i18n="nav-about">О себе</a>
+                <a href="#skills" data-i18n="skills-title">Навыки</a>
                 <a href="#experience" data-i18n="nav-experience">Опыт</a>
                 <a href="#education" data-i18n="nav-education">Образование</a>
                 <button class="btn-pdf" type="button" onclick="exportPDF()" data-i18n="nav-pdf" title="PDF">
@@ -127,10 +123,15 @@
 
         <section id="about" data-scroll-fold>
             <h2 data-i18n="about-title">О себе</h2>
-            <div class="about-text">
-                <p data-i18n="about-p1">Я — DevOps/MLOps-инженер с более чем 15-летним опытом в ИТ. Проектирую отказоустойчивую инфраструктуру и автоматизирую процессы, которые помогают бизнесу быстрее доставлять ценность. Последние четыре года специализируюсь на MLOps: оптимизирую ML/DL-нагрузки, настраиваю GPU-кластеры Kubernetes и внедряю AI-решения — от LLM и эмбеддингов до ASR.</p>
-                <p data-i18n="about-p2">Следую подходу Infrastructure as Code (IaC), практикам DevSecOps и принципам Zero Trust. Для меня CI/CD-пайплайн или кластер должны быть не только запущены, но и безопасны, наблюдаемы и масштабируемы. Работаю с bare-metal-инфраструктурой и облаками AWS, Azure и GCP.</p>
-                <p data-i18n="about-p3">Беру end-to-end ответственность за эксплуатационную готовность сервисов: delivery, capacity planning, observability, runbooks и Postmortem.</p>
+            <div class="about-layout">
+                <div class="about-text">
+                    <p data-i18n="about-p1">Я — DevOps/MLOps-инженер с более чем 15-летним опытом в ИТ. Проектирую отказоустойчивую инфраструктуру и автоматизирую процессы, которые помогают бизнесу быстрее доставлять ценность. Последние четыре года специализируюсь на MLOps: оптимизирую ML/DL-нагрузки, настраиваю GPU-кластеры Kubernetes и внедряю AI-решения — от LLM и эмбеддингов до ASR.</p>
+                    <p data-i18n="about-p2">Следую подходу Infrastructure as Code (IaC), практикам DevSecOps и принципам Zero Trust. Для меня CI/CD-пайплайн или кластер должны быть не только запущены, но и безопасны, наблюдаемы и масштабируемы. Работаю с bare-metal-инфраструктурой и облаками AWS, Azure и GCP.</p>
+                    <p data-i18n="about-p3">Беру end-to-end ответственность за эксплуатационную готовность сервисов: delivery, capacity planning, observability, runbooks и Postmortem.</p>
+                </div>
+                <aside id="skills" class="skills-panel" aria-labelledby="skills-heading">
+                    <h3 id="skills-heading" class="skills-panel-title" data-i18n="skills-title">Навыки</h3>
+                </aside>
             </div>
         </section>
 
@@ -151,7 +152,6 @@
                             </div>
                             <div class="job-date"><span data-i18n="job1-date">сентябрь 2024 — настоящее время</span> (<span id="current-job-exp"></span>) | <span data-i18n="job1-loc">Санкт-Петербург</span></div>
                         </div>
-                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>Kubernetes · Helm · GitLab CI/Argo CD · LiteLLM/Open WebUI · Keycloak/Vault · GPU/MIG · Blue/Green · Canary</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job1-l1">Обеспечивал полный цикл эксплуатационной готовности AI-сервисов: архитектура размещения, delivery, масштабирование, интеграции, observability и Postmortem.</li>
@@ -162,6 +162,9 @@
                                 <li data-i18n="job1-l6">Построил Datalab на PostgreSQL, Trino и Iceberg с интеграцией OPA и LDAP/Keycloak.</li>
                                 <li data-i18n="job1-l7">Настроил GPU-сервисы в Kubernetes: MIG, разделение VRAM и запуск LLM/ASR/embedding-моделей.</li>
                             </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Kubernetes</span><span class="tag">Helm</span><span class="tag">GitLab CI</span><span class="tag">Argo CD</span><span class="tag">LiteLLM</span><span class="tag">Open WebUI</span><span class="tag">Keycloak</span><span class="tag">Vault</span><span class="tag">GPU/MIG</span><span class="tag">Blue/Green</span><span class="tag">Canary</span>
                         </div>
                     </div>
                 </div>
@@ -179,7 +182,6 @@
                             </div>
                             <div class="job-date"><span data-i18n="job2-date">август 2023 — сентябрь 2024</span> | <span data-i18n="job2-loc">Кипр, Лимассол</span></div>
                         </div>
-                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>Linux · AWS/Azure · Kubernetes · Terraform/Terragrunt · Ansible · GitLab/GoCD · Prometheus/Grafana/Loki · Nginx/HAProxy</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job2-l1">Поддерживал инфраструктуру на bare metal, AWS и Azure; настраивал CI/CD в GitLab, GoCD, Argo CD и GitHub Actions.</li>
@@ -189,6 +191,9 @@
                                 <li data-i18n="job2-l5">Обслуживал системы видеообработки, хранения и трансляции для геораспределённых сервисов.</li>
                                 <li data-i18n="job2-l6">Поддерживал системы анализа изображений с использованием компьютерного зрения и нейросетей.</li>
                             </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Linux</span><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">Kubernetes</span><span class="tag">Terraform/Terragrunt</span><span class="tag">Ansible</span><span class="tag">GitLab/GoCD</span><span class="tag">Prometheus/Grafana/Loki</span><span class="tag">Nginx/HAProxy</span>
                         </div>
                     </div>
                 </div>
@@ -206,7 +211,6 @@
                             </div>
                             <div class="job-date"><span data-i18n="job3-date">июнь 2022 — август 2023</span> | <span data-i18n="job3-loc">Санкт-Петербург</span></div>
                         </div>
-                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>Kubernetes · Helm · Python · Flask/Sanic · Elasticsearch/MongoDB/Redis · FreeSWITCH/Asterisk · NER/ASR/TTS</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job3-l1">Разрабатывал и внедрял речевых ботов с использованием NER, ASR и TTS.</li>
@@ -216,6 +220,9 @@
                                 <li data-i18n="job3-l5">Настраивал телефонию (FreeSWITCH, Asterisk) и разрабатывал Telegram-ботов.</li>
                                 <li data-i18n="job3-l6">Участвовал в проектах по созданию речевых ботов для МФЦ Москвы, Санкт-Петербурга, Тулы, Ставрополя и других регионов.</li>
                             </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Kubernetes</span><span class="tag">Helm</span><span class="tag">Python</span><span class="tag">Flask/Sanic</span><span class="tag">Elasticsearch/MongoDB/Redis</span><span class="tag">FreeSWITCH/Asterisk</span><span class="tag">NER/ASR/TTS</span>
                         </div>
                     </div>
                 </div>
@@ -233,13 +240,15 @@
                             </div>
                             <div class="job-date"><span data-i18n="job4-date">январь 2022 — май 2022</span> | <span data-i18n="job4-loc">Санкт-Петербург</span></div>
                         </div>
-                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>AWS/EKS · Kubernetes · Docker · Terraform · Ansible · GitLab CI/Jenkins/GitHub Actions</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job4-l1">Изучал и применял CI/CD-инструменты: GitHub Actions, Jenkins и GitLab CI.</li>
                                 <li data-i18n="job4-l2">Работал с Kubernetes, Ansible, Docker, Terraform и сервисами AWS (IAM, VPC, ALB, RDS, EFS, S3, EC2).</li>
                                 <li data-i18n="job4-l3">Применял методологии Agile/Kanban и Scrum.</li>
                             </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">AWS/EKS</span><span class="tag">Kubernetes</span><span class="tag">Docker</span><span class="tag">Terraform</span><span class="tag">Ansible</span><span class="tag">GitLab CI</span><span class="tag">Jenkins</span><span class="tag">GitHub Actions</span>
                         </div>
                     </div>
                 </div>
@@ -257,12 +266,14 @@
                             </div>
                             <div class="job-date" data-i18n="job5-date">август 2020 — январь 2022</div>
                         </div>
-                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>VMware · Nextcloud · Samba · strongSwan · Zabbix · Postfix</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job5-l1">Администрировал VMware vSphere, vCenter, Horizon; обеспечивал виртуализацию предприятия.</li>
                                 <li data-i18n="job5-l2">Поддерживал облачный файловый сервер (Samba, Nextcloud, strongSwan), IKEv2 VPN, Zabbix и Postfix.</li>
                             </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">VMware</span><span class="tag">Nextcloud</span><span class="tag">Samba</span><span class="tag">strongSwan</span><span class="tag">Zabbix</span><span class="tag">Postfix</span>
                         </div>
                     </div>
                 </div>
@@ -272,7 +283,7 @@
                     <div class="timeline-content">
                         <div class="job-header">
                             <div class="job-identity">
-                                <span class="company-mark"><img src="assets/logos/sushishop.jpg" alt="" decoding="async"></span>
+                                <span class="company-mark"><img src="assets/logos/sushishop.png" alt="" decoding="async"></span>
                                 <div>
                                     <h3 class="job-title" data-i18n="job6-title">Старший системный администратор</h3>
                                     <span class="job-company" data-i18n="job6-loc">Сеть магазинов «Суши ШОП»</span>
@@ -280,12 +291,14 @@
                             </div>
                             <div class="job-date" data-i18n="job6-date">сентябрь 2014 — август 2020</div>
                         </div>
-                        <p class="job-stack"><span data-i18n="stack-label">Стек</span>Cisco/HP · VPN L2/L3 · Asterisk · Zabbix · VMware ESXi · 1С</p>
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job6-l1">Управлял ИТ-инфраструктурой на базе VPN L2/L3 (Cisco, HP).</li>
                                 <li data-i18n="job6-l2">Администрировал колл-центр на Asterisk, мониторинг Zabbix, VMware ESXi и 1С.</li>
                             </ul>
+                        </div>
+                        <div class="job-tags">
+                            <span class="tag">Cisco/HP</span><span class="tag">VPN L2/L3</span><span class="tag">Asterisk</span><span class="tag">Zabbix</span><span class="tag">VMware ESXi</span><span class="tag">1С</span>
                         </div>
                     </div>
                 </div>
@@ -360,6 +373,12 @@
             </div>
         </section>
     </div>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <span class="footer-text" data-i18n="footer-text">Андрей Щеглов @ 2026</span>
+        </div>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" integrity="sha512-MpDFIChbcXl2QgipQrt1VcPHMldRILetapBl5MPCA9Y8r7qvlwx1/Mc9hNTzY+kS5kX6PdoDq41ws1HiVNLdZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="i18n.js"></script>

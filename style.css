@@ -262,7 +262,14 @@ nav {
     fill: currentColor;
 }
 
-/* About Section */
+/* About Section — text + skills cloud (browser) */
+.about-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+    gap: 28px 40px;
+    align-items: start;
+}
+
 .about-text {
     color: var(--text-muted);
     max-width: 72ch;
@@ -272,6 +279,45 @@ nav {
 
 .about-text p {
     margin-bottom: 16px;
+}
+
+.about-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Skills — free tag cloud (no card), right column on desktop, screen only */
+.skills-panel {
+    min-width: 0;
+}
+
+.skills-panel-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Footer */
+.site-footer {
+    margin-top: 14px;
+    padding: 10px 0 14px;
+    border-top: 1px solid var(--card-border);
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-text {
+    font-size: 12px;
+    color: var(--text-muted);
 }
 
 /* Timeline Section */
@@ -373,7 +419,7 @@ nav {
     display: block;
     width: 100%;
     height: 100%;
-    padding: 4px;
+    padding: 2px;
     object-fit: contain;
 }
 
@@ -394,21 +440,38 @@ nav {
     margin-top: 5px;
 }
 
-.job-stack {
-    margin: -1px 0 9px;
-    color: var(--text-muted);
-    font-size: 12px;
-    line-height: 1.45;
-    overflow-wrap: anywhere;
+/* Tag clouds — job stacks */
+.job-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
 }
 
-.job-stack span {
+.job-tags {
+    margin-top: 12px;
+}
+
+.tag {
     display: inline-block;
-    margin-right: 9px;
-    color: var(--accent-purple);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    padding: 3px 10px;
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    background: var(--card-bg);
+    color: var(--text-muted);
+    font-size: 11.5px;
+    line-height: 1.5;
+    white-space: nowrap;
+    transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tag:hover {
+    border-color: var(--accent-purple);
+    color: var(--accent-green);
+}
+
+.tag-major {
+    border-color: rgba(0, 212, 170, 0.45);
+    color: var(--accent-green);
 }
 
 .job-desc {
@@ -570,7 +633,8 @@ nav {
 
     /* Hide all UI chrome */
     nav,
-    .scroll-progress {
+    .scroll-progress,
+    .site-footer {
         display: none !important;
     }
 
@@ -647,6 +711,15 @@ nav {
         display: none;
     }
 
+    /* Skills cloud is browser-only */
+    .skills-panel {
+        display: none !important;
+    }
+
+    .about-layout {
+        display: block;
+    }
+
     .company-mark {
         width: 32px;
         height: 32px;
@@ -695,13 +768,14 @@ nav {
         margin-top: 2px;
     }
 
-    .job-stack {
-        margin: 0 0 4px;
-        font-size: 7pt;
+    .job-tags {
+        gap: 3px;
+        margin-top: 4px;
     }
 
-    .job-stack span {
-        margin-right: 6px;
+    .job-tags .tag {
+        padding: 0 5px;
+        font-size: 6.8pt;
     }
 
     .job-desc {
@@ -750,7 +824,8 @@ nav {
 }
 
 .exporting-pdf nav,
-.exporting-pdf .scroll-progress {
+.exporting-pdf .scroll-progress,
+.exporting-pdf .site-footer {
     display: none !important;
 }
 
@@ -858,7 +933,7 @@ nav {
     }
 
     .about-text {
-        max-width: 72ch;
+        max-width: none;
     }
 
     .about-text p {
@@ -1026,29 +1101,29 @@ nav {
 
     .cicd-stage-labels,
     .cicd-core-labels {
-        fill: rgba(230, 237, 243, 0.78);
+        fill: rgba(8, 12, 18, 0.88);
         font-family: var(--font-heading);
-        font-weight: 600;
+        font-weight: 700;
         text-anchor: middle;
+        dominant-baseline: central;
+        pointer-events: none;
     }
 
     .cicd-stage-labels {
-        font-size: 15px;
-        letter-spacing: 0.05em;
-    }
-
-    .cicd-stage-labels text {
-        dominant-baseline: middle;
+        font-size: 14px;
+        letter-spacing: 0.06em;
     }
 
     .cicd-stage-labels textPath {
-        text-anchor: middle;
+        dominant-baseline: middle;
     }
 
     .cicd-core-labels {
         fill: rgba(230, 237, 243, 0.22);
         font-size: 34px;
+        font-weight: 600;
         letter-spacing: 0.12em;
+        stroke: none;
     }
 
     body > .container {
@@ -1195,6 +1270,11 @@ nav {
     body > .container,
     nav .container {
         max-width: 760px;
+    }
+
+    .about-layout {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .menu-toggle {
@@ -1352,10 +1432,12 @@ nav {
         text-align: left;
     }
 
-    .job-stack {
-        margin-top: 0;
-        margin-bottom: 8px;
-        font-size: 11.5px;
+    .job-tags {
+        margin-top: 8px;
+    }
+
+    .tag {
+        font-size: 10.5px;
     }
 
     .job-desc {
@@ -1432,7 +1514,8 @@ nav {
 
 @media print {
     .cicd-background,
-    .scroll-cut {
+    .scroll-cut,
+    .skills-panel {
         display: none !important;
     }
 
@@ -1527,6 +1610,14 @@ body.exporting-pdf .about-text p {
     margin-bottom: 6px !important;
 }
 
+body.exporting-pdf .about-layout {
+    display: block !important;
+}
+
+body.exporting-pdf .skills-panel {
+    display: none !important;
+}
+
 body.exporting-pdf .timeline {
     padding-left: 18px !important;
 }
@@ -1572,13 +1663,14 @@ body.exporting-pdf .job-date {
     font-size: 7pt !important;
 }
 
-body.exporting-pdf .job-stack {
-    margin: 0 0 4px !important;
-    font-size: 6.8pt !important;
+body.exporting-pdf .job-tags {
+    gap: 3px !important;
+    margin-top: 4px !important;
 }
 
-body.exporting-pdf .job-stack span {
-    margin-right: 6px !important;
+body.exporting-pdf .job-tags .tag {
+    padding: 0 5px !important;
+    font-size: 6.8pt !important;
 }
 
 body.exporting-pdf .job-desc {

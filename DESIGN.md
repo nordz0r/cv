@@ -14,7 +14,7 @@
 ## Product goals
 - Goals: быстро показать специализацию, подтверждённый результат, технологии в контексте конкретных ролей и карьерную историю; сохранить выразительный техно-стиль при компактной длине страницы.
 - Non-goals: портфолио-платформа, интерактивный dashboard, точное копирование референса, скрытие важного содержания ради компактности.
-- Success signals: основной текст читается без увеличения; технологии быстро сканируются внутри опыта и не дублируются отдельной секцией; навигация быстро возвращает к любой секции; нет горизонтального overflow; PDF остаётся нейтральным и полным.
+- Success signals: основной текст читается без увеличения; технологии быстро сканируются в облаке навыков справа от About (browser) и в контекстных стеках опыта; навигация быстро возвращает к любой секции; нет горизонтального overflow; PDF остаётся нейтральным и полным (skills cloud скрыт, стеки в опыте сохранены).
 
 ## Personas and jobs
 - Primary personas: технический руководитель, engineering manager, DevOps/MLOps lead, технический рекрутер.
@@ -24,7 +24,7 @@
 ## Information architecture
 - Primary navigation: О себе → Опыт → Образование; PDF; RU/EN.
 - Core routes/screens: одна страница, один макет FLOW.
-- Content hierarchy: имя и роль → краткий профиль → опыт с фирменными знаками и контекстным стеком → образование.
+- Content hierarchy: имя и роль → краткий профиль с панелью навыков → опыт с фирменными знаками и контекстным стеком → образование → футер с логотипом.
 
 ## Design principles
 - Readability before density: компактность достигается сеткой, ритмом и группировкой, но не уменьшением шрифта.
@@ -35,14 +35,14 @@
 ## Visual language
 - Color: тёмный графитовый фон; основной текст светлый; существующие cyan/purple акценты; CI/CD-сегменты lime, blue, amber и mauve из пользовательского референса с пониженной экранной opacity и горизонтальной mask-зоной под текстом.
 - Typography: `Unbounded` для имени и заголовков, `JetBrains Mono` для основного текста; body не меньше 16px desktop и 15px mobile; H1 `clamp(38px, 5vw, 60px)`; H2 `clamp(24px, 2.4vw, 32px)` на desktop и 22px на mobile.
-- Spacing/layout rhythm: контейнер до 1120px; единый FLOW; секции компактные, но с устойчивым вертикальным ритмом; About — одна редакционная колонка до 72ch.
+- Spacing/layout rhythm: контейнер до 1120px; единый FLOW; секции компактные, но с устойчивым вертикальным ритмом; About — двухколоночная сетка: редакционный текст + компактное облако навыков справа (только экран; на ≤980px колонка снизу; скрыто в print/PDF).
 - Shape/radius/elevation: небольшие радиусы 6–10px, тонкие границы, мягкий glass только для sticky navigation; без тяжёлых карточных теней.
 - Motion: typewriter имени; медленное дыхание фоновой схемы; scroll-linked световой маршрут; плавный обратимый уход секций под верхний fade-mask.
-- Imagery/iconography: крупная декоративная SVG infinity-схема CI/CD по мотивам предоставленного референса; подписи идут по собственным направляющим внутри сегментов; `aria-hidden`. Логотипы работодателей хранятся локально, используются номинативно и не являются интерактивными.
+- Imagery/iconography: крупная декоративная SVG infinity-схема CI/CD по мотивам предоставленного референса; stage-подписи идут по дугам ленты через SVG `textPath` (прямой и reverse path, чтобы текст не переворачивался), CI/CD — в центрах петель; `aria-hidden`. Логотипы работодателей хранятся локально, нормализованы к единому визуальному размеру (128×128 canvas), используются номинативно и не являются интерактивными.
 
 ## Components
 - Existing components to reuse: sticky navigation, language switcher, contact buttons, timeline, PDF export, scroll progress, i18n.
-- New/changed components: один FLOW layout; `cicd-background` с выровненными по кривым stage labels; `scroll-cut`; `company-mark` и компактная `job-stack`-строка внутри релевантных записей timeline.
+- New/changed components: один FLOW layout; `cicd-background` с textPath stage labels по дугам; `scroll-cut`; `company-mark` и компактная `job-stack`-строка внутри релевантных записей timeline; `skills-panel` (облако) справа в About, только browser; `site-footer` с логотипом `assets/logo.svg` и вращающейся CI/CD infinity SVG (16s linear, отключается при reduced-motion/print/export).
 - Variants and states: desktop/tablet/mobile; normal/reduced-motion; hover/focus; screen/print/export.
 - Token/component ownership: цветовые, типографические и motion-токены остаются в `style.css`; поведение scroll-linked эффектов — в одном `requestAnimationFrame`-цикле `script.js`.
 
@@ -55,7 +55,7 @@
 
 ## Responsive behavior
 - Supported breakpoints/devices: desktop ≥ 1200px, tablet 621–1199px, mobile ≤ 620px; контрольные viewport 1440×1100, 1024×900, 390×844 и 320px minimum width.
-- Layout adaptations: hero из двух зон переходит в одну колонку; контекстный стек допускает перенос на несколько строк; About всегда одна колонка; CI/CD-фон уменьшается на tablet и скрывается на mobile.
+- Layout adaptations: hero из двух зон переходит в одну колонку; контекстный стек допускает перенос на несколько строк; About-раскладка (текст + панель навыков) сворачивается в одну колонку ниже 980px; CI/CD-фон уменьшается на tablet и скрывается на mobile.
 - Touch/hover differences: кнопки и menu toggle не меньше 42px; строки стека остаются обычным текстом; hover не меняет геометрию.
 
 ## Interaction states
