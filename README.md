@@ -1,4 +1,19 @@
-# CV Website — Андрей Щеглов
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/banner-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset=".github/assets/banner-light.svg">
+    <img alt="nordz0r/cv — сайт-резюме" src=".github/assets/banner-light.svg" width="100%">
+  </picture>
+</p>
+
+<p align="center"><b>Русский</b> · <a href="README.en.md">English</a></p>
+
+<p align="center">
+  <a href="https://cv.gldf.ru"><img alt="cv.gldf.ru" src="https://img.shields.io/badge/live-cv.gldf.ru-00e5ff?style=flat-square"></a>
+  <img alt="HTML/CSS/JS" src="https://img.shields.io/badge/HTML%2FCSS%2FJS-no_build-e34f26?style=flat-square&logo=html5&logoColor=white">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue?style=flat-square"></a>
+</p>
+
 
 Одностраничный сайт-резюме в стиле DevOps/Tech с тёмной темой, анимациями и поддержкой двух языков (RU/EN).
 
@@ -47,3 +62,7 @@
 
 - Контакты намеренно собираются в рантайме на странице (`script.js`), чтобы усложнить автоматический парсинг.
 - Используйте кнопки **Email**, **Telegram**, **Habr Career** на странице резюме.
+
+## Лицензия
+
+MIT, см. [LICENSE](LICENSE).
