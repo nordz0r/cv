@@ -78,6 +78,7 @@ function updateDynamicDates() {
 }
 
 function switchLanguage(lang) {
+    if (!Object.hasOwn(translations, lang)) lang = 'ru';
     currentLang = lang;
     document.documentElement.lang = lang;
     
@@ -93,6 +94,7 @@ function switchLanguage(lang) {
     // Update active button
     document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.lang === lang);
+        btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang));
     });
 
     const menuToggle = document.querySelector('.menu-toggle');
@@ -100,6 +102,18 @@ function switchLanguage(lang) {
         menuToggle.setAttribute('aria-label', getMenuToggleLabel(menuToggle.getAttribute('aria-expanded') === 'true'));
     }
 
+    document.title = translations[lang]['hero-name'] + ' | Lead DevOps Engineer — AI Platform & LLMOps';
+    document.querySelector('meta[name="description"]').content = translations[lang]['about-p1'];
+    document.querySelector('meta[property="og:title"]').content = document.title;
+    document.querySelector('meta[property="og:description"]').content = translations[lang]['about-p1'];
+    document.querySelector('meta[property="og:locale"]').content = lang === 'en' ? 'en_US' : 'ru_RU';
+    document.querySelector('meta[property="og:locale:alternate"]').content = lang === 'en' ? 'ru_RU' : 'en_US';
+    try {
+        const url = new URL(window.location.href);
+        if (lang === 'en') url.searchParams.set('lang', 'en');
+        else url.searchParams.delete('lang');
+        window.history.replaceState(null, '', url);
+    } catch (_) { /* File previews may not allow history updates. */ }
     window.dispatchEvent(new Event('cv:contentchange'));
 }
 
@@ -115,6 +129,8 @@ function initContacts() {
     if (emailLink) {
         const addr = `${emailUser}@${emailDomain}`;
         emailLink.href = 'mai' + 'lto:' + addr;
+        const label = emailLink.querySelector('span');
+        if (label) label.textContent = addr;
     }
 
     const phoneLink = document.getElementById('contact-phone');
@@ -127,49 +143,9 @@ function initContacts() {
     }
 }
 
-// Export to PDF via html2pdf.js
+// Native browser print preserves a searchable/selectable PDF text layer.
 function exportPDF() {
-    const btn = document.querySelector('.btn-pdf');
-    if (btn) btn.disabled = true;
-
-    // Temporarily add print class for clean output
-    document.body.classList.add('exporting-pdf');
-
-    const restoreExportState = () => {
-        document.body.classList.remove('exporting-pdf');
-        if (btn) btn.disabled = false;
-    };
-
-    const container = document.querySelector('body > .container');
-    const nameEl = document.querySelector('[data-i18n="hero-name"]');
-    const filename = (nameEl ? nameEl.textContent.replace(/\s+/g, '_') : 'CV') + '.pdf';
-
-    const opt = {
-        margin: [6, 6, 6, 6],
-        filename: filename,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-            scale: 2,
-            useCORS: true,
-            letterRendering: true,
-            backgroundColor: '#fff',
-            windowWidth: 794
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['css'] }
-    };
-
-    if (typeof html2pdf !== 'function') {
-        restoreExportState();
-        window.print();
-        return;
-    }
-
-    html2pdf().set(opt).from(container).save().then(() => {
-        restoreExportState();
-    }).catch(() => {
-        restoreExportState();
-    });
+    window.print();
 }
 
 // Scroll-linked progress, CI/CD background, and reversible section fold
@@ -349,7 +325,7 @@ function initMobileMenu() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    updateDynamicDates();
+    switchLanguage(new URLSearchParams(window.location.search).get('lang') === 'en' ? 'en' : 'ru');
     initContacts();
     initScrollEffects();
     initMobileMenu();

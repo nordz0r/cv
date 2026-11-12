@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Андрей Щеглов — DevOps/MLOps-инженер с опытом более 15 лет. Kubernetes, CI/CD, IaC, GPU-кластеры, AI/ML.">
-    <meta property="og:title" content="Андрей Щеглов | DevOps/MLOps Engineer CV">
-    <meta property="og:description" content="DevOps/MLOps-инженер с опытом более 15 лет. Kubernetes, CI/CD, Terraform, GPU-кластеры, LLM.">
+    <meta name="description" content="Строю и эксплуатирую корпоративные AI-платформы: от выбора решения и CI/CD до масштабирования, интеграций и работы в PROD. В IT с 2010 года, в DevOps/MLOps — с 2022 года.">
+    <meta property="og:title" content="Андрей Щеглов | Lead DevOps Engineer — AI Platform &amp; LLMOps">
+    <meta property="og:description" content="Строю и эксплуатирую корпоративные AI-платформы: от выбора решения и CI/CD до масштабирования, интеграций и работы в PROD. В IT с 2010 года, в DevOps/MLOps — с 2022 года.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="ru_RU">
     <meta property="og:locale:alternate" content="en_US">
-    <title>Андрей Щеглов | DevOps Engineer CV</title>
+    <title>Андрей Щеглов | Lead DevOps Engineer — AI Platform &amp; LLMOps</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='10,80 40,80 60,40 30,40' fill='%237c6aff'/%3E%3Cpolygon points='40,80 90,50 60,40' fill='%2300d4aa'/%3E%3Cpolygon points='60,40 90,50 80,20' fill='%23ff4d4d'/%3E%3Cpolygon points='30,40 60,40 45,10' fill='%23ffd700'/%3E%3C/svg%3E" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -76,9 +76,9 @@
                 <a href="#about" data-i18n="nav-about">О себе</a>
                 <a href="#experience" data-i18n="nav-experience">Опыт</a>
                 <a href="#education" data-i18n="nav-education">Образование</a>
-                <button class="btn-pdf" type="button" onclick="exportPDF()" data-i18n="nav-pdf" title="PDF">
+                <button class="btn-pdf" type="button" onclick="exportPDF()" title="PDF">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                    <span>PDF</span>
+                    <span data-i18n="nav-pdf">PDF</span>
                 </button>
                 <div class="lang-switcher">
                     <button class="lang-btn active" type="button" data-lang="ru">RU</button>
@@ -91,13 +91,13 @@
 
     <div class="container">
         <section class="hero" id="hero">
-            <span class="hero-subtitle" data-i18n="hero-subtitle">DevOps / MLOps Engineer</span>
+            <span class="hero-subtitle" data-i18n="hero-subtitle">Lead DevOps Engineer · AI Platform &amp; LLMOps</span>
             <h1 class="typewriter" data-i18n="hero-name">Андрей Щеглов</h1>
 
             <div class="hero-details">
-                <span data-i18n="hero-location">📍 Россия, Санкт-Петербург</span>
-                <span><span data-i18n="hero-exp-label">⏳ Опыт:</span> <span id="total-exp"></span></span>
-                <span><span data-i18n="hero-age-label">🎂</span> <span id="age"></span></span>
+                <span><span class="detail-icon" aria-hidden="true">📍</span> <span data-i18n="hero-location">Россия, Санкт-Петербург</span></span>
+                <span><span class="detail-icon" aria-hidden="true">⏳</span> <span data-i18n="hero-exp-label">Опыт:</span> <span id="total-exp"></span></span>
+                <span><span class="detail-icon" aria-hidden="true">🎂</span> <span id="age"></span></span>
             </div>
 
             <div class="social-links">
@@ -113,6 +113,10 @@
                     <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 14.5h-2v-3.5h-3v3.5h-2v-9h2v3.5h3v-3.5h2v9z"/></svg>
                     <span>Habr Career</span>
                 </a>
+                <a href="https://github.com/nordz0r" target="_blank" rel="noopener noreferrer" class="btn" title="GitHub">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.2.8-.6v-2.3c-3.4.7-4.1-1.4-4.1-1.4-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.3 1.9 1.3 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.4-5.5-6A4.7 4.7 0 0 1 5.5 8c-.1-.3-.5-1.6.2-3.3 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.7.3 3 .2 3.3a4.7 4.7 0 0 1 1.2 3.3c0 4.6-2.8 5.7-5.5 6 .4.4.8 1.1.8 2.2v3.6c0 .4.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>
+                    <span>GitHub</span>
+                </a>
                 <a id="contact-phone" href="#" class="btn" title="Phone">
                     <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                     <span id="contact-phone-text">Телефон</span>
@@ -124,10 +128,16 @@
             <h2 data-i18n="about-title">О себе</h2>
             <div class="about-layout">
                 <div class="about-text">
-                    <p data-i18n="about-p1">Я — DevOps/MLOps-инженер с более чем 15-летним опытом в ИТ. Проектирую отказоустойчивую инфраструктуру и автоматизирую процессы, которые помогают бизнесу быстрее доставлять ценность. Последние четыре года специализируюсь на MLOps: оптимизирую ML/DL-нагрузки, настраиваю GPU-кластеры Kubernetes и внедряю AI-решения — от LLM и эмбеддингов до ASR.</p>
-                    <p data-i18n="about-p2">Следую подходу Infrastructure as Code (IaC), практикам DevSecOps и принципам Zero Trust. Для меня CI/CD-пайплайн или кластер должны быть не только запущены, но и безопасны, наблюдаемы и масштабируемы. Работаю с bare-metal-инфраструктурой и облаками AWS, Azure и GCP.</p>
-                    <p data-i18n="about-p3">Беру end-to-end ответственность за эксплуатационную готовность сервисов: delivery, capacity planning, observability, runbooks и Postmortem.</p>
+                    <p data-i18n="about-p1">Строю и эксплуатирую корпоративные AI-платформы: от выбора решения и CI/CD до масштабирования, интеграций и работы в PROD. В IT с 2010 года, в DevOps/MLOps — с 2022 года.</p>
+                    <p data-i18n="about-p2">Инициировал внедрение ИИ-Хаба и довёл платформу до промышленной эксплуатации. Работаю на стыке инфраструктуры и приложения: Kubernetes, GPU/model endpoints, Python/Bash, доступы и наблюдаемость.</p>
+                    <p data-i18n="about-p3">Беру ответственность за полный цикл изменений: delivery, capacity planning, диагностику инцидентов, DRP и эксплуатационную документацию. Согласовываю запуски с разработкой, эксплуатацией и информационной безопасностью.</p>
                 </div>
+                <aside class="skills-panel" aria-labelledby="skills-heading">
+                    <h3 class="skills-panel-title" id="skills-heading" data-i18n="skills-title">Навыки</h3>
+                    <div class="skills-cloud"><span class="tag">Kubernetes</span><span class="tag">GitLab CI</span><span class="tag">Helm</span><span class="tag">Ansible</span><span class="tag">Terraform</span><span class="tag">LiteLLM</span><span class="tag">Open WebUI</span><span class="tag">vLLM</span><span class="tag">MCP</span><span class="tag">Keycloak</span><span class="tag">Vault</span><span class="tag">Python</span></div>
+                    <h4 class="skills-practices-label" data-i18n="skills-practices-label">Инженерные практики</h4>
+                    <p class="skills-practices" data-i18n="skills-practices">IaC · GitOps · capacity planning · DRP/runbooks · диагностика production-инцидентов · Python/Bash</p>
+                </aside>
             </div>
         </section>
 
@@ -150,17 +160,17 @@
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li data-i18n="job1-l1">Обеспечивал полный цикл эксплуатационной готовности AI-сервисов: архитектура размещения, delivery, масштабирование, интеграции, observability и Postmortem.</li>
-                                <li data-i18n="job1-l2">Вывел AI Hub в PROD на Open WebUI + LiteLLM; масштабировал LiteLLM до 3 реплик с Redis и настроил Keycloak/OAuth.</li>
-                                <li data-i18n="job1-l3">Стандартизировал delivery через GitLab CI, Argo CD, Helm и общие репозитории delivery, provisioning и balancer.</li>
-                                <li data-i18n="job1-l4">Настроил capacity planning по метрикам, тайм-ауты для длительных потоковых ответов и нормализацию LLM-логов в ELK.</li>
-                                <li data-i18n="job1-l5">Развернул MCP-интеграции Jira/TWiKi и сервер инструментов Excel с OAuth через Keycloak.</li>
-                                <li data-i18n="job1-l6">Построил Datalab на PostgreSQL, Trino и Iceberg с интеграцией OPA и LDAP/Keycloak.</li>
-                                <li data-i18n="job1-l7">Настроил GPU-сервисы в Kubernetes: MIG, разделение VRAM и запуск LLM/ASR/embedding-моделей.</li>
+                                <li data-i18n="job1-l1">Инициировал внедрение корпоративного ИИ-Хаба на Open WebUI, LiteLLM и vLLM и довёл его до PROD. Отвечал за инфраструктуру, SSO, подключение моделей, CI/CD и эксплуатацию. На июль 2026 года: 870 зарегистрированных пользователей и 14 тыс. диалогов.</li>
+                                <li data-i18n="job1-l2">Масштабировал Open WebUI и LiteLLM до трёх реплик каждый с Redis; устранил проблемы OAuth-сессий, кэширования и длительных streaming-ответов. Подбирал requests/limits по метрикам в рамках квот Kubernetes.</li>
+                                <li data-i18n="job1-l3">Перевёл конфигурацию PROD-контура систем анализа данных в код; покрытие TEST составило около 70%. Развивал общие delivery pipeline и Helm values; подключил SonarQube/SecScans и автоматическое создание Sonar-проектов из MR.</li>
+                                <li data-i18n="job1-l4">Перевёл сбор логов с Loki/rsyslogd на ELK и устранил потерю сложных LLM-payload и tool-вызовов. Дорабатывал Python-код AI Helper и LiteLLM: healthcheck и обработку асинхронных ошибок. Подготовил DRP и эксплуатационную документацию.</li>
+                                <li data-i18n="job1-l5">Подготовил требования и обеспечил промышленное подключение MCP Jira/TWiKi и Excel tool server: размещение, маршрутизация, OAuth/Keycloak и интеграция с платформой. Координировал изменения между разработкой, эксплуатацией и ИБ.</li>
+                                <li data-i18n="job1-l6">Разработал и запустил тестовый DataLab на PostgreSQL/Trino, настроил подключения и доступы, подготовил базу знаний и передал платформу команде DWH для дальнейшего развития.</li>
+                                <li data-i18n="job1-l7">Доработал JupyterHub для выбора локальной A100 или удалённой RTX6000 из единого интерфейса. Настроил защищённое управление Docker, Keycloak и мониторинг GPU-нод; автоматизировал развёртывание через Ansible.</li>
                             </ul>
                         </div>
                         <div class="job-tags">
-                            <span class="tag">Kubernetes</span><span class="tag">Helm</span><span class="tag">GitLab CI</span><span class="tag">Argo CD</span><span class="tag">LiteLLM</span><span class="tag">Open WebUI</span><span class="tag">Keycloak</span><span class="tag">Vault</span><span class="tag">GPU/MIG</span><span class="tag">Blue/Green</span><span class="tag">Canary</span>
+                            <span class="tag">Kubernetes</span><span class="tag">Helm</span><span class="tag">GitLab CI</span><span class="tag">Argo CD</span><span class="tag">LiteLLM</span><span class="tag">Open WebUI</span><span class="tag">Keycloak</span><span class="tag">Vault</span><span class="tag">vLLM</span><span class="tag">MCP</span><span class="tag">Python</span><span class="tag">ELK</span><span class="tag">Ansible</span>
                         </div>
                     </div>
                 </div>
@@ -214,7 +224,7 @@
                                 <li data-i18n="job3-l3">Осуществил миграцию сервисов из Docker Compose в Kubernetes, написал Helm-чарты.</li>
                                 <li data-i18n="job3-l4">Создавал Python-интеграции (REST/SOAP) и веб-приложения на Flask и Sanic.</li>
                                 <li data-i18n="job3-l5">Настраивал телефонию (FreeSWITCH, Asterisk) и разрабатывал Telegram-ботов.</li>
-                                <li data-i18n="job3-l6">Участвовал в проектах по созданию речевых ботов для МФЦ Москвы, Санкт-Петербурга, Тулы, Ставрополя и других регионов.</li>
+                                <li data-i18n="job3-l6">Участвовал в проектах по созданию речевых ботов для МФЦ Московской области, Санкт-Петербурга, Тулы, Ставрополя и других регионов.</li>
                             </ul>
                         </div>
                         <div class="job-tags">
@@ -289,7 +299,7 @@
                         </div>
                         <div class="job-desc">
                             <ul>
-                                <li data-i18n="job6-l1">Управлял ИТ-инфраструктурой на базе VPN L2/L3 (Cisco, HP).</li>
+                                <li data-i18n="job6-l1">Выполнял обязанности заместителя директора по IT, координировал офисного и выездного администраторов; сопровождал распределённую инфраструктуру VPN L2/L3 (Cisco, HP).</li>
                                 <li data-i18n="job6-l2">Администрировал колл-центр на Asterisk, мониторинг Zabbix, VMware ESXi и 1С.</li>
                             </ul>
                         </div>
@@ -376,7 +386,6 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js" integrity="sha512-MpDFIChbcXl2QgipQrt1VcPHMldRILetapBl5MPCA9Y8r7qvlwx1/Mc9hNTzY+kS5kX6PdoDq41ws1HiVNLdZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="i18n.js"></script>
     <script src="script.js"></script>
 </body>
