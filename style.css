@@ -6,16 +6,15 @@
     --text-muted: #8b949e;
     --accent-green: #00d4aa;
     --accent-purple: #7c6aff;
-    --flow-lime: #93c83e;
-    --flow-blue: #2297d3;
-    --flow-amber: #ffb33f;
-    --flow-mauve: #a862ae;
+    --flow-lime: #9dcc78;
+    --flow-blue: #66b8d8;
+    --flow-amber: #e4b777;
+    --flow-mauve: #b895d6;
     --card-bg: rgba(22, 27, 34, 0.6);
     --card-border: #30363d;
     --font-heading: 'Unbounded', sans-serif;
     --font-body: 'JetBrains Mono', monospace;
     --nav-height: 64px;
-    --page-progress: 0;
 }
 
 * {
@@ -368,13 +367,12 @@ nav {
     border: 1px solid var(--card-border);
     border-radius: 8px;
     padding: 25px;
-    transition: all 0.3s ease;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
 .timeline-content:hover {
     border-color: var(--accent-purple);
     box-shadow: 0 0 20px rgba(124, 106, 255, 0.1);
-    transform: translateX(5px);
 }
 
 .job-header {
@@ -512,17 +510,6 @@ nav {
 @keyframes blink {
     from, to { border-color: transparent }
     50% { border-color: var(--accent-green) }
-}
-
-@keyframes cicdBreathe {
-    from {
-        opacity: 0.86;
-        transform: scale(0.992);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1.012);
-    }
 }
 
 /* Scroll Progress Bar */
@@ -1012,9 +999,7 @@ nav {
         contain: paint;
         -webkit-mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.34) 34%, rgba(0, 0, 0, 0.72) 60%, #000 82%);
         mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.34) 34%, rgba(0, 0, 0, 0.72) 60%, #000 82%);
-        transform: translate3d(0, calc(var(--page-progress) * -34px), 0);
         transform-origin: center;
-        will-change: transform;
     }
 
     .cicd-background::after {
@@ -1028,7 +1013,6 @@ nav {
     }
 
     .cicd-background-inner {
-        animation: cicdBreathe 16s ease-in-out infinite alternate;
         transform-origin: center;
     }
 
@@ -1041,7 +1025,7 @@ nav {
     }
 
     .cicd-route-base,
-    .cicd-segment,
+    .cicd-ribbon,
     .cicd-route-light {
         fill: none;
         vector-effect: non-scaling-stroke;
@@ -1053,40 +1037,20 @@ nav {
         stroke-linecap: round;
     }
 
-    .cicd-segment {
+    .cicd-ribbon {
+        stroke: url('#cicd-ribbon-color');
         stroke-width: 68;
         stroke-linecap: round;
         opacity: 0.56;
-        transition: opacity 0.45s ease, stroke-width 0.45s ease;
     }
 
-    .cicd-segment.is-active {
-        stroke-width: 74;
-        opacity: 0.86;
-    }
-
-    .cicd-segment-plan,
-    .cicd-segment-monitor {
-        stroke: var(--flow-blue);
-    }
-
-    .cicd-segment-code,
-    .cicd-segment-build {
-        stroke: var(--flow-lime);
-    }
-
-    .cicd-segment-test,
-    .cicd-segment-release {
-        stroke: var(--flow-amber);
-    }
-
-    .cicd-segment-deploy,
-    .cicd-segment-operate {
-        stroke: var(--flow-mauve);
-    }
+    .cicd-color-blue { stop-color: var(--flow-blue); }
+    .cicd-color-lime { stop-color: var(--flow-lime); }
+    .cicd-color-amber { stop-color: var(--flow-amber); }
+    .cicd-color-mauve { stop-color: var(--flow-mauve); }
 
     .cicd-route-light {
-        stroke: url('#cicd-light');
+        stroke: currentColor;
         stroke-width: 5;
         stroke-linecap: round;
         stroke-dasharray: 0.055 0.945;
@@ -1095,8 +1059,10 @@ nav {
     }
 
     .cicd-route-runner {
-        fill: url('#cicd-runner-light');
-        opacity: 0.7;
+        fill: currentColor;
+        stroke: #e6edf3;
+        stroke-width: 2;
+        opacity: 0.95;
     }
 
     .cicd-stage-labels,
@@ -1137,7 +1103,7 @@ nav {
         right: 0;
         left: 0;
         z-index: 90;
-        height: 104px;
+        height: 56px;
         background: linear-gradient(
             to bottom,
             rgba(10, 12, 16, 0.97) 0%,
@@ -1147,31 +1113,46 @@ nav {
         );
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.35s ease;
+        transition: opacity 160ms ease;
     }
 
     .has-scroll-cut.is-scrolled .scroll-cut {
         opacity: 1;
     }
 
-    section[data-scroll-fold] {
-        --fold-progress: 0;
-    }
-
-    section[data-scroll-fold] > * {
-        opacity: calc(1 - var(--fold-progress) * 0.72);
-        transform:
-            translate3d(0, calc(var(--fold-progress) * -30px), 0)
-            scale(calc(1 - var(--fold-progress) * 0.012));
+    #experience .timeline::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 2px;
+        background: var(--reading-color, var(--accent-green));
+        opacity: 0.55;
+        transform: scaleY(var(--reading-progress, 0));
         transform-origin: center top;
-    }
-
-    section[data-scroll-fold].is-folding > * {
-        will-change: transform, opacity;
-    }
-
-    section[data-scroll-fold].is-folded {
         pointer-events: none;
+    }
+
+    #experience .timeline-item.is-reading .timeline-dot {
+        background: var(--reading-color, var(--accent-green));
+        border-color: var(--reading-color, var(--accent-green));
+        box-shadow: none;
+    }
+
+    #experience .timeline-item.is-read .timeline-dot {
+        background: var(--card-border);
+    }
+
+    #experience .timeline-item.is-reading .timeline-content {
+        border-color: var(--reading-color, var(--accent-green));
+        border-color: color-mix(in srgb, var(--reading-color, var(--accent-green)) 40%, var(--card-border));
+    }
+
+    .nav-links a[aria-current="location"] {
+        color: var(--accent-green);
+        text-decoration: underline;
+        text-underline-offset: 6px;
     }
 
     .scroll-progress {
@@ -1450,7 +1431,7 @@ nav {
     }
 
     .scroll-cut {
-        height: 78px;
+        height: 42px;
     }
 
     #education .timeline {
@@ -1496,11 +1477,6 @@ nav {
         display: none !important;
     }
 
-    .cicd-segment {
-        opacity: 0.56 !important;
-        stroke-width: 68 !important;
-    }
-
     .scroll-cut {
         display: none !important;
     }
@@ -1513,6 +1489,7 @@ nav {
 }
 
 @media print {
+    #experience .timeline::after,
     .cicd-background,
     .scroll-cut,
     .skills-panel {
@@ -1526,6 +1503,7 @@ nav {
     }
 }
 
+.exporting-pdf #experience .timeline::after,
 .exporting-pdf .cicd-background,
 .exporting-pdf .scroll-cut {
     display: none !important;

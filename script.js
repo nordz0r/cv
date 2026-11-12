@@ -172,144 +172,153 @@ function exportPDF() {
     });
 }
 
-// Scroll-linked progress, CI/CD background, and reversible section fold
+// The decorative route follows reading anchors; scrolling itself stays native.
 function initScrollEffects() {
     const bar = document.getElementById('scroll-progress');
     const nav = document.querySelector('nav');
     const content = document.querySelector('body > .container');
+    const background = document.getElementById('cicd-background');
     const route = document.getElementById('cicd-route-light');
-    const routeRunner = document.getElementById('cicd-route-runner');
-    const stages = Array.from(document.querySelectorAll('.cicd-segment[data-stage]'));
-    const sections = Array.from(document.querySelectorAll('section[data-scroll-fold]'));
+    const runner = document.getElementById('cicd-route-runner');
+    const colorStops = [...document.querySelectorAll('#cicd-ribbon-color stop')];
+    const sections = [...document.querySelectorAll('section[data-scroll-fold]')];
+    const jobs = [...document.querySelectorAll('#experience .timeline-item')];
+    const timeline = document.querySelector('#experience .timeline');
+    const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+    const landmarks = [document.getElementById('about'), ...jobs, document.getElementById('education')].filter(Boolean);
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    if (!bar && !route && !sections.length) return;
-
-    let frameId = null;
-    let routeLength = 0;
-    let layoutDirty = true;
-    let navHeight = 64;
-    let sectionMetrics = [];
+    const smallScreen = window.matchMedia('(max-width: 620px)');
+    if (!content) return;
 
     const clamp = (value, min = 0, max = 1) => Math.min(Math.max(value, min), max);
-
-    const getDocumentTop = (element) => {
-        let top = 0;
-        let current = element;
-        while (current) {
-            top += current.offsetTop || 0;
-            current = current.offsetParent;
-        }
-        return top;
-    };
+    const top = (element) => element.getBoundingClientRect().top + window.scrollY;
+    const palette = colorStops.map(stop => getComputedStyle(stop).stopColor.match(/[\d.]+/g)?.slice(0, 3).map(Number) || [118, 247, 220]);
+    let frameId = null;
+    let dirty = true;
+    let previousTime = 0;
+    let progress = null;
+    let snap = true;
+    let maxScroll = 0;
+    let readingOffset = 0;
+    let anchors = [];
+    let sectionMetrics = [];
+    let jobMetrics = [];
+    let timelineTop = 0;
+    let timelineHeight = 1;
+    let routeLength = 0;
+    try { routeLength = route ? route.getTotalLength() : 0; } catch (_) { /* SVG geometry may be unavailable in print renderers. */ }
 
     const measure = () => {
-        navHeight = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+        const navHeight = nav ? Math.ceil(nav.getBoundingClientRect().height) : 64;
         document.documentElement.style.setProperty('--nav-height', `${navHeight}px`);
-
-        sectionMetrics = sections.map((section) => ({
-            section,
-            bottom: getDocumentTop(section) + section.offsetHeight,
-            range: clamp(section.offsetHeight * 0.1, 88, 148)
-        }));
-
-        layoutDirty = false;
+        maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        readingOffset = navHeight + (window.innerHeight - navHeight) * 0.28;
+        // Short final blocks can share a viewport; coalesce their anchors before interpolating.
+        anchors = [0, ...landmarks.map(el => clamp(top(el) - readingOffset, 0, maxScroll)), maxScroll]
+            .filter((value, index, values) => index === 0 || value > values[index - 1] + 1);
+        sectionMetrics = sections.map(element => ({ element, top: top(element) }));
+        jobMetrics = jobs.map(element => ({ element, top: top(element) }));
+        if (timeline) {
+            timelineTop = top(timeline);
+            timelineHeight = timeline.offsetHeight || 1;
+        }
+        dirty = false;
     };
 
-    const update = () => {
+    const readingProgress = (scrollTop) => {
+        if (anchors.length < 2) return 0;
+        let index = 0;
+        while (index < anchors.length - 2 && scrollTop >= anchors[index + 1]) index++;
+        const local = clamp((scrollTop - anchors[index]) / (anchors[index + 1] - anchors[index]));
+        return (index + local) / (anchors.length - 1);
+    };
+
+    const update = (time) => {
         frameId = null;
-        if (layoutDirty) measure();
-
-        const scrollTop = Math.max(0, window.scrollY || document.documentElement.scrollTop);
-        const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-        const pageProgress = maxScroll > 0 ? clamp(scrollTop / maxScroll) : 0;
-
+        if (dirty) measure();
+        const scrollTop = clamp(window.scrollY, 0, maxScroll);
+        const target = readingProgress(scrollTop);
+        const still = reducedMotion.matches || smallScreen.matches;
+        const elapsed = previousTime ? Math.min(time - previousTime, 64) : 16;
+        previousTime = time;
+        progress = progress === null || snap || still ? target : progress + (target - progress) * (1 - Math.exp(-elapsed / 65));
+        if (Math.abs(target - progress) < 0.0001) progress = target;
+        snap = false;
         document.body.classList.toggle('is-scrolled', scrollTop > 8);
+        if (bar) bar.style.transform = `scaleX(${maxScroll ? scrollTop / maxScroll : 0})`;
 
-        if (bar) {
-            bar.style.transform = `scaleX(${pageProgress})`;
+        const point = route && routeLength ? route.getPointAtLength(routeLength * progress) : { x: 450, y: 260 };
+        // Match the ribbon's user-space gradient, including both passes through its crossing.
+        const phase = clamp((point.x - 140) / 620) * (palette.length - 1);
+        const base = Math.floor(phase);
+        const blend = phase - base;
+        const from = palette[base];
+        const to = palette[Math.min(base + 1, palette.length - 1)];
+        const color = from && to ? `rgb(${from.map((channel, index) => Math.round(channel + (to[index] - channel) * blend)).join(',')})` : 'var(--accent-green)';
+
+        if (!still && route && routeLength) {
+            const trail = Math.min(0.055, progress);
+            route.style.strokeDasharray = `${trail} ${1 - trail}`;
+            route.style.strokeDashoffset = String(trail - progress);
+            route.style.color = color;
+            if (runner) {
+                runner.style.transform = `translate(${point.x - 450}px, ${point.y - 260}px)`;
+                runner.style.color = color;
+            }
+            if (background) background.style.transform = `translate3d(0, ${-24 * progress}px, 0)`;
+        } else {
+            if (background) background.style.removeProperty('transform');
         }
 
-        document.documentElement.style.setProperty('--page-progress', pageProgress.toFixed(4));
-
-        if (reducedMotion.matches) {
-            if (route) route.style.removeProperty('stroke-dashoffset');
-            if (routeRunner) routeRunner.style.display = 'none';
-            stages.forEach((stage) => stage.classList.remove('is-active'));
-            sectionMetrics.forEach(({ section }) => {
-                section.style.setProperty('--fold-progress', '0');
-                section.classList.remove('is-folding', 'is-folded');
-            });
-            return;
-        }
-
-        if (route) {
-            route.style.strokeDashoffset = String(-pageProgress);
-        }
-
-        if (routeRunner && route && routeLength > 0) {
-            routeRunner.style.removeProperty('display');
-            const point = route.getPointAtLength(routeLength * pageProgress);
-            routeRunner.setAttribute('cx', point.x);
-            routeRunner.setAttribute('cy', point.y);
-        }
-
-        const activeStage = Math.min(stages.length - 1, Math.floor(pageProgress * stages.length));
-        stages.forEach((stage, index) => stage.classList.toggle('is-active', index === activeStage));
-
-        const trigger = scrollTop + navHeight;
-        sectionMetrics.forEach(({ section, bottom, range }) => {
-            const foldProgress = clamp((trigger + range - bottom) / range);
-            section.style.setProperty('--fold-progress', foldProgress.toFixed(4));
-            section.classList.toggle('is-folding', foldProgress > 0 && foldProgress < 0.98);
-            section.classList.toggle('is-folded', foldProgress >= 0.98);
+        const readingTop = maxScroll > 0 && scrollTop >= maxScroll - 1
+            ? document.documentElement.scrollHeight
+            : scrollTop + readingOffset;
+        let activeSection = null;
+        sectionMetrics.forEach(metric => { if (metric.top <= readingTop) activeSection = metric.element; });
+        links.forEach(link => {
+            if (activeSection && link.hash === `#${activeSection.id}`) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
         });
+        let activeJob = -1;
+        jobMetrics.forEach((metric, index) => { if (metric.top <= readingTop) activeJob = index; });
+        if (activeSection?.id !== 'experience') activeJob = -1;
+        jobMetrics.forEach(({ element }, index) => {
+            element.classList.toggle('is-reading', index === activeJob);
+            element.classList.toggle('is-read', index < activeJob);
+            if (index === activeJob) element.style.setProperty('--reading-color', color);
+        });
+        if (timeline) {
+            timeline.style.setProperty('--reading-progress', String(clamp((readingTop - timelineTop) / timelineHeight)));
+            timeline.style.setProperty('--reading-color', color);
+        }
+        if (progress !== target && !document.hidden) frameId = window.requestAnimationFrame(update);
     };
 
     const requestUpdate = () => {
-        if (frameId === null) frameId = window.requestAnimationFrame(update);
+        if (frameId === null && !document.hidden) frameId = window.requestAnimationFrame(update);
     };
-
-    if (route) {
-        try {
-            routeLength = route.getTotalLength();
-        } catch (_) {
-            routeLength = 0;
-        }
-    }
-
+    const invalidate = () => { dirty = true; snap = true; requestUpdate(); };
     window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', () => {
-        layoutDirty = true;
-        requestUpdate();
-    }, { passive: true });
-    window.addEventListener('cv:contentchange', () => {
-        layoutDirty = true;
-        requestUpdate();
+    window.addEventListener('resize', invalidate, { passive: true });
+    window.addEventListener('cv:contentchange', invalidate);
+    window.addEventListener('pageshow', invalidate);
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden && frameId !== null) { cancelAnimationFrame(frameId); frameId = null; }
+        else { snap = true; requestUpdate(); }
     });
-
-    if (typeof reducedMotion.addEventListener === 'function') {
-        reducedMotion.addEventListener('change', requestUpdate);
-    } else {
-        reducedMotion.addListener(requestUpdate);
+    document.addEventListener('keydown', event => {
+        if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '].includes(event.key)) snap = true;
+    });
+    [reducedMotion, smallScreen].forEach(query => {
+        if (typeof query.addEventListener === 'function') query.addEventListener('change', invalidate);
+        else query.addListener(invalidate);
+    });
+    if ('ResizeObserver' in window) {
+        const observer = new ResizeObserver(invalidate);
+        observer.observe(content);
+        if (nav) observer.observe(nav);
     }
-
-    if ('ResizeObserver' in window && content) {
-        const resizeObserver = new ResizeObserver(() => {
-            layoutDirty = true;
-            requestUpdate();
-        });
-        resizeObserver.observe(content);
-        if (nav) resizeObserver.observe(nav);
-    }
-
-    if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => {
-            layoutDirty = true;
-            requestUpdate();
-        });
-    }
-
+    if (document.fonts?.ready) document.fonts.ready.then(invalidate);
     document.body.classList.add('has-scroll-cut');
     requestUpdate();
 }
@@ -332,11 +341,6 @@ function initMobileMenu() {
     navLinks.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', () => {
             setMenuOpen(false);
-            const target = document.querySelector(link.hash);
-            if (target) {
-                target.style.setProperty('--fold-progress', '0');
-                target.classList.remove('is-folding', 'is-folded');
-            }
         });
     });
 

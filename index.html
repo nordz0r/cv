@@ -23,32 +23,20 @@
                     <path id="cicd-route-shape" pathLength="100" d="M450 260C330 100 140 110 140 260C140 410 330 420 450 260C570 100 760 110 760 260C760 410 570 420 450 260"/>
                     <!-- reverse path: same geometry, opposite direction — keeps bottom/top labels upright -->
                     <path id="cicd-route-reverse" pathLength="100" d="M450 260C570 420 760 410 760 260C760 110 570 100 450 260C330 420 140 410 140 260C140 110 330 100 450 260"/>
-                    <linearGradient id="cicd-light" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="45%" stop-color="#76f7dc"/>
-                        <stop offset="100%" stop-color="#c5bcff"/>
+                    <linearGradient id="cicd-ribbon-color" gradientUnits="userSpaceOnUse" x1="140" y1="260" x2="760" y2="260" color-interpolation="sRGB">
+                        <stop class="cicd-color-blue" offset="0%"/>
+                        <stop class="cicd-color-lime" offset="25%"/>
+                        <stop class="cicd-color-amber" offset="50%"/>
+                        <stop class="cicd-color-mauve" offset="75%"/>
+                        <stop class="cicd-color-blue" offset="100%"/>
                     </linearGradient>
-                    <radialGradient id="cicd-runner-light">
-                        <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="45%" stop-color="#ffffff"/>
-                        <stop offset="100%" stop-color="#76f7dc" stop-opacity="0"/>
-                    </radialGradient>
                 </defs>
 
                 <use class="cicd-route-base" href="#cicd-route-shape"/>
-                <g class="cicd-segments">
-                    <use class="cicd-segment cicd-segment-plan" data-stage="0" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="0"/>
-                    <use class="cicd-segment cicd-segment-code" data-stage="1" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-12.5"/>
-                    <use class="cicd-segment cicd-segment-build" data-stage="2" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-25"/>
-                    <use class="cicd-segment cicd-segment-test" data-stage="3" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-37.5"/>
-                    <use class="cicd-segment cicd-segment-release" data-stage="4" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-50"/>
-                    <use class="cicd-segment cicd-segment-deploy" data-stage="5" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-62.5"/>
-                    <use class="cicd-segment cicd-segment-operate" data-stage="6" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-75"/>
-                    <use class="cicd-segment cicd-segment-monitor" data-stage="7" href="#cicd-route-shape" stroke-dasharray="10.8 89.2" stroke-dashoffset="-87.5"/>
-                </g>
+                <use class="cicd-ribbon" href="#cicd-route-shape"/>
 
                 <path class="cicd-route-light" id="cicd-route-light" pathLength="1" d="M450 260C330 100 140 110 140 260C140 410 330 420 450 260C570 100 760 110 760 260C760 410 570 420 450 260"/>
-                <circle class="cicd-route-runner" id="cicd-route-runner" cx="450" cy="260" r="16"/>
+                <circle class="cicd-route-runner" id="cicd-route-runner" cx="450" cy="260" r="6"/>
 
                 <!-- Stage labels follow ribbon arcs. Reverse path only where forward would flip text upside-down. -->
                 <g class="cicd-stage-labels">
@@ -151,7 +139,8 @@
                         <div class="job-desc">
                             <ul>
                                 <li data-i18n="job1-l1">Обеспечивал полный цикл эксплуатационной готовности AI-сервисов: архитектура размещения, delivery, масштабирование, интеграции, observability и Postmortem.</li>
-                                <li data-i18n="job1-l2">Вывел AI Hub в PROD на Open WebUI + LiteLLM; масштабировал LiteLLM до 3 реплик с Redis и настроил Keycloak/OAuth.</li>
+                                <li data-i18n="job1-l2">Вывел AI Hub на Open WebUI + LiteLLM в PROD для 1000+ пользователей. Настроил автоматическое масштабирование под нагрузкой, Redis и Keycloak/OAuth.</li>
+                                <li data-i18n="job1-ai-secretary">Запустил проект «ИИ Секретарь» для записи разговоров с суммаризацией и диаризацией диалогов.</li>
                                 <li data-i18n="job1-l3">Стандартизировал delivery через GitLab CI, Argo CD, Helm и общие репозитории delivery, provisioning и balancer.</li>
                                 <li data-i18n="job1-l4">Настроил capacity planning по метрикам, тайм-ауты для длительных потоковых ответов и нормализацию LLM-логов в ELK.</li>
                                 <li data-i18n="job1-l5">Развернул MCP-интеграции Jira/TWiKi и сервер инструментов Excel с OAuth через Keycloak.</li>
