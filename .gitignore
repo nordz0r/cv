@@ -1,2 +1,14 @@
 .idea
 .omc/
+
+# Project-local design skills; never ship or commit third-party skill bundles.
+/.claude/skills/
+
+# Local design-review caches; shared product/design documents stay trackable.
+/.taste-skill/
+/.impeccable/config.local.json
+/.impeccable/hook.cache.json
+/.impeccable/hook.pending.json
+/.impeccable/review/
+/.impeccable/questions/
+/.impeccable/*.png
